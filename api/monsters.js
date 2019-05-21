@@ -64,6 +64,20 @@ const getEncounterById = (request, response) => {
 	})
 }
 
+
+const createEncounter = (request, response) => {
+	const {
+		name
+	} = request.body
+
+	pool.query('INSERT INTO encounters (name) VALUES ($1)', [name], (error, results) => {
+		if (error) {
+			throw error
+		}
+		response.status(201).send(`Encounter added with ID: ${results.insertId}`)
+	})
+}
+
 // const getUserById = (request, response) => {
 // 	const id = parseInt(request.params.id)
 
@@ -103,5 +117,6 @@ module.exports = {
 	// updateUser,
 	deleteMonster,
 	getEncounters,
-	getEncounterById
+	getEncounterById,
+	createEncounter
 }

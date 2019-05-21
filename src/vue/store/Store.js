@@ -8,16 +8,52 @@
 
 import Vue from "vue";
 import Vuex from "vuex";
+import Axios from "axios";
 
 Vue.use(Vuex);
 
 
 let store = new Vuex.Store({
-  state: {
-    count: 0,
-    normalMonsters: [],
-    bossMonsters: []
-  }
+	state: {
+		encounters: [],
+		loading: true
+	},
+	getters: {
+		ENCOUNTERS: state => {
+			return state.encounters
+		}
+	},
+	actions: {
+		getEncounters({
+			commit
+		}) {
+			Axios.get('http://localhost:3000/encounters')
+				.then(response => {
+					commit('setEncounters', response.data)
+					commit('changeLoadingState', false)
+				})
+		},
+
+		saveEncounter(context, payload) {
+			Axios.post('http://localhost:3000/encounters')
+				.then(response => {
+					console.log(response)
+					// context.commit('addEncounter', payload)
+				})
+		},
+	},
+	mutations: {
+		setEncounters(state, encounters) {
+			state.encounters = encounters
+		},
+		changeLoadingState(state, loading) {
+			state.loading = loading
+		},
+		addEncounter: (state, payload) => {
+			console.log(payload)
+			state.encounters.push(payload)
+		},
+	},
 });
 
 export default store;

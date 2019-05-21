@@ -28,8 +28,11 @@ app.get('/monsters', monsters.getMonsters)
 app.post('/monster', monsters.createMonster)
 app.delete('/monster/:id', monsters.deleteMonster)
 
+
 app.get('/encounters', monsters.getEncounters)
 app.get('/encounters/:id', monsters.getEncounterById)
+app.post('/encounters', monsters.createEncounter)
+
 
 // Normal Monster
 // app.get('/normalMonsters', normalMonster.getNormalMonsters)
