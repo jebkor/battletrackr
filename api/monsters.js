@@ -2,6 +2,8 @@ const Pool = require('pg').Pool
 const pool = new Pool({
 	connectionString: 'postgres://xynimuhc:GfoJ1wv9OQgNrMk2pj4hJGabL3SjCMZB@manny.db.elephantsql.com:5432/xynimuhc'
 })
+
+
 const getMonsters = (request, response) => {
 	pool.query('SELECT * FROM monsters ORDER BY id ASC', (error, results) => {
 		if (error) {
@@ -10,20 +12,6 @@ const getMonsters = (request, response) => {
 		response.status(200).json(results.rows)
 	})
 }
-
-
-
-// const getUserById = (request, response) => {
-// 	const id = parseInt(request.params.id)
-
-// 	pool.query('SELECT * FROM users WHERE id = $1', [id], (error, results) => {
-// 		if (error) {
-// 			throw error
-// 		}
-// 		response.status(200).json(results.rows)
-// 	})
-// }
-
 
 
 const createMonster = (request, response) => {
@@ -45,6 +33,47 @@ const createMonster = (request, response) => {
 }
 
 
+const deleteMonster = (request, response) => {
+	const id = parseInt(request.params.id)
+
+	pool.query('DELETE FROM monsters WHERE id = $1', [id], (error, results) => {
+		if (error) {
+			throw error
+		}
+		response.status(200).send(`Monster deleted with ID: ${id}`)
+	})
+}
+
+const getEncounters = (request, response) => {
+	pool.query('SELECT * FROM encounters ORDER BY id ASC', (error, results) => {
+		if (error) {
+			throw error
+		}
+		response.status(200).json(results.rows)
+	})
+}
+
+const getEncounterById = (request, response) => {
+	const id = parseInt(request.params.id)
+
+	pool.query('SELECT * FROM encounters INNER JOIN monsters ON encounters.ID = monsters.encounter_id WHERE encounters.ID = $1', [id], (error, results) => {
+		if (error) {
+			throw error
+		}
+		response.status(200).json(results.rows)
+	})
+}
+
+// const getUserById = (request, response) => {
+// 	const id = parseInt(request.params.id)
+
+// 	pool.query('SELECT * FROM users WHERE id = $1', [id], (error, results) => {
+// 		if (error) {
+// 			throw error
+// 		}
+// 		response.status(200).json(results.rows)
+// 	})
+// }
 
 // const updateUser = (request, response) => {
 // 	const id = parseInt(request.params.id)
@@ -67,23 +96,12 @@ const createMonster = (request, response) => {
 
 
 
-const deleteMonster = (request, response) => {
-	const id = parseInt(request.params.id)
-
-	pool.query('DELETE FROM monsters WHERE id = $1', [id], (error, results) => {
-		if (error) {
-			throw error
-		}
-		response.status(200).send(`Monster deleted with ID: ${id}`)
-	})
-}
-
-
-
 module.exports = {
 	getMonsters,
 	// getUserById,
 	createMonster,
 	// updateUser,
 	deleteMonster,
+	getEncounters,
+	getEncounterById
 }

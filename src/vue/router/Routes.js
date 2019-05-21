@@ -2,7 +2,9 @@ import Router from 'vue-router';
 import NProgress from 'nprogress';
 
 // Import the .vue files, the router views.
-import Home from '../views/Home.vue';
+import Home from '../views/Home.vue'
+import Encounters from '../views/Encounters.vue'
+import Monsters from '../views/Monsters.vue'
 
 // Initialize and setup the routes
 const Routes = new Router({
@@ -10,6 +12,14 @@ const Routes = new Router({
 			path: '/',
 			name: 'home',
 			component: Home,
+		}, {
+			path: '/encounters',
+			name: 'encounters',
+			component: Encounters
+		}, {
+			path: '/encounters/:id',
+			name: 'encounter',
+			component: Monsters
 		}
 		// {
 		//   path: '/',
