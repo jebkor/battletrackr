@@ -1,11 +1,3 @@
-/** 
- * From https://vuex.vuejs.org
- * Vuex is a state management pattern + library for Vue.js applications. It serves as a centralized store 
- * for all the components in an application, with rules ensuring that the state can only be mutated in a 
- * predictable fashion. It also integrates with Vue's official devtools extension to provide advanced 
- * features such as zero-config time-travel debugging and state snapshot export / import.
- */
-
 import Vue from "vue";
 import Vuex from "vuex";
 import Axios from "axios";
@@ -29,17 +21,29 @@ let store = new Vuex.Store({
 		}) {
 			Axios.get('http://localhost:3000/encounters')
 				.then(response => {
-					commit('setEncounters', response.data)
-					commit('changeLoadingState', false)
+					commit('setEncounters', response.data) //Saves the requested data to the store
+					commit('changeLoadingState', false) //Changes loading state
 				})
 		},
 
 		saveEncounter(context, payload) {
-			Axios.post('http://localhost:3000/encounters')
-				.then(response => {
-					console.log(response)
-					// context.commit('addEncounter', payload)
+			Axios.post('http://localhost:3000/encounters', {
+					name: payload.name
 				})
+				.then(response => {
+					context.dispatch('getEncounters') // Get the encounters anew to populate the available ones
+				})
+		},
+
+		deleteEncounter({
+			commit,
+			dispatch
+		}, encounter) {
+			Axios.delete('http://localhost:3000/encounters/' + encounter.id)
+				.then(response => {
+					commit('deleteEncounter', encounter)
+				})
+			// console.log('Delete action: ', encounter)
 		},
 	},
 	mutations: {
@@ -49,10 +53,13 @@ let store = new Vuex.Store({
 		changeLoadingState(state, loading) {
 			state.loading = loading
 		},
-		addEncounter: (state, payload) => {
-			console.log(payload)
-			state.encounters.push(payload)
-		},
+		deleteEncounter(state, encounter) {
+			let encounters = state.encounters
+			// encounters.splice(encounters.indexOf(encounter), 1)
+
+			const index = encounters.indexOf(encounter);
+			encounters.splice(index, 1);
+		}
 	},
 });
 

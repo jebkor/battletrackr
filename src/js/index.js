@@ -27,9 +27,6 @@ import {
   FontAwesomeIcon
 } from '@fortawesome/vue-fontawesome';
 
-import VueFire from "vuefire";
-import Firebase from "firebase";
-
 
 
 
@@ -67,7 +64,6 @@ Vue.use(VueProgressBar, {
   failedColor: 'red',
   height: '2px'
 });
-Vue.use(VueFire);
 
 
 
@@ -82,16 +78,6 @@ import '../vue/components/MyComponent.vue';
 
 // Component registers
 Vue.component('font-awesome-icon', FontAwesomeIcon);
-
-
-const db = Firebase.initializeApp({
-  apiKey: "AIzaSyC-eQj1sHH7xg6uJD7GBgZIMZFzlEV0B9c",
-  authDomain: "dm-toolkit-cf79d.firebaseapp.com",
-  databaseURL: "https://dm-toolkit-cf79d.firebaseio.com",
-  projectId: "dm-toolkit-cf79d",
-  storageBucket: "dm-toolkit-cf79d.appspot.com",
-  messagingSenderId: "970352388036"
-}).database();
 
 
 // Firebase.auth().onAuthStateChanged(() => {

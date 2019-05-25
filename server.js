@@ -32,6 +32,7 @@ app.delete('/monster/:id', monsters.deleteMonster)
 app.get('/encounters', monsters.getEncounters)
 app.get('/encounters/:id', monsters.getEncounterById)
 app.post('/encounters', monsters.createEncounter)
+app.delete('/encounters/:id', monsters.deleteEncounter)
 
 
 // Normal Monster

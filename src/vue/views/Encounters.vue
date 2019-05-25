@@ -2,13 +2,15 @@
 	<div>
 		<h1>Encounters page</h1>
 
-		<create-encounter />
+		<create-encounter/>
 
-		<router-link
+		<div
 			v-for="(encounter, i) in stateEncounters"
 			:key="i"
-			:to="'/encounters/'+ encounter.id"
-		>{{ encounter.name }}</router-link>
+		>
+			<span @click="deleteEncounter(encounter)">x</span>
+			<router-link :to="'/encounters/'+ encounter.id">{{ encounter.name }}</router-link>
+		</div>
 	</div>
 </template>
 
@@ -35,6 +37,11 @@
 				return this.$store.getters.ENCOUNTERS
 			}
 		},
+		methods: {
+			deleteEncounter(input) {
+				this.$store.dispatch('deleteEncounter', input)
+			}
+		}
 		// beforeMount() {
 		// 	let _this = this
 

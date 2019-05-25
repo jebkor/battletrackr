@@ -70,13 +70,33 @@ const createEncounter = (request, response) => {
 		name
 	} = request.body
 
+	console.log('Request: ', request)
+
 	pool.query('INSERT INTO encounters (name) VALUES ($1)', [name], (error, results) => {
 		if (error) {
 			throw error
 		}
-		response.status(201).send(`Encounter added with ID: ${results.insertId}`)
+		response.status(201).send(`Encounter added with name: ${results.insertId}`)
 	})
 }
+
+
+const deleteEncounter = (request, response) => {
+	const id = parseInt(request.params.id)
+
+	pool.query('DELETE FROM encounters WHERE id = $1', [id], (error, results) => {
+		if (error) {
+			throw error
+		}
+		response.status(200).send(`Encounter deleted with ID: ${id}`)
+	})
+}
+
+
+
+
+
+
 
 // const getUserById = (request, response) => {
 // 	const id = parseInt(request.params.id)
@@ -118,5 +138,6 @@ module.exports = {
 	deleteMonster,
 	getEncounters,
 	getEncounterById,
-	createEncounter
+	createEncounter,
+	deleteEncounter
 }
