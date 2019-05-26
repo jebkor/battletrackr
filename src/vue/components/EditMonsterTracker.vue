@@ -1,156 +1,132 @@
 <template>
-  <div class="edit-boss-monster-tracker" :class="{ 'dead': data.monsterCurrentHitPoints == 0 }">
-    <v-expansion-panel expand>
-      <v-expansion-panel-content>
-        <div slot="header">
-          <p class="mb-1"><b>{{ data.monsterName }}</b> <font-awesome-icon icon="skull" class="fa-icon" /> </p>
-          <p class="mb-0">HP: {{ data.monsterCurrentHitPoints}} | {{ data.monsterMaxHitPoints }} - {{ percentageHealth }}</p>
-          
-          <span class="delete-icon" @click="deleteThis(data.monsterName)">
-            <font-awesome-icon icon="times" class="fa-icon" />
-          </span>
-        </div>
+	<v-layout row wrap>
+		<v-flex xs12 lg4 class="edit-boss-monster-tracker" :class="{ 'dead': monster.currenthitpoints == 0 }" v-for="(monster, i) in stateMonsters" :key="i">
+			<v-expansion-panel expand>
+				<v-expansion-panel-content>
+					<div slot="header">
+						<p class="mb-1">
+							<b>{{ monster.name }}</b>
+							<font-awesome-icon icon="skull" class="fa-icon" v-if="monster.isbossmonster" />
+						</p>
+						<p class="mb-0">HP: {{ monster.currenthitpoints}} | {{ monster.maxhitpoints }} - {{ percentageHealth(monster) }}</p>
 
-        <v-divider></v-divider>
+						<span class="delete-icon" @click="deleteThis(monster)">
+							<font-awesome-icon icon="times" class="fa-icon" />
+						</span>
+					</div>
 
-        <v-card>
-          <v-card-text>
-            <v-layout row wrap v-if="data.monsterLegendaryAction">
-              <v-flex xs12 class="text-xs-center">
-                <v-tooltip top>
-                  <h3 slot="activator">Legendary Actions</h3>
-                  
-                  <span>3/round: Refreshes at the start of its turn</span>
-                </v-tooltip>
-              </v-flex>
-              <v-flex xs4 v-for="(action, i) in data.monsterLegendaryAction" :key="i">
-                <v-checkbox class="ma-0"></v-checkbox>
-              </v-flex>
-            </v-layout>
+					<v-divider></v-divider>
 
-            <v-divider></v-divider>
-
-            <v-layout row wrap class="mt-4" v-if="data.monsterLegendaryResistance">
-              <v-flex xs12 class="text-xs-center">
-                <v-tooltip top>
-                  <h3 slot="activator">Legendary Resistances</h3>
-                  <span>3/day: Refreshes each dawn</span>
-                </v-tooltip>
-              </v-flex>
-              <v-flex xs4 v-for="(resistance, i) in data.monsterLegendaryResistance" :key="i">
-                <v-checkbox v-model="resistance.used" class="ma-0" :disabled="resistance.used"></v-checkbox>
-              </v-flex>
-            </v-layout>
-
-            <v-divider></v-divider>
-
-            <v-layout row wrap>
-              <v-flex xs12 lg6>
-                <v-btn block @click.native="addHitPoints(10)">+10</v-btn>
-              </v-flex>
-              <v-flex xs12 lg6>
-                <v-btn block @click.native="addHitPoints(1)">+1</v-btn>
-              </v-flex>
-              <v-flex xs12 lg6>
-                <v-btn block @click.native="subtractHitPoints(1)">-1</v-btn>
-              </v-flex>
-              <v-flex xs12 lg6>
-                <v-btn block @click.native="subtractHitPoints(10)">-10</v-btn>
-              </v-flex>
-            </v-layout>
-          </v-card-text>
-        </v-card>
-      </v-expansion-panel-content>
-    </v-expansion-panel>
-    
-
-    <!-- <div class="scrollwheel">
-      <div class="scrollwheel__bg"></div>
-      <div class="scrollwheel__wheel" style="background-position: center 0px;"></div>
-    </div> -->
-  </div>
+					<v-card>
+						<v-card-text>
+							<v-layout row wrap>
+								<v-flex xs12 lg6>
+									<v-btn block @click.native="addHitPoints(monster, 10)">+10</v-btn>
+								</v-flex>
+								<v-flex xs12 lg6>
+									<v-btn block @click.native="addHitPoints(monster, 1)">+1</v-btn>
+								</v-flex>
+								<v-flex xs12 lg6>
+									<v-btn block @click.native="subtractHitPoints(monster, 1)">-1</v-btn>
+								</v-flex>
+								<v-flex xs12 lg6>
+									<v-btn block @click.native="subtractHitPoints(monster, 10)">-10</v-btn>
+								</v-flex>
+							</v-layout>
+						</v-card-text>
+					</v-card>
+				</v-expansion-panel-content>
+			</v-expansion-panel>
+		</v-flex>
+	</v-layout>
 </template>
 
 <script>
-  export default {
-    name: "edit-boss-monster-tracker",
-    props: ["data"],
-    data() {
-      return {
-        usedResistance: false
-      }
-    },
-    computed: {
-      percentageHealth() {
-        let percentage = this.data.monsterCurrentHitPoints / this.data.monsterMaxHitPoints;
+	export default {
+		name: "edit-boss-monster-tracker",
 
-        let result = Math.floor(percentage * 100);
+		computed: {
 
-        return result + "%";
-      }
-    },
-    methods: {
-      // add value to current HP pool
-      addHitPoints(val) {
-        if (this.data.monsterCurrentHitPoints < this.data.monsterMaxHitPoints) {
-          let maxHitpoints = parseInt(this.data.monsterMaxHitPoints);
-          let hitpoints = parseInt(this.data.monsterCurrentHitPoints);
-          let result = hitpoints + val;
 
-          if (result > maxHitpoints) {
-            this.data.monsterCurrentHitPoints = maxHitpoints;
-          } else {
-            this.data.monsterCurrentHitPoints = result;
-          }
-        }
-      },
+			currentPath() {
+				return this.$route.params.id
+			},
 
-      // subtract value from current HP pool
-      subtractHitPoints(val) {
-        if (this.data.monsterCurrentHitPoints > 0) {
-          let hitpoints = parseInt(this.data.monsterCurrentHitPoints);
-          let result = hitpoints - val;
+			stateMonsters() {
+				return this.$store.getters.MONSTERS
+			}
+		},
 
-          if (result < 0) {
-            this.data.monsterCurrentHitPoints = 0;
-          } else {
-            this.data.monsterCurrentHitPoints = result;
-          }
-        }
-      },
+		beforeMount() {
+			this.$store.dispatch('getMonsters', this.currentPath)
+		},
 
-      deleteThis(monsterName) {
-        for (let i = 0; i < this.$store.state.bossMonsters.length; i++) {
-          const monster = this.$store.state.bossMonsters[i];
-          if (monster.monsterName == monsterName) this.$store.state.bossMonsters.splice(i, 1);
-        }
-      },
+		methods: {
+			// add value to current HP pool
+			addHitPoints(monster, val) {
+				if (monster.currenthitpoints < monster.maxhitpoints) {
+					let maxhitpoints = parseInt(monster.maxhitpoints);
+					let hitpoints = parseInt(monster.currenthitpoints);
+					let result = hitpoints + val;
 
-      showChange(input) {
-        console.log(input);
-      }
-    }
-  }
+					if (result > maxhitpoints) {
+						monster.currenthitpoints = maxhitpoints;
+					} else {
+						monster.currenthitpoints = result;
+					}
+				}
+			},
+
+			// subtract value from current HP pool
+			subtractHitPoints(monster, val) {
+				if (monster.currenthitpoints > 0) {
+					let hitpoints = parseInt(monster.currenthitpoints);
+					let result = hitpoints - val;
+
+					if (result < 0) {
+						monster.currenthitpoints = 0;
+					} else {
+						monster.currenthitpoints = result;
+					}
+				}
+			},
+
+			percentageHealth(monster) {
+				let percentage = monster.currenthitpoints / monster.maxhitpoints;
+
+				let result = Math.floor(percentage * 100);
+
+				return result + "%";
+			},
+
+			  deleteThis(monster) {
+			    this.$store.dispatch('deleteMonster', monster)
+			  },
+
+			showChange(input) {
+				console.log(input);
+			}
+		}
+	}
 </script>
 
 <style lang="scss" scoped>
 .edit-boss-monster-tracker {
-  margin: 0 auto;
-  position: relative;
+	margin: 0 auto;
+	position: relative;
 
-  &.dead {
-    opacity: 0.4;
+	&.dead {
+		opacity: 0.4;
 
-    p {
-      text-decoration: line-through;
-    }
-  }
+		p {
+			text-decoration: line-through;
+		}
+	}
 }
 
 .delete-icon {
-  position: absolute;
-  right: 9px;
-  top: 3px;
+	position: absolute;
+	right: 9px;
+	top: 3px;
 }
-
 </style>

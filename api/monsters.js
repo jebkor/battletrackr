@@ -20,11 +20,12 @@ const createMonster = (request, response) => {
 		isbossmonster,
 		currenthitpoints,
 		maxhitpoints,
-		legendaryaction,
-		legendaryresistances
+		encounter_id
 	} = request.body
 
-	pool.query('INSERT INTO monsters (name, isbossmonster, currenthitpoints, maxhitpoints, legendaryaction, legendaryresistances) VALUES ($1, $2, $3, $4, $5, $6)', [name, isbossmonster, currenthitpoints, maxhitpoints, legendaryaction, legendaryresistances], (error, results) => {
+	console.log(request.body)
+
+	pool.query('INSERT INTO monsters (name, isbossmonster, currenthitpoints, maxhitpoints, encounter_id) VALUES ($1, $2, $3, $4, $5)', [name, isbossmonster, currenthitpoints, maxhitpoints, encounter_id], (error, results) => {
 		if (error) {
 			throw error
 		}

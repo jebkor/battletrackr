@@ -26,6 +26,7 @@ app.get('/', (request, response) => {
 
 app.get('/monsters', monsters.getMonsters)
 app.post('/monster', monsters.createMonster)
+app.post('/monster/:id', monsters.createMonster)
 app.delete('/monster/:id', monsters.deleteMonster)
 
 

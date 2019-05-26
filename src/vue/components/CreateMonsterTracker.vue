@@ -58,8 +58,6 @@
 				isBossMonster: false,
 				monsterName: null,
 				monsterMaxHitPoints: null,
-				monsterLegendaryAction: false,
-				monsterLegendaryResistance: false
 			}
 		},
 		methods: {
@@ -68,6 +66,7 @@
 
 				// setup monster creation command
 				let command = {
+					encounter_id: this.$route.params.id,
 					name: this.monsterName,
 					isbossmonster: this.isBossMonster,
 					maxhitpoints: this.monsterMaxHitPoints,
@@ -76,38 +75,20 @@
 					legendaryresistances: this.monsterLegendaryResistance
 				};
 
+				this.$store.dispatch('saveMonster', command)
 
-				// if (this.monsterLegendaryAction) {
-				//   for (let i = 0; i < 3; i++) {
-				//     command.monsterLegendaryAction.push({
-				//       used: false
-				//     });
-				//   }
+
+				// if (this.monstername || this.monsterMaxHitPoints) {
+				// 	Axios.post('http://localhost:3000/monster', command).then(success => {
+				// 		console.log('success: ', success)
+				// 		_this.monsterName = null;
+				// 		_this.monsterMaxHitPoints = null;
+				// 	}).catch(err => {
+				// 		console.error('Error: ', err)
+				// 	})
+				// } else {
+				// 	console.log("All is not filled");
 				// }
-
-				// if (this.monsterLegendaryResistance) {
-				//   for (let i = 0; i < 3; i++) {
-				//     command.monsterLegendaryResistance.push({
-				//       used: false
-				//     });
-				//   }
-				// }
-
-
-				if (this.monstername || this.monsterMaxHitPoints) {
-					// push monster to array
-					this.$store.state.bossMonsters.push(command);
-
-					Axios.post('http://localhost:3000/monster', command).then(success => {
-						console.log('success: ', success)
-						_this.monsterName = null;
-						_this.monsterMaxHitPoints = null;
-					}).catch(err => {
-						console.error('Error: ', err)
-					})
-				} else {
-					console.log("All is not filled");
-				}
 			}
 		}
 	}
