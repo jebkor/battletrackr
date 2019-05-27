@@ -1,27 +1,27 @@
 <template>
-	<v-flex
-		xs12
-		sm6
-		lg3
+	<v-layout
+		row wrap
 	>
-		<v-card>
-			<v-card-text>
-				<v-form
-					model="valid"
-					@submit.prevent="addEncounter()"
-				>
-					<v-text-field
-						v-model="encounterName"
-						label="Name"
-						solo
-						required
-					></v-text-field>
+		<v-flex xs12>
+			<v-card>
+				<v-card-text>
+					<v-form
+						model="valid"
+						@submit.prevent="addEncounter()"
+					>
+						<v-text-field
+							v-model="encounterName"
+							label="Name"
+							solo
+							required
+						></v-text-field>
 
-					<v-btn type="submit">Add encounter</v-btn>
-				</v-form>
-			</v-card-text>
-		</v-card>
-	</v-flex>
+						<v-btn type="submit">Add encounter</v-btn>
+					</v-form>
+				</v-card-text>
+			</v-card>
+		</v-flex>
+	</v-layout>
 </template>
 
 <script>

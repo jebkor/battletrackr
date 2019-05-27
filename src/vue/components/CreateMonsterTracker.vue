@@ -31,16 +31,6 @@
 						v-model="isBossMonster"
 					></v-checkbox>
 
-					<v-checkbox
-						:label="'Legendary actions?'"
-						v-model="monsterLegendaryAction"
-					></v-checkbox>
-
-					<v-checkbox
-						:label="'Legendary resistances?'"
-						v-model="monsterLegendaryResistance"
-					></v-checkbox>
-
 					<v-btn type="submit">Add monster</v-btn>
 				</v-form>
 			</v-card-text>

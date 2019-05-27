@@ -1,17 +1,22 @@
 <template>
-	<div>
-		<h1>Encounters page</h1>
+	<v-layout
+		row
+		wrap
+	>
+		<v-flex xs12>
+			<h1>Encounters page</h1>
 
-		<create-encounter/>
+			<create-encounter />
 
-		<div
-			v-for="(encounter, i) in stateEncounters"
-			:key="i"
-		>
-			<span @click="deleteEncounter(encounter)">x</span>
-			<router-link :to="'/encounters/'+ encounter.id">{{ encounter.name }}</router-link>
-		</div>
-	</div>
+			<div
+				v-for="(encounter, i) in stateEncounters"
+				:key="i"
+			>
+				<span @click="deleteEncounter(encounter)">x</span>
+				<router-link :to="'/encounters/'+ encounter.id">{{ encounter.name }}</router-link>
+			</div>
+		</v-flex>
+	</v-layout>
 </template>
 
 <script>

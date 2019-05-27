@@ -1,14 +1,18 @@
 <template>
-	<v-flex xs12>
-		<router-link to="/encounters">Back to encounters</router-link>
-		<h1></h1>
+	<v-layout row wrap>
+		<v-flex xs12>
+			<router-link to="/encounters">Back to encounters</router-link>
+			<h1></h1>
 
-		<create-monster-tracker/>
 
-		<edit-monster-tracker />
+			<v-layout row wrap>
+				<create-monster-tracker/>
+			</v-layout>
 
-		<!-- <p v-for="(monster, i) in stateMonsters" :key="i">{{ monster.name }} </p> -->
-	</v-flex>
+			<edit-monster-tracker />
+			<!-- <p v-for="(monster, i) in stateMonsters" :key="i">{{ monster.name }} </p> -->
+		</v-flex>
+	</v-layout>
 </template>
 
 <script>

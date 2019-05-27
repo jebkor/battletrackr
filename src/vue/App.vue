@@ -23,7 +23,7 @@
       <v-container fluid fill-height grid-list-lg>
         <v-layout row wrap>
           <v-flex xs12>
-            <transition name="fade">
+            <transition>
               <router-view></router-view>
             </transition>
           </v-flex>
