@@ -9,7 +9,8 @@ let store = new Vuex.Store({
 	state: {
 		encounters: [],
 		monsters: [],
-		loading: true
+		loading: true,
+		darkTheme: false
 	},
 
 	getters: {
@@ -19,10 +20,18 @@ let store = new Vuex.Store({
 
 		MONSTERS: state => {
 			return state.monsters
+		},
+		
+		DARKTHEME: state => {
+			return state.darkTheme
 		}
 	},
 
 	actions: {
+		setDarkTheme({ commit, dispatch}, darkTheme) {
+			commit('setDarkTheme', darkTheme)
+		},
+
 		getEncounters({
 			commit
 		}) {
@@ -90,6 +99,10 @@ let store = new Vuex.Store({
 	},
 
 	mutations: {
+		setDarkTheme(state, darkTheme) {
+			state.darkTheme = darkTheme
+		},
+
 		changeLoadingState(state, loading) {
 			state.loading = loading
 		},
@@ -115,6 +128,8 @@ let store = new Vuex.Store({
 			const index = monsters.indexOf(monster);
 			monsters.splice(index, 1);
 		},
+
+
 	},
 });
 

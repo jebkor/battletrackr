@@ -46,8 +46,6 @@
 		name: "edit-boss-monster-tracker",
 
 		computed: {
-
-
 			currentPath() {
 				return this.$route.params.id
 			},
