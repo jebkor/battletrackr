@@ -1,5 +1,5 @@
 <template>
-	<v-layout row wrap>
+	<v-layout align-start justify-start row wrap>
 		<v-flex xs12 lg4 class="edit-boss-monster-tracker" :class="{ 'dead': monster.currenthitpoints == 0 }" v-for="(monster, i) in stateMonsters" :key="i">
 			<v-expansion-panel expand>
 				<v-expansion-panel-content>
@@ -112,8 +112,8 @@
 
 <style lang="scss" scoped>
 .edit-boss-monster-tracker {
-	margin: 0 auto;
-	position: relative;
+	// margin: 0 auto;
+	// position: relative;
 
 	&.dead {
 		opacity: 0.4;

@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<v-flex xs12>
 		<router-link to="/encounters">Back to encounters</router-link>
 		<h1></h1>
 
@@ -8,7 +8,7 @@
 		<edit-monster-tracker />
 
 		<!-- <p v-for="(monster, i) in stateMonsters" :key="i">{{ monster.name }} </p> -->
-	</div>
+	</v-flex>
 </template>
 
 <script>

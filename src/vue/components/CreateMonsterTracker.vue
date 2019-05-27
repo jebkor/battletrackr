@@ -3,6 +3,7 @@
 		xs12
 		sm6
 		lg3
+		class="create-encounter-tracker"
 	>
 		<v-card>
 			<v-card-text>
