@@ -42,17 +42,5 @@
 				this.$store.dispatch('deleteEncounter', input)
 			}
 		}
-		// beforeMount() {
-		// 	let _this = this
-
-		// 	Axios.get('http://localhost:3000/encounters').then(response => {
-		// 		_this.encounters = response.data
-		// 	}).catch(err => {
-		// 		console.error('An error occured: ', err)
-		// 	})
-		// }
 	}
 </script>
-
-<style lang="scss" scoped>
-</style>
