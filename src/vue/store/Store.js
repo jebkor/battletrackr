@@ -5,6 +5,9 @@ import Axios from "axios";
 Vue.use(Vuex);
 
 
+const apiEndpoint = 'https://vast-ravine-95214.herokuapp.com/'
+
+
 let store = new Vuex.Store({
 	state: {
 		encounters: [],
@@ -35,7 +38,7 @@ let store = new Vuex.Store({
 		getEncounters({
 			commit
 		}) {
-			Axios.get('http://localhost:3000/encounters')
+			Axios.get(apiEndpoint + 'encounters')
 				.then(response => {
 					commit('setEncounters', response.data) //Saves the requested data to the store
 					commit('changeLoadingState', false) //Changes loading state
@@ -43,7 +46,7 @@ let store = new Vuex.Store({
 		},
 
 		saveEncounter(context, payload) {
-			Axios.post('http://localhost:3000/encounters', {
+			Axios.post(apiEndpoint + 'encounters', {
 					name: payload.name
 				})
 				.then(response => {
@@ -55,7 +58,7 @@ let store = new Vuex.Store({
 			commit,
 			dispatch
 		}, encounter) {
-			Axios.delete('http://localhost:3000/encounters/' + encounter.id)
+			Axios.delete(apiEndpoint + 'encounters/' + encounter.id)
 				.then(response => {
 					commit('deleteEncounter', encounter)
 				})
@@ -64,7 +67,7 @@ let store = new Vuex.Store({
 		getMonsters({
 			commit
 		}, encounter) {
-			Axios.get('http://localhost:3000/encounters/' + encounter)
+			Axios.get(apiEndpoint + 'encounters/' + encounter)
 				.then(response => {
 					commit('setMonsters', response.data)
 					commit('changeLoadingState', false)
@@ -72,7 +75,7 @@ let store = new Vuex.Store({
 		},
 
 		saveMonster(context, payload) {
-			Axios.post('http://localhost:3000/monster/' + payload.encounter_id, {
+			Axios.post(apiEndpoint + 'monster/' + payload.encounter_id, {
 					name: payload.name,
 					isbossmonster: payload.isbossmonster,
 					maxhitpoints: payload.maxhitpoints,
@@ -88,7 +91,7 @@ let store = new Vuex.Store({
 			commit,
 			dispatch
 		}, monster) {
-			Axios.delete('http://localhost:3000/monster/' + monster.id)
+			Axios.delete(apiEndpoint + 'monster/' + monster.id)
 				.then(response => {
 					commit('deleteMonster', monster)
 				})
