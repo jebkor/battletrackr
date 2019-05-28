@@ -6,15 +6,31 @@
 		<v-flex xs12>
 			<h1>Encounters page</h1>
 
-			<create-encounter />
+			<create-encounter/>
 
-			<div
-				v-for="(encounter, i) in stateEncounters"
-				:key="i"
+			<v-layout
+				row
+				wrap
+				class="mt-5"
 			>
-				<span @click="deleteEncounter(encounter)">x</span>
-				<router-link :to="'/encounters/'+ encounter.id">{{ encounter.name }}</router-link>
-			</div>
+				<v-flex
+					xs12
+					lg3
+					v-for="(encounter, i) in stateEncounters"
+					:key="i"
+				>
+					<v-card>
+						<v-card-title primary-title>
+							<div>
+								<router-link :to="'/encounters/'+ encounter.id">
+									<h3 class="headline mb-0">{{ encounter.name }}</h3>
+									<font-awesome-icon :icon="['fas', 'swords']" class="fa-icon" />
+								</router-link>
+							</div>
+						</v-card-title>
+					</v-card>
+				</v-flex>
+			</v-layout>
 		</v-flex>
 	</v-layout>
 </template>

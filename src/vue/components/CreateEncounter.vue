@@ -2,7 +2,7 @@
 	<v-layout
 		row wrap
 	>
-		<v-flex xs12>
+		<v-flex xs12 lg3>
 			<v-card>
 				<v-card-text>
 					<v-form
