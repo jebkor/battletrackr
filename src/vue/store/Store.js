@@ -5,7 +5,7 @@ import Axios from "axios";
 Vue.use(Vuex);
 
 
-const apiEndpoint = 'https://vast-ravine-95214.herokuapp.com/'
+const apiEndpoint = 'http://localhost:3000/'
 
 
 let store = new Vuex.Store({

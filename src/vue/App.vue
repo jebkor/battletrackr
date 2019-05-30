@@ -30,6 +30,7 @@
 					</v-flex>
 
 					<v-flex xs12>
+						<v-btn @click="logout()">Logout</v-btn>
 						<v-switch
 							:label="'Dark theme'"
 							v-model="darkTheme"
@@ -43,7 +44,10 @@
 </template>
 
 <script>
+	import { userAuthMixin } from './mixins/userAuthMixin'
+
 	export default {
+		mixins: [userAuthMixin],
 		data() {
 			return {
 				drawer: false,

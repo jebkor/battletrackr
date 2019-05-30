@@ -5,6 +5,8 @@ import NProgress from 'nprogress';
 import Home from '../views/Home.vue'
 import Encounters from '../views/Encounters.vue'
 import Monsters from '../views/Monsters.vue'
+import LoginForm from '../views/LoginForm.vue'
+import User from '../views/User.vue'
 
 // Initialize and setup the routes
 const Routes = new Router({
@@ -20,7 +22,15 @@ const Routes = new Router({
 			path: '/encounters/:id',
 			name: 'encounter',
 			component: Monsters
-		}
+		}, {
+			path: '/login',
+			name: 'login',
+			component: LoginForm
+		}, {
+			path: '/user/:id',
+			name: 'user',
+			component: User
+		},
 		// {
 		//   path: '/',
 		//   redirect: '/login'
