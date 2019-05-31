@@ -9,6 +9,7 @@ import Vuetify from 'vuetify';
 import VueRouter from 'vue-router';
 import Notify from 'vue-notifyjs/dist/vue-notifyjs';
 import VueProgressBar from 'vue-progressbar';
+import VeeValidate from 'vee-validate'
 
 import {
 	library
@@ -75,6 +76,9 @@ Vue.use(VueProgressBar, {
 	failedColor: 'red',
 	height: '2px'
 });
+Vue.use(VeeValidate, {
+	
+})
 
 
 
