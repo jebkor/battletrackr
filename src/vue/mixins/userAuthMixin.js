@@ -12,6 +12,16 @@ export const userAuthMixin = {
 			})
 		},
 
+		signup(user) {
+			Axios.post('http://localhost:3000/auth/signup', user, {
+				withCredentials: true
+			}).then(result => {
+				return result.data
+			}).catch(error => {
+				return error
+			})
+		},
+
 		redirectIfLoggedIn() {
 			if (localStorage.user_id) {
 				this.$router.push({ path: `/user/${localStorage.user_id}`})
