@@ -35,7 +35,7 @@ export const userAuthMixin = {
 			return Axios.get('http://localhost:3000/auth/logout', {
 				withCredentials: true
 			}).then(result => {
-				_this.$router.push({ path: '/login'})
+				_this.$router.push({ path: '/'}) // redirect to frontpage
 			})
 
 		}

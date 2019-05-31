@@ -24,7 +24,7 @@
 			password: null
 		}),
 		created() {
-			// this.redirectIfLoggedIn()
+			this.redirectIfLoggedIn()
 		},
 		methods: {
 			sendForm() {

@@ -13,8 +13,8 @@ import User from '../views/User.vue'
 const Routes = new Router({
 	routes: [{
 			path: '/',
-			name: 'home',
-			component: Home,
+			name: 'login',
+			component: LoginForm,
 		}, {
 			path: '/encounters',
 			name: 'encounters',
@@ -23,10 +23,6 @@ const Routes = new Router({
 			path: '/encounters/:id',
 			name: 'encounter',
 			component: Monsters
-		}, {
-			path: '/login',
-			name: 'login',
-			component: LoginForm
 		}, {
 			path: '/user/:id',
 			name: 'user',
