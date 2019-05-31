@@ -4,6 +4,7 @@ const path = require('path');
 const loaders = require('./webpack/loaders'); // Seperate file with all of the loaders
 const plugins = require('./webpack/plugins'); // Seperate file with all of the plugins
 
+
 module.exports = {
   entry: {
     main: [
