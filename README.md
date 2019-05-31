@@ -1,3 +1,7 @@
+## Introduction
+
+[INSERT NAME HERE] is an web application made for all Dungeon Masters, Game Masters and the likes. It's a digital tool made to simplify the task of keeping track of the current health of the foes on the battlefield.
+
 ## Supporting [INSERT NAME HERE]
 
 [INSERT NAME HERE] is an open source project. It's an independent project with its ongoing development.
