@@ -34,13 +34,16 @@ let store = new Vuex.Store({
 		setDarkTheme({ commit, dispatch}, darkTheme) {
 			commit('setDarkTheme', darkTheme)
 		},
-
+		
+		// Get the current users' encounters
 		getEncounters({
 			commit
-		}) {
-			Axios.get(apiEndpoint + 'encounters')
+		}, user_id) {
+			Axios.get(apiEndpoint + `user/${user_id}`, {
+				withCredentials: true
+			})
 				.then(response => {
-					commit('setEncounters', response.data) //Saves the requested data to the store
+					commit('setEncounters', response.data.encounters.rows) //Saves the requested data to the store
 					commit('changeLoadingState', false) //Changes loading state
 				})
 		},

@@ -10,6 +10,7 @@ import VueRouter from 'vue-router';
 import Notify from 'vue-notifyjs/dist/vue-notifyjs';
 import VueProgressBar from 'vue-progressbar';
 import VeeValidate from 'vee-validate'
+import VuePageTransition from 'vue-page-transition'
 
 import {
 	library
@@ -79,6 +80,7 @@ Vue.use(VueProgressBar, {
 Vue.use(VeeValidate, {
 	
 })
+// Vue.use(VuePageTransition)
 
 
 

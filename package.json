@@ -10,8 +10,8 @@
   ],
   "scripts": {
     "analyze": "webpack --progress --config webpack.test.config.js",
-	"webpack-dev": "webpack --config webpack.dev.config.js --progress --watch",
-	"server": "http-server -p 4000",
+    "webpack-dev": "webpack --config webpack.dev.config.js --progress --watch",
+    "server": "http-server -p 4000",
     "style-watch": "gulp sass-watch",
     "start": "npm-run-all -p -r webpack-dev server",
     "build": "run-s patch webpack-build && gulp",
@@ -43,7 +43,6 @@
     "babel-plugin-transform-es2015-shorthand-properties": "^6.24.1",
     "css-loader": "^1.0.1",
     "cssnano": "^4.1.7",
-    "gulp": "^3.9.1",
     "gulp-autoprefixer": "^6.0.0",
     "gulp-concat": "^2.6.1",
     "gulp-postcss": "^8.0.0",
@@ -72,7 +71,6 @@
     "webpack": "^4.29.3",
     "webpack-bundle-analyzer": "^3.0.3",
     "webpack-cli": "^3.2.3",
-    "webpack-dashboard": "^2.1.0",
     "webpack-dev-server": "^3.5.0",
     "webpack-merge": "^4.2.1"
   },
@@ -87,7 +85,6 @@
     "axios": "^0.18.0",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
-    "express": "^4.16.4",
     "morgan": "^1.9.1",
     "nprogress": "^0.2.0",
     "pg": "^7.11.0",
@@ -99,10 +96,10 @@
     "vee-validate": "^2.2.9",
     "vue": "^2.6.3",
     "vue-notifyjs": "^0.4.3",
+    "vue-page-transition": "^0.2.2",
     "vue-progressbar": "^0.7.5",
     "vue-router": "^3.0.1",
-    "vuefire": "^1.4.5",
-    "vuetify": "^1.5.0",
+    "vuetify": "^1.5.14",
     "vuex": "^3.1.0"
   }
 }

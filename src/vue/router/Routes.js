@@ -56,16 +56,16 @@ const Routes = new Router({
 
 
 // Add the nprogress loader to route change
-Routes.beforeResolve((to, from, next) => {
-	if (to.name) {
-		NProgress.start();
-	}
-	next();
-});
+// Routes.beforeResolve((to, from, next) => {
+// 	if (to.name) {
+// 		NProgress.start();
+// 	}
+// 	next();
+// });
 
-Routes.afterEach((to, from) => {
-	NProgress.done();
-});
+// Routes.afterEach((to, from) => {
+// 	NProgress.done();
+// });
 
 
 // if firebase

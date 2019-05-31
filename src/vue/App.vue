@@ -13,33 +13,22 @@
 			<v-toolbar-title>Health Tracker</v-toolbar-title>
 		</v-toolbar>
 
-
-
-		<v-content>
+		<v-content v-cloak>
 			<v-container
 				fluid
 				fill-height
 				grid-list-lg
 			>
-				<v-layout
-					row
-					wrap
-				>
-					<v-flex xs12>
-						<transition>
-							<router-view></router-view>
-						</transition>
-					</v-flex>
+				<transition name="fade" mode="out-in">
+					<router-view></router-view>
+				</transition>
 
-					<v-flex xs12>
-						<v-btn @click="logout()">Logout</v-btn>
-						<v-switch
-							:label="'Dark theme'"
-							v-model="darkTheme"
-							@change="setDarkMode(darkTheme)"
-						></v-switch>
-					</v-flex>
-				</v-layout>
+				<!-- <v-btn @click="logout()">Logout</v-btn>
+				<v-switch
+					:label="'Dark theme'"
+					v-model="darkTheme"
+					@change="setDarkMode(darkTheme)"
+				></v-switch>-->
 			</v-container>
 		</v-content>
 	</v-app>
@@ -85,7 +74,7 @@
 			// Watch the prop for changes to apply the correct darkTheme value
 			darkTheme() {
 				this.darkTheme = this.loadDarkMode()
-			}
+			},
 		}
 	}
 </script>

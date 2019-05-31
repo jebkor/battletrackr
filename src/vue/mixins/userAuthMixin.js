@@ -37,8 +37,6 @@ export const userAuthMixin = {
 			}).then(result => {
 				_this.$router.push({ path: '/'}) // redirect to frontpage
 			})
-
 		}
-
 	}
 }
