@@ -15,6 +15,8 @@ const JSLoader = {
   }
 };
 
+
+
 // const TSLoader = {
 //   test: /\.ts$/,
 //   loader: 'ts-loader',
