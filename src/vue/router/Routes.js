@@ -6,6 +6,7 @@ import Home from '../views/Home.vue'
 import Encounters from '../views/Encounters.vue'
 import Monsters from '../views/Monsters.vue'
 import LoginForm from '../views/LoginForm.vue'
+import SignupForm from '../views/SignupForm.vue'
 import User from '../views/User.vue'
 
 // Initialize and setup the routes
@@ -30,6 +31,10 @@ const Routes = new Router({
 			path: '/user/:id',
 			name: 'user',
 			component: User
+		},{
+			path: '/signup',
+			name: 'signup',
+			component: SignupForm
 		},
 		// {
 		//   path: '/',
