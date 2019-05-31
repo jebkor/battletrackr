@@ -23,9 +23,9 @@
 				Axios.get(`http://localhost:3000/user/${_this.$route.params.id}`, {
 					withCredentials: true
 				}).then(user => {
-					_this.email = user.data.email
+					_this.email = user.data.user.email
 				}).catch(error => {
-					_this.$router.push({ path: '/login' })
+					_this.$router.push({ path: `/user/${localStorage.getItem('user_id')}` })
 				})
 			}
 		},
