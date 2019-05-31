@@ -24,25 +24,29 @@ let store = new Vuex.Store({
 		MONSTERS: state => {
 			return state.monsters
 		},
-		
+
 		DARKTHEME: state => {
 			return state.darkTheme
 		}
 	},
 
 	actions: {
-		setDarkTheme({ commit, dispatch}, darkTheme) {
+		setDarkTheme({
+			commit,
+			dispatch
+		}, darkTheme) {
 			commit('setDarkTheme', darkTheme)
 		},
-		
+
 		// Get the current users' encounters
 		getEncounters({
 			commit
 		}, user_id) {
 			Axios.get(apiEndpoint + `user/${user_id}`, {
-				withCredentials: true
-			})
+					withCredentials: true
+				})
 				.then(response => {
+					console.log(response.data.encounters.rows)
 					commit('setEncounters', response.data.encounters.rows) //Saves the requested data to the store
 					commit('changeLoadingState', false) //Changes loading state
 				})
@@ -69,12 +73,17 @@ let store = new Vuex.Store({
 
 		getMonsters({
 			commit
-		}, encounter) {
-			Axios.get(apiEndpoint + 'encounters/' + encounter)
-				.then(response => {
-					commit('setMonsters', response.data)
-					commit('changeLoadingState', false)
-				})
+		}, command) {
+			if (command.user_id && command.encounter_id) {
+
+				Axios.get(apiEndpoint + `user/${command.user_id}/encounters/${command.encounter_id}`, {
+						withCredentials: true
+					})
+					.then(response => {
+						commit('setMonsters', response.data.monsters.rows)
+						commit('changeLoadingState', false)
+					})
+			}
 		},
 
 		saveMonster(context, payload) {
@@ -125,6 +134,7 @@ let store = new Vuex.Store({
 		},
 
 		setMonsters(state, monsters) {
+			console.log('monsters: ', monsters)
 			state.monsters = monsters
 		},
 

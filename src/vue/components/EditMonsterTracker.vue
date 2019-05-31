@@ -1,14 +1,14 @@
 <template>
 	<v-layout align-start justify-start row wrap>
-		<v-flex xs12 lg4 class="edit-boss-monster-tracker" :class="{ 'dead': monster.currenthitpoints == 0 }" v-for="(monster, i) in stateMonsters" :key="i">
+		<v-flex xs12 lg4 class="edit-boss-monster-tracker" :class="{ 'dead': monster.current_health == 0 }" v-for="(monster, i) in stateMonsters" :key="i">
 			<v-expansion-panel expand>
 				<v-expansion-panel-content>
 					<div slot="header">
 						<p class="mb-1">
 							<b>{{ monster.name }}</b>
-							<font-awesome-icon icon="skull" class="fa-icon" v-if="monster.isbossmonster" />
+							<font-awesome-icon icon="skull" class="fa-icon" v-if="monster.is_boss" />
 						</p>
-						<p class="mb-0">HP: {{ monster.currenthitpoints}} | {{ monster.maxhitpoints }} - {{ percentageHealth(monster) }}</p>
+						<p class="mb-0">HP: {{ monster.current_health}} | {{ monster.max_health }} - {{ percentageHealth(monster) }}</p>
 
 						<span class="delete-icon" @click="deleteThis(monster)">
 							<font-awesome-icon icon="times" class="fa-icon" />
@@ -62,35 +62,35 @@
 		methods: {
 			// add value to current HP pool
 			addHitPoints(monster, val) {
-				if (monster.currenthitpoints < monster.maxhitpoints) {
-					let maxhitpoints = parseInt(monster.maxhitpoints);
-					let hitpoints = parseInt(monster.currenthitpoints);
+				if (monster.current_health < monster.max_health) {
+					let max_health = parseInt(monster.max_health);
+					let hitpoints = parseInt(monster.current_health);
 					let result = hitpoints + val;
 
-					if (result > maxhitpoints) {
-						monster.currenthitpoints = maxhitpoints;
+					if (result > max_health) {
+						monster.current_health = max_health;
 					} else {
-						monster.currenthitpoints = result;
+						monster.current_health = result;
 					}
 				}
 			},
 
 			// subtract value from current HP pool
 			subtractHitPoints(monster, val) {
-				if (monster.currenthitpoints > 0) {
-					let hitpoints = parseInt(monster.currenthitpoints);
+				if (monster.current_health > 0) {
+					let hitpoints = parseInt(monster.current_health);
 					let result = hitpoints - val;
 
 					if (result < 0) {
-						monster.currenthitpoints = 0;
+						monster.current_health = 0;
 					} else {
-						monster.currenthitpoints = result;
+						monster.current_health = result;
 					}
 				}
 			},
 
 			percentageHealth(monster) {
-				let percentage = monster.currenthitpoints / monster.maxhitpoints;
+				let percentage = monster.current_health / monster.max_health;
 
 				let result = Math.floor(percentage * 100);
 

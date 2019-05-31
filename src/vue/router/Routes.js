@@ -16,11 +16,11 @@ const Routes = new Router({
 			name: 'login',
 			component: LoginForm,
 		}, {
-			path: '/encounters',
+			path: '/user/:id/encounters',
 			name: 'encounters',
 			component: Encounters
 		}, {
-			path: '/encounters/:id',
+			path: '/user/:id/encounters/:encounterId',
 			name: 'encounter',
 			component: Monsters
 		}, {
