@@ -10,9 +10,10 @@
   ],
   "scripts": {
     "analyze": "webpack --progress --config webpack.test.config.js",
-    "webpack-dev": "webpack --config webpack.dev.config.js --progress --watch",
+	"webpack-dev": "webpack --config webpack.dev.config.js --progress --watch",
+	"server": "http-server -p 4000",
     "style-watch": "gulp sass-watch",
-    "start": "npm-run-all -p -r webpack-dev",
+    "start": "npm-run-all -p -r webpack-dev server",
     "build": "run-s patch webpack-build && gulp",
     "webpack-build": "webpack --progress --config webpack.prod.config.js",
     "patch": "npm version patch",
@@ -72,7 +73,7 @@
     "webpack-bundle-analyzer": "^3.0.3",
     "webpack-cli": "^3.2.3",
     "webpack-dashboard": "^2.1.0",
-    "webpack-dev-server": "^3.1.10",
+    "webpack-dev-server": "^3.5.0",
     "webpack-merge": "^4.2.1"
   },
   "dependencies": {
