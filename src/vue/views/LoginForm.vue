@@ -23,7 +23,7 @@
 							data-vv-name="email"
 							required
 							solo
-						></v-text-field>
+						/>
 
 						<v-text-field
 							v-model="password"
@@ -36,7 +36,7 @@
 							data-vv-name="password"
 							required
 							solo
-						></v-text-field>
+						/>
 
 						<v-btn
 							color="primary"
