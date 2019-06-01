@@ -26,12 +26,12 @@
 					<router-view></router-view>
 				</transition>
 
-				<!-- <v-btn @click="logout()">Logout</v-btn>
+				<v-btn @click="logout()">Logout</v-btn>
 				<v-switch
 					:label="'Dark theme'"
 					v-model="darkTheme"
 					@change="setDarkMode(darkTheme)"
-				></v-switch>-->
+				></v-switch>
 			</v-container>
 		</v-content>
 

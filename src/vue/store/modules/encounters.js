@@ -41,10 +41,12 @@ export default {
 
 		saveEncounter(context, payload) {
 			Axios.post(apiEndpoint + 'encounters', {
-					name: payload.name
-				})
+					name: payload.name,
+					user_id: payload.user_id,
+					created_at: payload.created_at
+				}, { withCredentials: true })
 				.then(response => {
-					context.dispatch('getEncounters') // Get the encounters anew to populate the available ones
+					context.dispatch('getEncounters', payload.user_id) // Get the encounters anew to populate the available ones
 				})
 		},
 
