@@ -103,7 +103,7 @@
 							class="fa-icon"
 						/>
 
-						<v-btn color="secondary">Ressurect?</v-btn>
+						<v-btn color="info" @click="addHitPoints(monster, 1)">Ressurect?</v-btn>
 					</div>
 				</v-expansion-panel>
 			</transition>
@@ -173,10 +173,6 @@
 
 			deleteThis(monster) {
 				this.deleteMonster(monster)
-			},
-
-			showChange(input) {
-				console.log(input);
 			}
 		}
 	}
@@ -199,7 +195,7 @@
 			height: 100%;
 			top: 0;
 			left: 0;
-			background-color: hsla(0, 0%, 0%, 0.3);
+			background-color: hsla(0, 0%, 0%, 0.5);
 
 			.fa-icon {
 				width: 75px;

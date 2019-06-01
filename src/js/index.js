@@ -67,8 +67,7 @@ Vue.use(Vuetify, {
 		error: '#FF5252',
 		info: '#2196F3',
 		success: '#4CAF50',
-		warning: '#FFC107',
-		userdefined: "#ff00ff"
+		warning: '#FFC107'
 	}
 });
 Vue.use(Notify, {
