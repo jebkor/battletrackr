@@ -81,7 +81,7 @@
 					_this.login(userInfo).then(result => {
 						localStorage.user_id = result.data.id
 
-						_this.$router.push({ path: `/user/${result.data.id}` })
+						_this.$router.push({ path: `/user/${result.data.id}/encounters` })
 					})
 				}, 2000) // simulate waiting for request
 			}
