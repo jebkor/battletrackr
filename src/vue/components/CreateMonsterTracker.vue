@@ -12,14 +12,14 @@
 					@submit.prevent="addMonster()"
 				>
 					<v-text-field
-						v-model="monsterName"
+						v-model="name"
 						label="Name"
 						solo
 						required
 					></v-text-field>
 
 					<v-text-field
-						v-model="monsterMaxHitPoints"
+						v-model="maxHealth"
 						label="Hit Points"
 						type="number"
 						solo
@@ -28,7 +28,7 @@
 
 					<v-checkbox
 						:label="'Boss monster?'"
-						v-model="isBossMonster"
+						v-model="isBoss"
 					></v-checkbox>
 
 					<v-btn type="submit">Add monster</v-btn>
@@ -40,46 +40,39 @@
 
 <script>
 	import Axios from 'axios'
+	import { mapActions } from 'vuex'
 
 	export default {
 		name: "create-monster-tracker",
 		data() {
 			return {
 				valid: null,
-				isBossMonster: false,
-				monsterName: null,
-				monsterMaxHitPoints: null,
+				name: null,
+				maxHealth: null,
+				isBoss: false,
 			}
 		},
 		methods: {
+			...mapActions(['saveMonster']),
 			addMonster() {
 				let _this = this
 
+				// Get the user_id and encounter_id
+				const user_id = localStorage.getItem('user_id') ? localStorage.getItem('user_id') : this.$route.params.id
+				const encounter_id = localStorage.getItem('encounter_id') ? localStorage.getItem('encounter_id') : this.$route.params.encounterId
+
 				// setup monster creation command
 				let command = {
-					encounter_id: this.$route.params.id,
-					name: this.monsterName,
-					isbossmonster: this.isBossMonster,
-					maxhitpoints: this.monsterMaxHitPoints,
-					currenthitpoints: this.monsterMaxHitPoints,
-					legendaryaction: this.monsterLegendaryAction,
-					legendaryresistances: this.monsterLegendaryResistance
+					name: this.name,
+					is_boss: this.isBoss,
+					max_health: this.maxHealth,
+					current_health: this.maxHealth,
+					encounter_id,
+					user_id
 				};
 
-				this.$store.dispatch('saveMonster', command)
-
-
-				// if (this.monstername || this.monsterMaxHitPoints) {
-				// 	Axios.post('http://localhost:3000/monster', command).then(success => {
-				// 		console.log('success: ', success)
-				// 		_this.monsterName = null;
-				// 		_this.monsterMaxHitPoints = null;
-				// 	}).catch(err => {
-				// 		console.error('Error: ', err)
-				// 	})
-				// } else {
-				// 	console.log("All is not filled");
-				// }
+				// Execute command
+				this.saveMonster(command)
 			}
 		}
 	}

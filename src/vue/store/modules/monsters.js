@@ -42,15 +42,20 @@ export default {
 		},
 
 		saveMonster(context, payload) {
-			Axios.post(apiEndpoint + 'monster/' + payload.encounter_id, {
+			Axios.post(apiEndpoint + 'monsters/', {
 					name: payload.name,
-					isbossmonster: payload.isbossmonster,
-					maxhitpoints: payload.maxhitpoints,
-					currenthitpoints: payload.currenthitpoints,
+					is_boss: payload.is_boss,
+					max_health: payload.max_health,
+					current_health: payload.current_health,
 					encounter_id: payload.encounter_id,
+				}, {
+					withCredentials: true
 				})
 				.then(response => {
-					context.dispatch('getMonsters', payload.encounter_id) // Get the encounters anew to populate the available ones
+					context.dispatch('getMonsters', { 
+						user_id: payload.user_id,
+						encounter_id: payload.encounter_id 
+					}) // Get the encounters anew to populate the available ones
 				})
 		},
 
