@@ -16,21 +16,26 @@ let store = new Vuex.Store({
 		monsters: monstersModule,
 		encounters: encountersModule
 	},
+
+	// The state that contains the data
 	state: {
 		loading: false,
 		darkTheme: false
 	},
 
-	getters: {
-		DARKTHEME: state => {
-			return state.darkTheme
+	// Mutations set/change the state, should ideally need actions to run
+	mutations: {
+		setDarkTheme(state, darkTheme) {
+			state.darkTheme = darkTheme
 		},
 
-		LOADING: state => {
-			return state.loading
+		changeLoadingState(state, loading) {
+			state.loading = loading
 		},
 	},
 
+	// Actions call a mutation with data as a param, in order to save/change data
+	// Can use ...mapActions([])
 	actions: {
 		setDarkTheme({
 			commit,
@@ -47,13 +52,15 @@ let store = new Vuex.Store({
 		},
 	},
 
-	mutations: {
-		setDarkTheme(state, darkTheme) {
-			state.darkTheme = darkTheme
+	// Used in the frontend to display the data
+	// Can use ...mapGetters([])
+	getters: {
+		DARKTHEME: state => {
+			return state.darkTheme
 		},
 
-		changeLoadingState(state, loading) {
-			state.loading = loading
+		LOADING: state => {
+			return state.loading
 		},
 	},
 });

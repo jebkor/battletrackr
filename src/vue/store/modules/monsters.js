@@ -3,10 +3,12 @@ const apiEndpoint = 'http://localhost:3000/'
 
 
 export default {
+	// The state that contains the data
 	state: {
 		monsters: []
 	},
 
+	// Mutations set/change the state, should ideally need actions to run
 	mutations: {
 		setMonsters(state, monsters) {
 			console.log('monsters: ', monsters)
@@ -21,6 +23,8 @@ export default {
 		},
 	},
 
+	// Actions call a mutation with data as a param, in order to save/change data
+	// Can use ...mapActions([])
 	actions: {
 		getMonsters({
 			commit
@@ -64,6 +68,8 @@ export default {
 		},
 	},
 
+	// Used in the frontend to display the data
+	// Can use ...mapGetters([])
 	getters: {
 		MONSTERS: state => {
 			return state.monsters
