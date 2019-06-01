@@ -1,63 +1,85 @@
 <template>
-	<div>
-		<form @submit.prevent="preSignup">
-			<input
-				v-model="firstName"
-				name="first_name"
-				type="text"
-				placeholder="Enter first name (optional)"
-			>
-			<br>
+	<v-layout
+		row
+		wrap
+		align-center
+		justify-center
+	>
+		<v-flex
+			xs12
+			lg4
+		>
+			<v-card>
+				<v-card-title>
+					<h1>Sign up</h1>
 
-			<input
-				v-model="lastName"
-				name="last_name"
-				type="text"
-				placeholder="Enter last name (optional)"
-			>
-			<br>
+					<form @submit.prevent>
+						<v-text-field
+							v-model="firstName"
+							name="first_name"
+							type="text"
+							placeholder="Enter first name (optional)"
+							id="first_name"
+							solo
+						/>
 
-			<input
-				v-model="email"
-				v-validate="'required|email'"
-				name="email"
-				type="email"
-				placeholder="Enter email"
-			>
-			<span>{{ errors.first('email') }}</span>
-			<br>
-			
-			
-			<input
-				v-model="password"
-				v-validate="'required'"
-				name="password"
-				type="text"
-				placeholder="Enter password"
-				ref="password"
-			>
-			<span>{{ errors.first('password') }}</span>
-			<br>
+						<v-text-field
+							v-model="lastName"
+							name="last_name"
+							type="text"
+							placeholder="Enter last name (optional)"
+							id="last_name"
+							solo
+						/>
 
+						<v-text-field
+							id="email"
+							v-model="email"
+							v-validate="'required|email'"
+							:error-messages="errors.collect('email')"
+							name="email"
+							type="email"
+							placeholder="Enter email"
+							data-vv-name="email"
+							required
+							solo
+						/>
 
+						<v-text-field
+							id="password"
+							v-model="password"
+							v-validate="'required'"
+							:error-messages="errors.collect('password')"
+							name="password"
+							type="password"
+							data-vv-name="password"
+							placeholder="Enter password"
+							ref="password"
+							required
+							solo
+						/>
 
-			<input
-				v-model="verifyPassword"
-				v-validate="'confirmed:password'"
-				name="verify_password"
-				placeholder="Verify password"
-				type="text"
-				data-vv-as="password"
-			>
-			<span>{{ errors.first('verify_password') }}</span>
+						<v-text-field
+							id="verify_password"
+							v-model="verifyPassword"
+							v-validate="'confirmed:password'"
+							:error-messages="errors.collect('verify_password')"
+							name="verify_password"
+							placeholder="Verify password"
+							type="password"
+							data-vv-as="password"
+							solo
+						/>
 
-			<br>
-			<br>
-			<br>
-
-			<button>Signup</button>
-		</form>
-	</div>
+						<v-btn
+							color="primary"
+							@click="preSignup"
+						>Signup</v-btn>
+					</form>
+				</v-card-title>
+			</v-card>
+		</v-flex>
+	</v-layout>
 </template>
 
 <script>
@@ -68,11 +90,11 @@
 		name: 'signup-form',
 		mixins: [userAuthMixin],
 		data: () => ({
-			firstName: null,
-			lastName: null,
-			email: null,
-			password: null,
-			verifyPassword: null
+			firstName: '',
+			lastName: '',
+			email: '',
+			password: '',
+			verifyPassword: ''
 		}),
 		methods: {
 			preSignup() {
@@ -88,17 +110,10 @@
 					if (result) {
 						// Run the signup function if result is successful
 						this.signup(user)
-						// console.log('User: ', user)
 						return
 					}
-
-					alert('Correct the errors, bitch')
+					alert('Correct the errors, please')
 				})
-
-
-
-				// Run real signp function
-				// this.signup(user)
 			}
 		}
 	}
