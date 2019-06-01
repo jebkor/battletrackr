@@ -4,7 +4,7 @@
 		wrap
 	>
 		<v-flex xs12>
-			<router-link :to="`/user/${$route.params.id}/encounters`">Back to encounters</router-link>
+			<router-link v-on:click.native="backToEncounters()" :to="`/user/${$route.params.id}/encounters`">Back to encounters</router-link>
 			<h1></h1>
 
 			<v-layout
@@ -23,6 +23,7 @@
 <script>
 	import Vue from 'vue'
 	import Axios from 'axios'
+	import { mapActions } from 'vuex'
 	import CreateMonsterTracker from '../components/CreateMonsterTracker.vue'
 	import EditMonsterTracker from '../components/EditMonsterTracker.vue'
 
@@ -42,6 +43,7 @@
 		},
 
 		methods: {
+			...mapActions(['setLoadingState']),
 			correctUserRedirect() {
 				const params_id = this.$route.params.id
 				const storage_user_id = localStorage.getItem('user_id')
@@ -55,6 +57,10 @@
 				else {
 					this.$router.push({ path: `/user/${storage_user_id}/encounters/${encounter_id}` })
 				}
+			},
+
+			backToEncounters() {
+				this.setLoadingState(true)
 			},
 
 			getMonsters() {

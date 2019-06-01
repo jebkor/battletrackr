@@ -12,11 +12,19 @@ let store = new Vuex.Store({
 	state: {
 		encounters: [],
 		monsters: [],
-		loading: true,
+		loading: false,
 		darkTheme: false
 	},
 
 	getters: {
+		DARKTHEME: state => {
+			return state.darkTheme
+		},
+
+		LOADING: state => {
+			return state.loading
+		},
+
 		ENCOUNTERS: state => {
 			return state.encounters
 		},
@@ -24,10 +32,6 @@ let store = new Vuex.Store({
 		MONSTERS: state => {
 			return state.monsters
 		},
-
-		DARKTHEME: state => {
-			return state.darkTheme
-		}
 	},
 
 	actions: {
@@ -36,6 +40,13 @@ let store = new Vuex.Store({
 			dispatch
 		}, darkTheme) {
 			commit('setDarkTheme', darkTheme)
+		},
+
+		setLoadingState({
+			commit,
+			dispatch
+		}, loading) {
+			commit('changeLoadingState', loading)
 		},
 
 		// Get the current users' encounters

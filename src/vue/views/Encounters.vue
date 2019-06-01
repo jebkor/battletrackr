@@ -62,12 +62,14 @@
 			}
 		},
 		methods: {
+			...mapActions(['setLoadingState']),
 			deleteEncounter(input) {
 				this.$store.dispatch('deleteEncounter', input)
 			},
 
 			setEncounter(encounter_id) {
-				console.log('setEncounterId')
+				this.setLoadingState(true)
+
 				localStorage.setItem('encounter_id', encounter_id);
 			},
 

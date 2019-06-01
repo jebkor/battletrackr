@@ -19,7 +19,10 @@
 				fill-height
 				grid-list-lg
 			>
-				<transition name="fade" mode="out-in">
+				<transition
+					name="fade"
+					mode="out-in"
+				>
 					<router-view></router-view>
 				</transition>
 
@@ -31,10 +34,18 @@
 				></v-switch>-->
 			</v-container>
 		</v-content>
+
+		<div v-if="LOADING" class="loader">
+			<font-awesome-icon
+				:icon="['fal', 'dice-d20']"
+				class="fa-icon rotating"
+			/>
+		</div>
 	</v-app>
 </template>
 
 <script>
+	import { mapGetters, mapActions } from 'vuex'
 	import { userAuthMixin } from './mixins/userAuthMixin'
 
 	export default {
@@ -52,6 +63,10 @@
 		mounted() {
 			// Set the dark theme on mount
 			this.darkTheme = this.loadDarkMode()
+		},
+
+		computed: {
+			...mapGetters(['LOADING'])
 		},
 
 		methods: {

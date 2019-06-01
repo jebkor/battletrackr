@@ -29,7 +29,9 @@ import {
 	faSwords as fasSwords
 } from '@fortawesome/pro-solid-svg-icons'
 
-// import { faSwords as farSwords } from '@fortawesome/pro-regular-svg-icons'
+import {
+	faDiceD20 as falDiceD20
+} from '@fortawesome/pro-light-svg-icons'
 
 import {
 	faVuejs
@@ -51,7 +53,8 @@ library.add(
 	faVuejs,
 	faTimes,
 	faSkull,
-	fasSwords
+	fasSwords,
+	falDiceD20
 );
 Vue.use(VueRouter);
 Vue.use(Vuetify, {

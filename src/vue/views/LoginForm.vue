@@ -5,7 +5,10 @@
 		align-center
 		justify-center
 	>
-		<v-flex xs12 lg4>
+		<v-flex
+			xs12
+			lg4
+		>
 			<v-card>
 				<v-card-title>
 					<form @submit.prevent>
@@ -48,6 +51,7 @@
 
 <script>
 	import Axios from 'axios'
+	import { mapGetters, mapActions } from 'vuex'
 	import { userAuthMixin } from '../mixins/userAuthMixin'
 	import { setTimeout } from 'timers';
 
@@ -62,6 +66,7 @@
 			// this.redirectIfLoggedIn()
 		},
 		methods: {
+			...mapActions(['setLoadingState']),
 			sendForm() {
 				let _this = this
 
@@ -70,13 +75,15 @@
 					password: this.password
 				}
 
+				this.setLoadingState(true)
 
+				setTimeout(() => {
+					_this.login(userInfo).then(result => {
+						localStorage.user_id = result.data.id
 
-				this.login(userInfo).then(result => {
-					localStorage.user_id = result.data.id
-
-					_this.$router.push({ path: `/user/${result.data.id}` })
-				})
+						_this.$router.push({ path: `/user/${result.data.id}` })
+					})
+				}, 2000) // simulate waiting for request
 			}
 		}
 	}
