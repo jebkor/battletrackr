@@ -5,7 +5,7 @@
 				<v-expansion-panel-content>
 					<div slot="header">
 						<p class="mb-1">
-							<b>{{ monster.name }}</b>
+							<b>{{ monster.name }}  |  {{ monster.id }}</b>
 							<font-awesome-icon icon="skull" class="fa-icon" v-if="monster.is_boss" />
 						</p>
 						<p class="mb-0">HP: {{ monster.current_health}} | {{ monster.max_health }} - {{ percentageHealth(monster) }}</p>
@@ -42,24 +42,28 @@
 </template>
 
 <script>
+	import { mapGetters, mapActions } from 'vuex'
+
 	export default {
 		name: "edit-boss-monster-tracker",
 
 		computed: {
+			...mapGetters(['MONSTERS']),
 			currentPath() {
 				return this.$route.params.id
 			},
 
 			stateMonsters() {
-				return this.$store.getters.MONSTERS
+				return this.MONSTERS
 			}
 		},
 
 		beforeMount() {
-			this.$store.dispatch('getMonsters', this.currentPath)
+			this.getMonsters(this.currentPath)
 		},
 
 		methods: {
+			...mapActions(['getMonsters', 'deleteMonster']),
 			// add value to current HP pool
 			addHitPoints(monster, val) {
 				if (monster.current_health < monster.max_health) {
@@ -98,7 +102,7 @@
 			},
 
 			  deleteThis(monster) {
-			    this.$store.dispatch('deleteMonster', monster)
+			    this.deleteMonster(monster)
 			  },
 
 			showChange(input) {

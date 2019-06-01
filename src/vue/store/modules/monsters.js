@@ -35,6 +35,7 @@ export default {
 						withCredentials: true
 					})
 					.then(response => {
+						console.log('response.data.monsters.rows: ', response.data.monsters.rows)
 						commit('setMonsters', response.data.monsters.rows)
 						commit('changeLoadingState', false)
 					})
@@ -63,7 +64,8 @@ export default {
 			commit,
 			dispatch
 		}, monster) {
-			Axios.delete(apiEndpoint + 'monster/' + monster.id)
+			console.log('Monster: ', monster)
+			Axios.delete(apiEndpoint + 'monsters/' + monster.id, { withCredentials: true})
 				.then(response => {
 					commit('deleteMonster', monster)
 				})
