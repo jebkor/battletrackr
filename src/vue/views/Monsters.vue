@@ -44,6 +44,7 @@
 
 		methods: {
 			...mapActions(['setLoadingState']),
+			...mapActions('monsters', ['getMonsters']),
 			correctUserRedirect() {
 				const params_id = this.$route.params.id
 				const storage_user_id = localStorage.getItem('user_id')
