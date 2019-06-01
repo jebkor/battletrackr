@@ -22,7 +22,8 @@ import {
 	faFile,
 	faDungeon,
 	faTimes,
-	faSkull
+	faSkull,
+	faSkullCrossbones
 } from '@fortawesome/free-solid-svg-icons';
 
 import {
@@ -54,7 +55,8 @@ library.add(
 	faTimes,
 	faSkull,
 	fasSwords,
-	falDiceD20
+	falDiceD20,
+	faSkullCrossbones
 );
 Vue.use(VueRouter);
 Vue.use(Vuetify, {

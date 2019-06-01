@@ -93,6 +93,18 @@
 							</v-card-text>
 						</v-card>
 					</v-expansion-panel-content>
+
+					<div
+						v-if="monster.current_health == 0"
+						class="dead-overlay"
+					>
+						<font-awesome-icon
+							icon="skull-crossbones"
+							class="fa-icon"
+						/>
+
+						<v-btn color="secondary">Ressurect?</v-btn>
+					</div>
 				</v-expansion-panel>
 			</transition>
 		</v-flex>
@@ -172,14 +184,38 @@
 
 <style lang="scss" scoped>
 .edit-boss-monster-tracker {
-	// margin: 0 auto;
-	// position: relative;
+	position: relative;
+
+	.v-expansion-panel {
+		position: relative;
+	}
 
 	&.dead {
-		opacity: 0.4;
+		.v-expansion-panel .dead-overlay {
+			display: flex;
+			flex-direction: column;
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+			background-color: hsla(0, 0%, 0%, 0.3);
 
-		p {
-			text-decoration: line-through;
+			.fa-icon {
+				width: 75px;
+				height: 75px;
+				align-self: center;
+				margin-top: 25px;
+				path {
+					fill: #fff;
+				}
+			}
+
+			button.v-btn {
+				align-self: center;
+				max-width: 125px;
+				margin-top: 50px;
+			}
 		}
 	}
 }
@@ -188,5 +224,6 @@
 	position: absolute;
 	right: 9px;
 	top: 3px;
+	z-index: 888;
 }
 </style>
