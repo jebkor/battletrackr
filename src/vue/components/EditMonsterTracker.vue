@@ -1,42 +1,100 @@
 <template>
-	<v-layout align-start justify-start row wrap>
-		<v-flex xs12 lg4 class="edit-boss-monster-tracker" :class="{ 'dead': monster.current_health == 0 }" v-for="(monster, i) in stateMonsters" :key="i">
-			<v-expansion-panel expand>
-				<v-expansion-panel-content>
-					<div slot="header">
-						<p class="mb-1">
-							<b>{{ monster.name }}  |  {{ monster.id }}</b>
-							<font-awesome-icon icon="skull" class="fa-icon" v-if="monster.is_boss" />
-						</p>
-						<p class="mb-0">HP: {{ monster.current_health}} | {{ monster.max_health }} - {{ percentageHealth(monster) }}</p>
+	<v-layout
+		align-start
+		justify-start
+		row
+		wrap
+	>
+		<v-flex
+			xs12
+			lg4
+			class="edit-boss-monster-tracker"
+			:class="{ 'dead': monster.current_health == 0 }"
+			v-for="(monster, i) in stateMonsters"
+			:key="i"
+		>
+			<transition
+				name="fade-in-right"
+				mode="out-in"
+				appear
+				key="1"
+			>
+				<v-expansion-panel expand>
+					<v-expansion-panel-content>
+						<div slot="header">
+							<p class="mb-1">
+								<b>{{ monster.name }}</b>
+								<font-awesome-icon
+									icon="skull"
+									class="fa-icon"
+									v-if="monster.is_boss"
+								/>
+							</p>
+							<p
+								class="mb-0"
+							>HP: {{ monster.current_health}} | {{ monster.max_health }} - {{ percentageHealth(monster) }}</p>
 
-						<span class="delete-icon" @click="deleteThis(monster)">
-							<font-awesome-icon icon="times" class="fa-icon" />
-						</span>
-					</div>
+							<span
+								class="delete-icon"
+								@click="deleteThis(monster)"
+							>
+								<font-awesome-icon
+									icon="times"
+									class="fa-icon"
+								/>
+							</span>
+						</div>
 
-					<v-divider></v-divider>
+						<v-divider></v-divider>
 
-					<v-card>
-						<v-card-text>
-							<v-layout row wrap>
-								<v-flex xs12 lg6>
-									<v-btn block @click.native="addHitPoints(monster, 10)">+10</v-btn>
-								</v-flex>
-								<v-flex xs12 lg6>
-									<v-btn block @click.native="addHitPoints(monster, 1)">+1</v-btn>
-								</v-flex>
-								<v-flex xs12 lg6>
-									<v-btn block @click.native="subtractHitPoints(monster, 1)">-1</v-btn>
-								</v-flex>
-								<v-flex xs12 lg6>
-									<v-btn block @click.native="subtractHitPoints(monster, 10)">-10</v-btn>
-								</v-flex>
-							</v-layout>
-						</v-card-text>
-					</v-card>
-				</v-expansion-panel-content>
-			</v-expansion-panel>
+						<v-card>
+							<v-card-text>
+								<v-layout
+									row
+									wrap
+								>
+									<v-flex
+										xs12
+										lg6
+									>
+										<v-btn
+											block
+											@click.native="addHitPoints(monster, 10)"
+										>+10</v-btn>
+									</v-flex>
+									<v-flex
+										xs12
+										lg6
+									>
+										<v-btn
+											block
+											@click.native="addHitPoints(monster, 1)"
+										>+1</v-btn>
+									</v-flex>
+									<v-flex
+										xs12
+										lg6
+									>
+										<v-btn
+											block
+											@click.native="subtractHitPoints(monster, 1)"
+										>-1</v-btn>
+									</v-flex>
+									<v-flex
+										xs12
+										lg6
+									>
+										<v-btn
+											block
+											@click.native="subtractHitPoints(monster, 10)"
+										>-10</v-btn>
+									</v-flex>
+								</v-layout>
+							</v-card-text>
+						</v-card>
+					</v-expansion-panel-content>
+				</v-expansion-panel>
+			</transition>
 		</v-flex>
 	</v-layout>
 </template>
@@ -101,9 +159,9 @@
 				return result + "%";
 			},
 
-			  deleteThis(monster) {
-			    this.deleteMonster(monster)
-			  },
+			deleteThis(monster) {
+				this.deleteMonster(monster)
+			},
 
 			showChange(input) {
 				console.log(input);
