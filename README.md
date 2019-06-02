@@ -11,10 +11,17 @@ It is not currently possible to support the project since it's still in its infa
 
 ## Contributing
 
-Check out the [Contributing Guide](./CONTRIBUTING.md) if you want to join the development.
+1. Fork it!
+2. Create your feature branch: `git checkout -b my-new-feature`
+3. Commit your changes: `git commit -am 'Add some feature'`
+4. Push to the branch: `git push origin my-new-feature`
+5. Submit a pull request :D
 
 
 
-## License
+## Author
 
-MIT &copy; [jebkor](https://jebkor.dk)
+**BattleTrackr** © [jebkor](https://github.com/jebkor), Released under the [MIT](https://opensource.org/licenses/MIT) License.<br>
+Authored and maintained by jebkor.
+
+> [jebkor.dk](https://jebkor.dk) · GitHub [@jebkor](https://github.com/jebkor) · Twitter [@jebkor_](https://twitter.com/jebkor_)
