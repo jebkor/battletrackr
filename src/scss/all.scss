@@ -8,21 +8,6 @@
 }
 
 
-.fade-enter-active,
-.fade-leave-active {
-  transition-property: opacity;
-  transition-duration: .25s;
-}
-
-.fade-enter-active {
-  transition-delay: .25s;
-}
-
-.fade-enter,
-.fade-leave-active {
-  opacity: 0
-}
-
 .edit-boss-monster-tracker .v-input--checkbox {
   height: 30px;
   
@@ -30,3 +15,11 @@
     margin: 0 auto !important;
   }
 }
+
+.fade-enter-active, .fade-leave-active {
+	transition: opacity .3s ease;
+  }
+  .fade-enter, .fade-leave-to
+  /* .component-fade-leave-active below version 2.1.8 */ {
+	opacity: 0;
+  }

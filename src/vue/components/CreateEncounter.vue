@@ -2,7 +2,7 @@
 	<v-layout
 		row wrap
 	>
-		<v-flex xs12>
+		<v-flex xs12 lg3>
 			<v-card>
 				<v-card-text>
 					<v-form
@@ -26,6 +26,7 @@
 
 <script>
 	import Axios from 'axios'
+	import { mapActions } from 'vuex'
 
 	export default {
 		name: 'create-encounter',
@@ -33,12 +34,18 @@
 			encounterName: '',
 		}),
 		methods: {
+			...mapActions(['saveEncounter']),
 			addEncounter() {
 				let _this = this
 
+				const user_id = localStorage.getItem('user_id') ? localStorage.getItem('user_id') : this.$route.params.id
+				console.log('user_id: ', user_id)
+
 				// setup encounter creation command
 				let command = {
-					name: this.encounterName
+					name: this.encounterName,
+					user_id,
+					created_at: new Date()
 				};
 
 
@@ -46,7 +53,7 @@
 					// push monster to array
 					// this.$store.state.encounters.push(command);
 
-					_this.$store.dispatch('saveEncounter', command)
+					this.saveEncounter(command)
 					_this.encounterName = null;
 
 					// Axios.post('http://localhost:3000/encounters', command).then(success => {

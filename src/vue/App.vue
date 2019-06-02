@@ -13,37 +13,43 @@
 			<v-toolbar-title>Health Tracker</v-toolbar-title>
 		</v-toolbar>
 
-		<v-content>
+		<v-content v-cloak>
 			<v-container
 				fluid
 				fill-height
 				grid-list-lg
 			>
-				<v-layout
-					row
-					wrap
+				<transition
+					name="fade-in-right"
+					mode="out-in"
 				>
-					<v-flex xs12>
-						<transition>
-							<router-view></router-view>
-						</transition>
-					</v-flex>
+					<router-view></router-view>
+				</transition>
 
-					<v-flex xs12>
-						<v-switch
-							:label="'Dark theme'"
-							v-model="darkTheme"
-							@change="setDarkMode(darkTheme)"
-						></v-switch>
-					</v-flex>
-				</v-layout>
+				<!-- <v-btn @click="logout()">Logout</v-btn>
+				<v-switch
+					:label="'Dark theme'"
+					v-model="darkTheme"
+					@change="setDarkMode(darkTheme)"
+				></v-switch> -->
 			</v-container>
 		</v-content>
+
+		<div v-if="LOADING" class="loader">
+			<font-awesome-icon
+				:icon="['fal', 'dice-d20']"
+				class="fa-icon rotating"
+			/>
+		</div>
 	</v-app>
 </template>
 
 <script>
+	import { mapGetters, mapActions } from 'vuex'
+	import { userAuthMixin } from './mixins/userAuthMixin'
+
 	export default {
+		mixins: [userAuthMixin],
 		data() {
 			return {
 				drawer: false,
@@ -57,6 +63,10 @@
 		mounted() {
 			// Set the dark theme on mount
 			this.darkTheme = this.loadDarkMode()
+		},
+
+		computed: {
+			...mapGetters(['LOADING'])
 		},
 
 		methods: {
@@ -79,7 +89,7 @@
 			// Watch the prop for changes to apply the correct darkTheme value
 			darkTheme() {
 				this.darkTheme = this.loadDarkMode()
-			}
+			},
 		}
 	}
 </script>

@@ -5,22 +5,33 @@ import NProgress from 'nprogress';
 import Home from '../views/Home.vue'
 import Encounters from '../views/Encounters.vue'
 import Monsters from '../views/Monsters.vue'
+import LoginForm from '../views/LoginForm.vue'
+import SignupForm from '../views/SignupForm.vue'
+import User from '../views/User.vue'
 
 // Initialize and setup the routes
 const Routes = new Router({
 	routes: [{
 			path: '/',
-			name: 'home',
-			component: Home,
+			name: 'login',
+			component: LoginForm,
 		}, {
-			path: '/encounters',
+			path: '/user/:id/encounters',
 			name: 'encounters',
 			component: Encounters
 		}, {
-			path: '/encounters/:id',
+			path: '/user/:id/encounters/:encounterId',
 			name: 'encounter',
 			component: Monsters
-		}
+		}, {
+			path: '/user/:id',
+			name: 'user',
+			component: User
+		},{
+			path: '/signup',
+			name: 'signup',
+			component: SignupForm
+		},
 		// {
 		//   path: '/',
 		//   redirect: '/login'
@@ -45,16 +56,16 @@ const Routes = new Router({
 
 
 // Add the nprogress loader to route change
-Routes.beforeResolve((to, from, next) => {
-	if (to.name) {
-		NProgress.start();
-	}
-	next();
-});
+// Routes.beforeResolve((to, from, next) => {
+// 	if (to.name) {
+// 		NProgress.start();
+// 	}
+// 	next();
+// });
 
-Routes.afterEach((to, from) => {
-	NProgress.done();
-});
+// Routes.afterEach((to, from) => {
+// 	NProgress.done();
+// });
 
 
 // if firebase
