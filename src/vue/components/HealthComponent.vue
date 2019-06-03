@@ -2,21 +2,24 @@
 	<v-layout
 		row
 		wrap
+		class="health__component"
 	>
 		<v-flex
 			xs4
 			align-self-center
 			justify-self-center
+			class="health__component__inputs"
 		>
 			<label for>Heal</label>
 			<input
 				type="text"
 				v-model="heal"
+				class="input--heal"
 			>
 			<input
 				type="text"
 				v-model="damage"
-				class="mt-3"
+				class="mt-3 input--damage"
 			>
 			<label for>Damage</label>
 		</v-flex>
@@ -25,18 +28,25 @@
 			xs4
 			align-self-center
 			justify-self-center
+			class="health__component__notch"
 		>
-			<v-touch
-				v-on:panup="healMonster"
-				v-on:pandown="damageMonster"
-				style="height: 180px; width: 35px; background-color: hsl(0, 0%, 90%);"
-			></v-touch>
+			<div class="scrollwheel">
+				<div class="scrollwheel-bg"></div>
+				<v-touch
+					ref="health_notch"
+					class="health_notch"
+					v-on:panup="healMonster"
+					v-on:pandown="damageMonster"
+					v-bind:style="{ backgroundPosition: 'center ' + counter + 'px' }"
+				></v-touch>
+			</div>
 		</v-flex>
 
 		<v-flex
 			xs4
 			align-self-center
 			justify-self-center
+			class="health__component__buttons"
 		>
 			<v-btn
 				color="primary"
@@ -48,10 +58,18 @@
 			>-</v-btn>
 		</v-flex>
 
-
-		<v-flex xs12 justify-self-center v-if="healthChange">
-			<v-btn color="primary">Apply changes</v-btn>
-			<v-btn color="primary" outline @click="cancelHealthChange">Cancel</v-btn>
+		<v-flex
+			xs12
+			justify-self-center
+			v-if="healthChange"
+			class="health__component__save-buttons"
+		>
+			<v-btn color="primary">Apply</v-btn>
+			<v-btn
+				color="primary"
+				outline
+				@click="cancelHealthChange"
+			>Cancel</v-btn>
 		</v-flex>
 	</v-layout>
 </template>
@@ -63,14 +81,11 @@
 		props: ['data'],
 
 		data: () => ({
+			counter: 0,
 			heal: 0,
 			damage: 0,
 			healthChange: false
 		}),
-
-		mounted() {
-			console.log('data: ', this.data)
-		},
 
 		methods: {
 			healMonster() {
@@ -80,6 +95,7 @@
 				} else {
 					this.heal++
 				}
+				this.counter--
 			},
 
 			damageMonster() {
@@ -89,6 +105,7 @@
 				} else {
 					this.damage++
 				}
+				this.counter++
 			},
 
 			cancelHealthChange() {
@@ -101,4 +118,94 @@
 </script>
 
 <style lang="scss" scoped>
+.health__component {
+	.scrollwheel {
+		padding: 0 30px;
+		margin: 6px 0;
+		position: relative;
+		height: 145px;
+
+		.scrollwheel-bg {
+			width: 48px;
+			height: 145px;
+			margin: 0 auto;
+			background: linear-gradient(
+				180deg,
+				#e1e9eb,
+				#f7f9f9 49.39%,
+				#e1e9eb
+			);
+			border: 1px solid #dee4eb;
+			border-radius: 6px;
+		}
+
+		.health_notch {
+			position: relative;
+			background: center 0 #fff url("../../assets/images/wheel-notch.png")
+				repeat-y;
+			position: absolute;
+			width: 36px;
+			top: 4px;
+			left: 50%;
+			bottom: 4px;
+			margin-left: -18px;
+			border-bottom: none;
+			border-top: none;
+			border-radius: 4px;
+
+			&:after {
+				content: " ";
+				position: absolute;
+				right: 0;
+				left: 0;
+				bottom: 0;
+				top: 0;
+				background: linear-gradient(
+					180deg,
+					rgba(126, 137, 140, 0.9),
+					rgba(153, 161, 164, 0.7) 3%,
+					rgba(203, 210, 213, 0.7) 18.83%,
+					rgba(247, 249, 249, 0.2) 49.39%,
+					rgba(203, 210, 213, 0.7) 79.64%,
+					rgba(153, 162, 164, 0.7) 98%,
+					rgba(126, 137, 140, 0.9)
+				);
+				box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.13);
+				border: 1px solid #8e9da8;
+				border-bottom-color: #8e8d8d;
+				border-radius: 4px;
+			}
+		}
+	}
+
+	&__inputs {
+		input {
+			border-radius: 4px;
+			padding: 7px 15px;
+			max-width: 100%;
+			font-weight: bolder;
+
+			&.input--heal {
+				border: 1px solid hsl(110, 35%, 50%);
+				color: hsl(110, 35%, 50%);
+			}
+
+			&.input--damage {
+				border: 1px solid hsl(0, 50%, 50%);
+				color: hsl(0, 50%, 50%)
+			}
+
+			
+		}
+	}
+
+	&__buttons {
+
+	}
+
+	&__save-buttons {
+		display: flex;
+		justify-content: center;
+	}
+}
 </style>
