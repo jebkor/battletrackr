@@ -11,7 +11,7 @@
   "scripts": {
     "analyze": "webpack --progress --config webpack.test.config.js",
     "webpack-dev": "webpack --config webpack.dev.config.js --progress --watch",
-    "server": "http-server -p 4000",
+    "server": "http-server -p 4001",
     "style-watch": "gulp sass-watch",
     "start": "npm-run-all -p -r webpack-dev server",
     "build": "run-s patch webpack-build && gulp",
@@ -79,9 +79,9 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.18",
     "@fortawesome/free-brands-svg-icons": "^5.8.2",
     "@fortawesome/free-solid-svg-icons": "^5.8.2",
-    "@fortawesome/pro-solid-svg-icons": "^5.8.2",
-    "@fortawesome/pro-regular-svg-icons": "^5.8.2",
     "@fortawesome/pro-light-svg-icons": "^5.8.2",
+    "@fortawesome/pro-regular-svg-icons": "^5.8.2",
+    "@fortawesome/pro-solid-svg-icons": "^5.8.2",
     "@fortawesome/vue-fontawesome": "^0.1.6",
     "axios": "^0.18.0",
     "body-parser": "^1.19.0",
@@ -100,6 +100,7 @@
     "vue-page-transition": "^0.2.2",
     "vue-progressbar": "^0.7.5",
     "vue-router": "^3.0.1",
+    "vue-touch": "^2.0.0-beta.4",
     "vuetify": "^1.5.14",
     "vuex": "^3.1.0"
   }

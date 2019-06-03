@@ -11,6 +11,8 @@ import Notify from 'vue-notifyjs/dist/vue-notifyjs';
 import VueProgressBar from 'vue-progressbar';
 import VeeValidate from 'vee-validate'
 import VuePageTransition from 'vue-page-transition'
+import VueTouch from 'vue-touch'
+
 
 import {
 	library
@@ -70,6 +72,7 @@ Vue.use(Vuetify, {
 		warning: '#FFC107'
 	}
 });
+Vue.use(VueTouch, { name: 'v-touch'})
 Vue.use(Notify, {
 	type: 'primary',
 	timeout: 5000,

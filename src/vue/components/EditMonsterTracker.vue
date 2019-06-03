@@ -49,47 +49,7 @@
 
 						<v-card>
 							<v-card-text>
-								<v-layout
-									row
-									wrap
-								>
-									<v-flex
-										xs12
-										lg6
-									>
-										<v-btn
-											block
-											@click.native="addHitPoints(monster, 10)"
-										>+10</v-btn>
-									</v-flex>
-									<v-flex
-										xs12
-										lg6
-									>
-										<v-btn
-											block
-											@click.native="addHitPoints(monster, 1)"
-										>+1</v-btn>
-									</v-flex>
-									<v-flex
-										xs12
-										lg6
-									>
-										<v-btn
-											block
-											@click.native="subtractHitPoints(monster, 1)"
-										>-1</v-btn>
-									</v-flex>
-									<v-flex
-										xs12
-										lg6
-									>
-										<v-btn
-											block
-											@click.native="subtractHitPoints(monster, 10)"
-										>-10</v-btn>
-									</v-flex>
-								</v-layout>
+								<health-component :data="monster"/>
 							</v-card-text>
 						</v-card>
 					</v-expansion-panel-content>
@@ -103,7 +63,10 @@
 							class="fa-icon"
 						/>
 
-						<v-btn color="info" @click="addHitPoints(monster, 1)">Ressurect?</v-btn>
+						<v-btn
+							color="info"
+							@click="addHitPoints(monster, 1)"
+						>Ressurect?</v-btn>
 					</div>
 				</v-expansion-panel>
 			</transition>
@@ -113,9 +76,14 @@
 
 <script>
 	import { mapGetters, mapActions } from 'vuex'
+	import HealthComponent from './HealthComponent'
 
 	export default {
 		name: "edit-boss-monster-tracker",
+
+		components: {
+			HealthComponent
+		},
 
 		computed: {
 			...mapGetters(['MONSTERS']),
@@ -134,6 +102,7 @@
 
 		methods: {
 			...mapActions(['getMonsters', 'deleteMonster']),
+
 			// add value to current HP pool
 			addHitPoints(monster, val) {
 				if (monster.current_health < monster.max_health) {
