@@ -1,5 +1,6 @@
 import Axios from 'axios'
-const apiEndpoint = 'https://battletrackr-api-production.herokuapp.com/'
+
+const apiEndpoint = process.env.API_ENDPOINT
 
 
 export default {
@@ -31,7 +32,7 @@ export default {
 		}, command) {
 			if (command.user_id && command.encounter_id) {
 
-				Axios.get(apiEndpoint + `user/${command.user_id}/encounters/${command.encounter_id}`, {
+				Axios.get(apiEndpoint + `/user/${command.user_id}/encounters/${command.encounter_id}`, {
 						withCredentials: true
 					})
 					.then(response => {
@@ -43,7 +44,7 @@ export default {
 		},
 
 		saveMonster(context, payload) {
-			Axios.post(apiEndpoint + 'monsters/', {
+			Axios.post(apiEndpoint + '/monsters/', {
 					name: payload.name,
 					is_boss: payload.is_boss,
 					max_health: payload.max_health,
@@ -65,7 +66,7 @@ export default {
 			dispatch
 		}, monster) {
 			console.log('Monster: ', monster)
-			Axios.delete(apiEndpoint + 'monsters/' + monster.id, { withCredentials: true})
+			Axios.delete(apiEndpoint + '/monsters/' + monster.id, { withCredentials: true})
 				.then(response => {
 					commit('deleteMonster', monster)
 				})
