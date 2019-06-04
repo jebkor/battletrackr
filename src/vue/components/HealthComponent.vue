@@ -64,7 +64,7 @@
 			v-if="healthChange"
 			class="health__component__save-buttons"
 		>
-			<v-btn color="primary">Apply</v-btn>
+			<v-btn color="primary" @click="saveHealth">Apply</v-btn>
 			<v-btn
 				color="primary"
 				outline
@@ -106,6 +106,24 @@
 					this.damage++
 				}
 				this.counter++
+			},
+
+			saveHealth() {
+				let value
+				let type
+
+				if (this.heal > 0) {
+					value = this.heal
+					type = 'heal'
+				} else {
+					value = this.damage
+					type = 'damage'
+				}
+
+				this.$emit('save-health', value, type, this.data)
+				this.counter = 0
+				this.heal = 0
+				this.damage = 0
 			},
 
 			cancelHealthChange() {

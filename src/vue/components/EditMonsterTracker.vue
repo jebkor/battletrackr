@@ -10,8 +10,7 @@
 			lg4
 			class="edit-boss-monster-tracker"
 			:class="{ 'dead': monster.current_health == 0 }"
-			v-for="(monster, i) in stateMonsters"
-			:key="i"
+			
 		>
 			<transition
 				name="fade-in-right"
@@ -49,7 +48,7 @@
 
 						<v-card>
 							<v-card-text>
-								<health-component :data="monster"/>
+								<health-component :data="monster" @save-health="saving" />
 							</v-card-text>
 						</v-card>
 					</v-expansion-panel-content>
@@ -81,23 +80,10 @@
 	export default {
 		name: "edit-boss-monster-tracker",
 
+		props: ['monster'],
+
 		components: {
 			HealthComponent
-		},
-
-		computed: {
-			...mapGetters(['MONSTERS']),
-			currentPath() {
-				return this.$route.params.id
-			},
-
-			stateMonsters() {
-				return this.MONSTERS
-			}
-		},
-
-		beforeMount() {
-			this.getMonsters(this.currentPath)
 		},
 
 		methods: {
@@ -138,6 +124,20 @@
 				let result = Math.floor(percentage * 100);
 
 				return result + "%";
+			},
+
+			saving(value, type, monster) {
+				if (type == 'damage') {
+					this.monster.current_health -= value
+					if (this.monster.current_health - value < 0) {
+						this.monster.current_health = 0
+					}
+				} else if (type == 'heal') {
+					this.monster.current_health += value
+					if (this.monster.current_health + value > this.monster.max_health) {
+						this.monster.current_health = this.monster.max_health
+					}
+				}
 			},
 
 			deleteThis(monster) {

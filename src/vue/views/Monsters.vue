@@ -14,7 +14,7 @@
 				<create-monster-tracker/>
 			</v-layout>
 
-			<edit-monster-tracker/>
+			<edit-monster-tracker v-for="(monster, i) in stateMonsters" :monster="monster" />
 			<!-- <p v-for="(monster, i) in stateMonsters" :key="i">{{ monster.name }} </p> -->
 		</v-flex>
 	</v-layout>
@@ -23,7 +23,7 @@
 <script>
 	import Vue from 'vue'
 	import Axios from 'axios'
-	import { mapActions } from 'vuex'
+	import { mapGetters, mapActions } from 'vuex'
 	import CreateMonsterTracker from '../components/CreateMonsterTracker.vue'
 	import EditMonsterTracker from '../components/EditMonsterTracker.vue'
 
@@ -38,8 +38,25 @@
 		data: () => ({
 			encounterMonsters: []
 		}),
+		
+
+		computed: {
+			...mapGetters(['MONSTERS']),
+			currentPath() {
+				return this.$route.params.id
+			},
+
+			stateMonsters() {
+				return this.MONSTERS
+			}
+		},
+
 		created() {
 			this.correctUserRedirect()
+		},
+
+		mounted() {
+			console.log("fe:", this.stateMonsters)
 		},
 
 		methods: {
