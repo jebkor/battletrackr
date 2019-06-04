@@ -1,19 +1,20 @@
 import Axios from 'axios'
+const apiEndpoint = 'https://battletrackr-api-production.herokuapp.com'
 
 export const userAuthMixin = {
 	methods: {
 		getUserInfo(id) {
-			Axios.get(`http://localhost:3000/auth/user/${id}`)
+			Axios.get(`${apiEndpoint}/auth/user/${id}`)
 		},
 
 		login(user) {
-			return Axios.post('http://localhost:3000/auth/login', user, {
+			return Axios.post(`${apiEndpoint}/auth/login`, user, {
 				withCredentials: true
 			})
 		},
 
 		signup(user) {
-			Axios.post('http://localhost:3000/auth/signup', user, {
+			Axios.post(`${apiEndpoint}/auth/signup`, user, {
 				withCredentials: true
 			}).then(result => {
 				return result.data
@@ -32,7 +33,7 @@ export const userAuthMixin = {
 			let _this = this
 
 			localStorage.removeItem('user_id')
-			return Axios.get('http://localhost:3000/auth/logout', {
+			return Axios.get(`${apiEndpoint}/auth/logout`, {
 				withCredentials: true
 			}).then(result => {
 				_this.$router.push({ path: '/'}) // redirect to frontpage
