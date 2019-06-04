@@ -74,6 +74,7 @@
 </template>
 
 <script>
+	import Axios from 'axios'
 	import { mapGetters, mapActions } from 'vuex'
 	import HealthComponent from './HealthComponent'
 
@@ -138,6 +139,13 @@
 						this.monster.current_health = this.monster.max_health
 					}
 				}
+
+				Axios.put(`http://localhost:3000/monsters/${this.monster.id}`, {
+					id: this.monster.id,
+					current_health: this.monster.current_health	
+				}, {
+					withCredentials: true
+				})
 			},
 
 			deleteThis(monster) {

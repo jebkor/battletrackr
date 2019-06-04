@@ -124,6 +124,7 @@
 				this.counter = 0
 				this.heal = 0
 				this.damage = 0
+				this.healthChange = false
 			},
 
 			cancelHealthChange() {
