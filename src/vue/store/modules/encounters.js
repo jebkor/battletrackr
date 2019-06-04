@@ -1,5 +1,5 @@
 import Axios from 'axios'
-const apiEndpoint = 'http://localhost:3000/'
+const apiEndpoint = 'https://battletrackr-api-production.herokuapp.com'
 
 
 export default {
@@ -29,7 +29,7 @@ export default {
 		getEncounters({
 			commit
 		}, user_id) {
-			Axios.get(apiEndpoint + `user/${user_id}`, {
+			Axios.get(`${apiEndpoint}/user/${user_id}`, {
 					withCredentials: true
 				})
 				.then(response => {
@@ -40,7 +40,7 @@ export default {
 		},
 
 		saveEncounter(context, payload) {
-			Axios.post(apiEndpoint + 'encounters', {
+			Axios.post(`${apiEndpoint}/encounters`, {
 					name: payload.name,
 					user_id: payload.user_id,
 					created_at: payload.created_at
@@ -54,7 +54,7 @@ export default {
 			commit,
 			dispatch
 		}, encounter) {
-			Axios.delete(apiEndpoint + 'encounters/' + encounter.id)
+			Axios.delete(`${apiEndpoint}/encounters/${encounter.id}`)
 				.then(response => {
 					commit('deleteEncounter', encounter)
 				})

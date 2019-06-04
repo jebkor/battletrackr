@@ -1,5 +1,5 @@
 import Axios from 'axios'
-const apiEndpoint = 'http://localhost:3000/'
+const apiEndpoint = 'https://battletrackr-api-production.herokuapp.com/'
 
 
 export default {

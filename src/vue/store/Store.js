@@ -8,8 +8,6 @@ import encountersModule from './modules/encounters'
 Vue.use(Vuex);
 
 
-const apiEndpoint = 'http://localhost:3000/'
-
 
 let store = new Vuex.Store({
 	modules: {
