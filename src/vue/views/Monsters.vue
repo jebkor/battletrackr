@@ -14,7 +14,16 @@
 				<create-monster-tracker/>
 			</v-layout>
 
-			<edit-monster-tracker v-for="(monster, i) in stateMonsters" :monster="monster" />
+			<v-layout
+				align-start
+				justify-start
+				row
+				wrap
+			>
+
+				<edit-monster-tracker v-for="(monster, i) in stateMonsters" :monster="monster" />
+			
+			</v-layout>
 			<!-- <p v-for="(monster, i) in stateMonsters" :key="i">{{ monster.name }} </p> -->
 		</v-flex>
 	</v-layout>

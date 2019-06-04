@@ -1,76 +1,71 @@
 <template>
-	<v-layout
-		align-start
-		justify-start
-		row
-		wrap
+	<v-flex
+		xs12
+		lg4
+		class="edit-boss-monster-tracker"
+		:class="{ 'dead': monster.current_health == 0 }"
 	>
-		<v-flex
-			xs12
-			lg4
-			class="edit-boss-monster-tracker"
-			:class="{ 'dead': monster.current_health == 0 }"
-			
+		<transition
+			name="fade-in-right"
+			mode="out-in"
+			appear
+			key="1"
 		>
-			<transition
-				name="fade-in-right"
-				mode="out-in"
-				appear
-				key="1"
-			>
-				<v-expansion-panel expand>
-					<v-expansion-panel-content>
-						<div slot="header">
-							<p class="mb-1">
-								<b>{{ monster.name }}</b>
-								<font-awesome-icon
-									icon="skull"
-									class="fa-icon"
-									v-if="monster.is_boss"
-								/>
-							</p>
-							<p
-								class="mb-0"
-							>HP: {{ monster.current_health}} | {{ monster.max_health }} - {{ percentageHealth(monster) }}</p>
+			<v-expansion-panel expand>
+				<v-expansion-panel-content>
+					<div slot="header">
+						<p class="mb-1">
+							<b>{{ monster.name }}</b>
+							<font-awesome-icon
+								icon="skull"
+								class="fa-icon"
+								v-if="monster.is_boss"
+							/>
+						</p>
+						<p
+							class="mb-0"
+						>HP: {{ monster.current_health}} | {{ monster.max_health }} - {{ percentageHealth(monster) }}</p>
 
-							<span
-								class="delete-icon"
-								@click="deleteThis(monster)"
-							>
-								<font-awesome-icon
-									icon="times"
-									class="fa-icon"
-								/>
-							</span>
-						</div>
-
-						<v-divider></v-divider>
-
-						<v-card>
-							<v-card-text>
-								<health-component :data="monster" @save-health="saving" />
-							</v-card-text>
-						</v-card>
-					</v-expansion-panel-content>
-
-					<div
-						v-if="monster.current_health == 0"
-						class="dead-overlay"
-					>
-						<font-awesome-icon
-							icon="skull-crossbones"
-							class="fa-icon"
-						/>
-
-						<v-btn
-							color="info"
-							@click="addHitPoints(monster, 1)"
-						>Ressurect?</v-btn>
+						<span
+							class="delete-icon"
+							@click="deleteThis(monster)"
+						>
+							<font-awesome-icon
+								icon="times"
+								class="fa-icon"
+							/>
+						</span>
 					</div>
-				</v-expansion-panel>
-			</transition>
-		</v-flex>
-	</v-layout>
+
+					<v-divider></v-divider>
+
+					<v-card>
+						<v-card-text>
+							<health-component
+								:data="monster"
+								@save-health="saving"
+							/>
+						</v-card-text>
+					</v-card>
+				</v-expansion-panel-content>
+
+				<div
+					v-if="monster.current_health == 0"
+					class="dead-overlay"
+				>
+					<font-awesome-icon
+						icon="skull-crossbones"
+						class="fa-icon"
+					/>
+
+					<v-btn
+						color="info"
+						@click="addHitPoints(monster, 1)"
+					>Ressurect?</v-btn>
+				</div>
+			</v-expansion-panel>
+		</transition>
+	</v-flex>
 </template>
 
 <script>
@@ -142,10 +137,10 @@
 
 				Axios.put(`http://localhost:3000/monsters/${this.monster.id}`, {
 					id: this.monster.id,
-					current_health: this.monster.current_health	
+					current_health: this.monster.current_health
 				}, {
-					withCredentials: true
-				})
+						withCredentials: true
+					})
 			},
 
 			deleteThis(monster) {
