@@ -10,18 +10,28 @@
 			justify-self-center
 			class="health__component__inputs"
 		>
-			<label for>Heal</label>
-			<input
-				type="text"
-				v-model="heal"
-				class="input--heal"
-			>
-			<input
-				type="text"
-				v-model="damage"
-				class="mt-3 input--damage"
-			>
-			<label for>Damage</label>
+			<div class="input__wrapper">
+				<label for>Heal</label>
+				<input
+					type="text"
+					v-model="heal"
+					class="input--heal"
+				>
+			</div>
+
+			<div class="new__health-wrapper" :class="{ damaged: newHealth < data.current_health }">
+				<h3>New health</h3>
+				<h3>{{ newHealth }}</h3>
+			</div>
+
+			<div class="input__wrapper mt-3">
+				<input
+					type="text"
+					v-model="damage"
+					class="input--damage"
+				>
+				<label for>Damage</label>
+			</div>
 		</v-flex>
 
 		<v-flex
@@ -64,7 +74,10 @@
 			v-if="healthChange"
 			class="health__component__save-buttons"
 		>
-			<v-btn color="primary" @click="saveHealth">Apply</v-btn>
+			<v-btn
+				color="primary"
+				@click="saveHealth"
+			>Apply</v-btn>
 			<v-btn
 				color="primary"
 				outline
@@ -73,6 +86,7 @@
 		</v-flex>
 	</v-layout>
 </template>
+
 
 <script>
 	export default {
@@ -86,6 +100,25 @@
 			damage: 0,
 			healthChange: false
 		}),
+
+		computed: {
+			newHealth() {
+				if (this.heal > 0) {
+					if ((this.data.current_health + this.heal > this.data.max_health)) {
+						return this.data.max_health
+					}
+					return this.data.current_health + this.heal
+				} else if (this.damage > 0) {
+					if ((this.data.current_health - this.damage < 0)) {
+						return 0
+					}
+					return this.data.current_health - this.damage
+				}
+
+				return this.data.current_health
+
+			}
+		},
 
 		methods: {
 			healMonster() {
@@ -198,28 +231,56 @@
 	}
 
 	&__inputs {
-		input {
-			border-radius: 4px;
-			padding: 7px 15px;
-			max-width: 100%;
-			font-weight: bolder;
+		.input__wrapper {
+			position: relative;
 
-			&.input--heal {
-				border: 1px solid hsl(110, 35%, 50%);
-				color: hsl(110, 35%, 50%);
+			label {
+				justify-self: center;
+				position: absolute;
+				top: 5px;
+				left: 0;
+				right: 0;
+				text-align: center;
 			}
 
-			&.input--damage {
-				border: 1px solid hsl(0, 50%, 50%);
-				color: hsl(0, 50%, 50%)
-			}
+			input {
+				border-radius: 4px;
+				padding: 20px 15px 4px;
+				max-width: 100%;
+				font-weight: bolder;
+				text-align: center;
+				font-size: 2rem;
 
+				&.input--heal {
+					border: 1px solid hsl(110, 35%, 50%);
+					color: hsl(110, 35%, 50%);
+				}
+
+				&.input--damage {
+					border: 1px solid hsl(0, 50%, 50%);
+					color: hsl(0, 50%, 50%);
+				}
+			}
+		}
+
+		.new__health-wrapper {
+			padding: 20px 0 15px;
+
+			&.damaged {
+				color: hsl(0, 50%, 50%);
+			}
 			
+			h3 {
+				text-align: center;
+
+				& + h3 {
+					font-size: 1.7rem;
+				}
+			}
 		}
 	}
 
 	&__buttons {
-
 	}
 
 	&__save-buttons {
