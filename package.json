@@ -8,13 +8,14 @@
     "ie >= 9",
     "< 5%"
   ],
-  "apiEndpointProduction": "https://battletrackr-api-production.herokuapp.com",
-  "apiEndpointDevelopment": "http://localhost:3000",
+  "apiEndpointProd": "https://battletrackr-api-production.herokuapp.com",
   "scripts": {
-    "start": "npm-run-all -p -r webpack-dev server",
-    "webpack-dev": "set API_ENDPOINT=%npm_package_apiEndpointDevelopment%&& webpack --config webpack.dev.config.js --progress --watch",
+    "start": "npm-run-all -p -r webpack:dev server",
+    "start:build": "npm-run-all -p -r webpack:prod server",
+    "webpack:dev": "cross-env API_ENDPOINT='http://localhost:3000'&& webpack --config webpack.dev.config.js --progress --watch",
+    "webpack:prod": "cross-env API_ENDPOINT=$npm_package_apiEndpointProd&& webpack --config webpack.prod.config.js --progress --watch",
     "server": "http-server -p 4000",
-    "build": "webpack --progress --config webpack.prod.config.js",
+    "build": "SET API_ENDPOINT=%npm_package_apiEndpointProd%&& webpack --progress --config webpack.prod.config.js",
     "patch": "npm version patch",
     "analyze": "webpack --progress --config webpack.test.config.js"
   },
