@@ -8,6 +8,7 @@
 
 BattleTrackr.io is an web application made for all Dungeon Masters, Game Masters and the likes. It's a digital tool made to simplify the task of keeping track of the current health of the foes on the battlefield.
 
+<br/>
 
 ## Contributing
 
@@ -17,6 +18,7 @@ BattleTrackr.io is an web application made for all Dungeon Masters, Game Masters
 4. Push to the branch: `git push origin my-new-feature`
 5. Submit a pull request :D
 
+<br/>
 
 ## Author
 
