@@ -32,7 +32,6 @@ module.exports = {
   },
   plugins: [
     plugins.VueLoaderPlugin,
-    plugins.StyleLintPlugin,
 	plugins.MiniExtractPlugin,
 	new webpack.DefinePlugin({
 		'process.env.API_ENDPOINT': JSON.stringify(process.env.API_ENDPOINT)
