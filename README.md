@@ -5,13 +5,11 @@
 
 ## Introduction
 
-[INSERT NAME HERE] is an web application made for all Dungeon Masters, Game Masters and the likes. It's a digital tool made to simplify the task of keeping track of the current health of the foes on the battlefield.
+BattleTrackr.io is an web application made for all Dungeon Masters, Game Masters and the likes. It's a digital tool made to simplify the task of keeping track of the current health of the foes on the battlefield.
 
-## Supporting [INSERT NAME HERE]
+## Supporting BattleTrackr.io
 
-[INSERT NAME HERE] is an open source project. It's an independent project with its ongoing development.
-
-It is not currently possible to support the project since it's still in its infancy.
+Although BattleTrackr is an open-source project, you still have the option of supporting me, if you feel so inclined. Click the donate button on the top of this readme for more information.
 
 
 ## Contributing
@@ -26,7 +24,7 @@ It is not currently possible to support the project since it's still in its infa
 
 ## Author
 
-**BattleTrackr** © [jebkor](https://github.com/jebkor), Released under the [MIT](https://opensource.org/licenses/MIT) License.<br>
-Authored and maintained by jebkor.
+**BattleTrackr.io** © [jebkor](https://github.com/jebkor), Released under the [MIT](https://opensource.org/licenses/MIT) License.<br>
+Authored and maintained by @jebkor.
 
 > [jebkor.dk](https://jebkor.dk) · GitHub [@jebkor](https://github.com/jebkor) · Twitter [@jebkor_](https://twitter.com/jebkor_)
