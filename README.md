@@ -3,13 +3,10 @@
 <a href="https://github.com/jebkor/donate"><img src="https://img.shields.io/badge/$-donate-ff69b4.svg?maxAge=2592000&amp;style=flat" alt="donate"></a>
 </p>
 
+
 ## Introduction
 
 BattleTrackr.io is an web application made for all Dungeon Masters, Game Masters and the likes. It's a digital tool made to simplify the task of keeping track of the current health of the foes on the battlefield.
-
-## Supporting BattleTrackr.io
-
-Although BattleTrackr is an open-source project, you still have the option of supporting me, if you feel so inclined. Click the donate button on the top of this readme for more information.
 
 
 ## Contributing
@@ -19,7 +16,6 @@ Although BattleTrackr is an open-source project, you still have the option of su
 3. Commit your changes: `git commit -am 'Add some feature'`
 4. Push to the branch: `git push origin my-new-feature`
 5. Submit a pull request :D
-
 
 
 ## Author
