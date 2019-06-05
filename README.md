@@ -1,6 +1,6 @@
 <p align="center">
 <br>
-<a href="https://github.com/jebkor/donate"><img src="https://badgen.net/badge/support%20me/donate/ff69b4?maxAge=2592000&amp;style=flat" alt="donate"></a>
+<a href="https://github.com/jebkor/support-me"><img src="https://badgen.net/badge/support%20me/donate/ff69b4?maxAge=2592000&amp;style=flat" alt="donate"></a>
 </p>
 
 
