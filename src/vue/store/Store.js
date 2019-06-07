@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import Axios from "axios";
 
+import sharedModule from './modules/shared'
 import monstersModule from './modules/monsters'
 import encountersModule from './modules/encounters'
 
@@ -11,6 +12,7 @@ Vue.use(Vuex);
 
 let store = new Vuex.Store({
 	modules: {
+		shared: sharedModule,
 		monsters: monstersModule,
 		encounters: encountersModule
 	},

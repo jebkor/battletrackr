@@ -4,7 +4,7 @@
 		id="inspire"
 	>
 		<v-navigation-drawer
-			v-model="drawer"
+			:value="drawerState"
 			fixed
 			app
 			clipped
@@ -36,7 +36,7 @@
 			clipped-left
 			app
 		>
-			<v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+			<v-toolbar-side-icon @click.stop="handleDrawer()"></v-toolbar-side-icon>
 			<v-toolbar-title>BattleTrackr.io</v-toolbar-title>
 		</v-toolbar>
 
@@ -86,8 +86,7 @@
 				drawerMobile: false,
 				message: "stuff",
 				routes: this.$router.options.routes,
-				darkTheme: false,
-				drawer: true
+				darkTheme: false
 			}
 		},
 
@@ -97,10 +96,14 @@
 		},
 
 		computed: {
-			...mapGetters(['LOADING'])
+			...mapGetters(['LOADING', 'DRAWER_STATE']),
+			drawerState() {
+				return this.DRAWER_STATE
+			}
 		},
 
 		methods: {
+			...mapActions(['saveDrawerState']),
 			// Set the localStorage item
 			setDarkMode(input) {
 				window.localStorage.setItem('darkTheme', input)
@@ -113,6 +116,11 @@
 				// Convert the string value as a bool for use as a prop in the markup
 				if (darkMode == "true") return true
 				else if (darkMode == "false") return false
+			},
+
+			handleDrawer() {
+				let input = !this.drawerState
+				this.saveDrawerState(input)
 			}
 		},
 

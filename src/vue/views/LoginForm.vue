@@ -90,11 +90,6 @@
 				}, 2000) // simulate waiting for request
 			}
 		},
-		watch: {
-			rememberMe() {
-				console.log(this.rememberMe)
-			}
-		}
 	}
 </script>
 
