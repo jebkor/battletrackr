@@ -29,12 +29,16 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 import {
-	faSwords as fasSwords
+	faDiceD20
+} from '@fortawesome/pro-light-svg-icons'
+
+import {
+	faSwords
 } from '@fortawesome/pro-solid-svg-icons'
 
 import {
-	faDiceD20 as falDiceD20
-} from '@fortawesome/pro-light-svg-icons'
+	faAngleRight
+} from '@fortawesome/pro-regular-svg-icons'
 
 import {
 	faVuejs
@@ -56,9 +60,10 @@ library.add(
 	faVuejs,
 	faTimes,
 	faSkull,
-	fasSwords,
-	falDiceD20,
-	faSkullCrossbones
+	faSwords,
+	faDiceD20,
+	faSkullCrossbones,
+	faAngleRight
 );
 Vue.use(VueRouter);
 Vue.use(Vuetify, {
