@@ -3,14 +3,41 @@
 		:dark="darkTheme"
 		id="inspire"
 	>
+		<v-navigation-drawer
+			v-model="drawer"
+			fixed
+			app
+			clipped
+		>
+			<v-list dense>
+				<v-list-tile @click>
+					<v-list-tile-action>
+						<v-icon>home</v-icon>
+					</v-list-tile-action>
+					<v-list-tile-content>
+						<v-list-tile-title>Home</v-list-tile-title>
+					</v-list-tile-content>
+				</v-list-tile>
+				<v-list-tile @click>
+					<v-list-tile-action>
+						<v-icon>contact_mail</v-icon>
+					</v-list-tile-action>
+					<v-list-tile-content>
+						<v-list-tile-title>Contact</v-list-tile-title>
+					</v-list-tile-content>
+				</v-list-tile>
+			</v-list>
+		</v-navigation-drawer>
+
 		<v-toolbar
-			color="primary"
-			dark
+			color="red"
+			dense
 			fixed
 			clipped-left
 			app
 		>
-			<v-toolbar-title>Health Tracker</v-toolbar-title>
+			<v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+			<v-toolbar-title>BattleTrackr.io</v-toolbar-title>
 		</v-toolbar>
 
 		<v-content v-cloak>
@@ -31,11 +58,14 @@
 					:label="'Dark theme'"
 					v-model="darkTheme"
 					@change="setDarkMode(darkTheme)"
-				></v-switch> -->
+				></v-switch>-->
 			</v-container>
 		</v-content>
 
-		<div v-if="LOADING" class="loader">
+		<div
+			v-if="LOADING"
+			class="loader"
+		>
 			<font-awesome-icon
 				:icon="['fal', 'dice-d20']"
 				class="fa-icon rotating"
@@ -56,7 +86,8 @@
 				drawerMobile: false,
 				message: "stuff",
 				routes: this.$router.options.routes,
-				darkTheme: false
+				darkTheme: false,
+				drawer: true
 			}
 		},
 
