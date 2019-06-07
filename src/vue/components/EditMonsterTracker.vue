@@ -1,139 +1,71 @@
 <template>
-	<v-layout
-		align-start
-		justify-start
-		row
-		wrap
+	<v-flex
+		xs12
+		lg4
+		class="edit-boss-monster-tracker"
+		:class="{ 'dead': monster.current_health == 0 }"
 	>
-		<v-flex
-			xs12
-			lg4
-			class="edit-boss-monster-tracker"
-			:class="{ 'dead': monster.current_health == 0 }"
-			v-for="(monster, i) in stateMonsters"
-			:key="i"
+		<transition
+			name="fade-in-right"
+			mode="out-in"
+			appear
+			key="1"
 		>
-			<transition
-				name="fade-in-right"
-				mode="out-in"
-				appear
-				key="1"
-			>
-				<v-expansion-panel expand>
-					<v-expansion-panel-content>
-						<div slot="header">
-							<p class="mb-1">
-								<b>{{ monster.name }}</b>
-								<font-awesome-icon
-									icon="skull"
-									class="fa-icon"
-									v-if="monster.is_boss"
-								/>
-							</p>
-							<p
-								class="mb-0"
-							>HP: {{ monster.current_health}} | {{ monster.max_health }} - {{ percentageHealth(monster) }}</p>
+			<v-card>
+				<v-card-title primary-title>
+					<div>
+						<h3 class="headline">
+							{{ monster.name }}
+							<font-awesome-icon
+								icon="skull"
+								class="fa-icon"
+								v-if="monster.is_boss"
+							/>
+						</h3>
+						<span
+							class="grey--text"
+						>HP: {{ monster.current_health}} | {{ monster.max_health }} - {{ percentageHealth(monster) }}</span>
+					</div>
 
-							<span
-								class="delete-icon"
-								@click="deleteThis(monster)"
-							>
-								<font-awesome-icon
-									icon="times"
-									class="fa-icon"
-								/>
-							</span>
-						</div>
-
-						<v-divider></v-divider>
-
-						<v-card>
-							<v-card-text>
-								<v-layout
-									row
-									wrap
-								>
-									<v-flex
-										xs12
-										lg6
-									>
-										<v-btn
-											block
-											@click.native="addHitPoints(monster, 10)"
-										>+10</v-btn>
-									</v-flex>
-									<v-flex
-										xs12
-										lg6
-									>
-										<v-btn
-											block
-											@click.native="addHitPoints(monster, 1)"
-										>+1</v-btn>
-									</v-flex>
-									<v-flex
-										xs12
-										lg6
-									>
-										<v-btn
-											block
-											@click.native="subtractHitPoints(monster, 1)"
-										>-1</v-btn>
-									</v-flex>
-									<v-flex
-										xs12
-										lg6
-									>
-										<v-btn
-											block
-											@click.native="subtractHitPoints(monster, 10)"
-										>-10</v-btn>
-									</v-flex>
-								</v-layout>
-							</v-card-text>
-						</v-card>
-					</v-expansion-panel-content>
-
-					<div
-						v-if="monster.current_health == 0"
-						class="dead-overlay"
+					<span
+						class="delete-icon"
+						@click="deleteThis(monster)"
 					>
 						<font-awesome-icon
-							icon="skull-crossbones"
+							icon="times"
 							class="fa-icon"
 						/>
+					</span>
+				</v-card-title>
 
-						<v-btn color="info" @click="addHitPoints(monster, 1)">Ressurect?</v-btn>
-					</div>
-				</v-expansion-panel>
-			</transition>
-		</v-flex>
-	</v-layout>
+				<v-card-text>
+					<health-component
+						:data="monster"
+						@save-health="saving"
+					/>
+				</v-card-text>
+			</v-card>
+		</transition>
+	</v-flex>
 </template>
 
 <script>
+	import Axios from 'axios'
 	import { mapGetters, mapActions } from 'vuex'
+	import HealthComponent from './HealthComponent'
 
 	export default {
 		name: "edit-boss-monster-tracker",
 
-		computed: {
-			...mapGetters(['MONSTERS']),
-			currentPath() {
-				return this.$route.params.id
-			},
+		props: ['monster'],
 
-			stateMonsters() {
-				return this.MONSTERS
-			}
-		},
-
-		beforeMount() {
-			this.getMonsters(this.currentPath)
+		components: {
+			HealthComponent
 		},
 
 		methods: {
 			...mapActions(['getMonsters', 'deleteMonster']),
+
 			// add value to current HP pool
 			addHitPoints(monster, val) {
 				if (monster.current_health < monster.max_health) {
@@ -171,6 +103,27 @@
 				return result + "%";
 			},
 
+			saving(value, type, monster) {
+				if (type == 'damage') {
+					this.monster.current_health -= value
+					if (this.monster.current_health - value < 0) {
+						this.monster.current_health = 0
+					}
+				} else if (type == 'heal') {
+					this.monster.current_health += value
+					if (this.monster.current_health + value > this.monster.max_health) {
+						this.monster.current_health = this.monster.max_health
+					}
+				}
+
+				Axios.put(`http://localhost:3000/monsters/${this.monster.id}`, {
+					id: this.monster.id,
+					current_health: this.monster.current_health
+				}, {
+						withCredentials: true
+					})
+			},
+
 			deleteThis(monster) {
 				this.deleteMonster(monster)
 			}
@@ -182,35 +135,11 @@
 .edit-boss-monster-tracker {
 	position: relative;
 
-	.v-expansion-panel {
-		position: relative;
-	}
-
 	&.dead {
-		.v-expansion-panel .dead-overlay {
-			display: flex;
-			flex-direction: column;
-			position: absolute;
-			width: 100%;
-			height: 100%;
-			top: 0;
-			left: 0;
-			background-color: hsla(0, 0%, 0%, 0.5);
-
-			.fa-icon {
-				width: 75px;
-				height: 75px;
-				align-self: center;
-				margin-top: 25px;
-				path {
-					fill: #fff;
-				}
-			}
-
-			button.v-btn {
-				align-self: center;
-				max-width: 125px;
-				margin-top: 50px;
+		.v-card__title,
+		.v-card__text {
+			& *:not(button) {
+				text-decoration: line-through;
 			}
 		}
 	}
@@ -220,6 +149,5 @@
 	position: absolute;
 	right: 9px;
 	top: 3px;
-	z-index: 888;
 }
 </style>

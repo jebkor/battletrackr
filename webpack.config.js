@@ -27,21 +27,15 @@ module.exports = {
     extensions: ['.html', '.scss', '.css', '.js', '.vue', '.ts'],
     alias: {
       vue$: 'vue/dist/vue.esm.js',
-      Vue$: 'vue/dist/vue.esm.js',
-      '@root': path.resolve('./src'),
-      '@declarations': path.resolve('./src/ts/declarations'),
-      '@models': path.resolve('./src/ts/model'),
-      '@services': path.resolve('./src/ts/services'),
-      '@types': path.resolve('./src/ts/types'),
-      '@utilities': path.resolve('./src/ts/utilities'),
-      '@vendor': path.resolve('./src/ts/vendor'),
-      '@vue': path.resolve('./src/ts/vue')
+      Vue$: 'vue/dist/vue.esm.js'
     }
   },
   plugins: [
     plugins.VueLoaderPlugin,
-    plugins.StyleLintPlugin,
-    plugins.MiniExtractPlugin
+	plugins.MiniExtractPlugin,
+	new webpack.DefinePlugin({
+		'process.env.API_ENDPOINT': JSON.stringify(process.env.API_ENDPOINT)
+	})
   ],
   optimization: {
     splitChunks: {

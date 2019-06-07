@@ -1,5 +1,6 @@
 import Axios from 'axios'
-const apiEndpoint = 'https://battletrackr-api-production.herokuapp.com'
+
+const apiEndpoint = process.env.API_ENDPOINT
 
 
 export default {
