@@ -18,20 +18,41 @@
 					lg3
 					v-for="(encounter, i) in stateEncounters"
 					:key="i"
+					class="encounter"
 				>
-					<v-card>
-						<v-card-title primary-title>
-							<div>
-								<router-link v-on:click.native="setEncounter(encounter.id)" :to="`/user/${$route.params.id}/encounters/${encounter.id}`" >
-									<h3 class="headline mb-0">{{ encounter.name }}</h3>
-									<font-awesome-icon
-										:icon="['fas', 'swords']"
-										class="fa-icon"
-									/>
-								</router-link>
-							</div>
-						</v-card-title>
-					</v-card>
+					<transition
+						name="fade-in-right"
+						mode="out-in"
+						appear
+						key="1"
+					>
+						<v-card>
+							<v-card-title primary-title>
+								<div>
+									<router-link
+										v-on:click.native="setEncounter(encounter.id)"
+										:to="`/user/${$route.params.id}/encounters/${encounter.id}`"
+										class="encounter__name_link"
+									>
+										<h3 class="headline mb-0">{{ encounter.name }}</h3>
+									</router-link>
+
+									<div class="encounter__link">
+										<router-link
+											v-on:click.native="setEncounter(encounter.id)"
+											:to="`/user/${$route.params.id}/encounters/${encounter.id}`"
+										>
+											<font-awesome-icon
+												:icon="['far', 'angle-right']"
+												class="fa-icon"
+												size="3x"
+											/>
+										</router-link>
+									</div>
+								</div>
+							</v-card-title>
+						</v-card>
+					</transition>
 				</v-flex>
 			</v-layout>
 		</v-flex>
@@ -96,3 +117,26 @@
 		}
 	}
 </script>
+
+
+<style lang="scss" scoped>
+.encounter {
+	.v-card__title {
+		> div {
+			width: 100%;
+		}
+	}
+
+	&__name_link {
+		color: initial;
+		text-decoration: none;
+	}
+
+	&__link {
+		position: absolute;
+		right: 20px;
+		top: 50%;
+		transform: translateY(-50%);
+	}
+}
+</style>
