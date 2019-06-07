@@ -6,9 +6,8 @@
 	>
 		<v-flex
 			xs4
-			align-self-center
-			justify-self-center
 			class="health__component__inputs"
+			full-height
 		>
 			<div class="input__wrapper">
 				<label for>Heal</label>
@@ -19,7 +18,10 @@
 				>
 			</div>
 
-			<div class="new__health-wrapper" :class="{ damaged: newHealth < data.current_health }">
+			<div
+				class="new__health-wrapper"
+				:class="{ damaged: newHealth < data.current_health }"
+			>
 				<h3>New health</h3>
 				<h3>{{ newHealth }}</h3>
 			</div>
@@ -63,7 +65,7 @@
 				@click="healMonster"
 			>+</v-btn>
 			<v-btn
-				color="error"
+				color="primary"
 				@click="damageMonster"
 			>-</v-btn>
 		</v-flex>
@@ -78,6 +80,7 @@
 				color="primary"
 				@click="saveHealth"
 			>Apply</v-btn>
+
 			<v-btn
 				color="primary"
 				outline
@@ -172,7 +175,7 @@
 <style lang="scss" scoped>
 .health__component {
 	.scrollwheel {
-		padding: 0 30px;
+		padding: 0 10px;
 		margin: 6px 0;
 		position: relative;
 		height: 145px;
@@ -269,7 +272,7 @@
 			&.damaged {
 				color: hsl(0, 50%, 50%);
 			}
-			
+
 			h3 {
 				text-align: center;
 
@@ -281,11 +284,16 @@
 	}
 
 	&__buttons {
+		button + button {
+			margin-top: 75px;
+		}
 	}
 
 	&__save-buttons {
 		display: flex;
 		justify-content: center;
+
+		
 	}
 }
 </style>

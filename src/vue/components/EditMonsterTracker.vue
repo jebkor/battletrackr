@@ -11,59 +11,40 @@
 			appear
 			key="1"
 		>
-			<v-expansion-panel expand>
-				<v-expansion-panel-content>
-					<div slot="header">
-						<p class="mb-1">
-							<b>{{ monster.name }}</b>
+			<v-card>
+				<v-card-title primary-title>
+					<div>
+						<h3 class="headline">
+							{{ monster.name }}
 							<font-awesome-icon
 								icon="skull"
 								class="fa-icon"
 								v-if="monster.is_boss"
 							/>
-						</p>
-						<p
-							class="mb-0"
-						>HP: {{ monster.current_health}} | {{ monster.max_health }} - {{ percentageHealth(monster) }}</p>
-
+						</h3>
 						<span
-							class="delete-icon"
-							@click="deleteThis(monster)"
-						>
-							<font-awesome-icon
-								icon="times"
-								class="fa-icon"
-							/>
-						</span>
+							class="grey--text"
+						>HP: {{ monster.current_health}} | {{ monster.max_health }} - {{ percentageHealth(monster) }}</span>
 					</div>
 
-					<v-divider></v-divider>
+					<span
+						class="delete-icon"
+						@click="deleteThis(monster)"
+					>
+						<font-awesome-icon
+							icon="times"
+							class="fa-icon"
+						/>
+					</span>
+				</v-card-title>
 
-					<v-card>
-						<v-card-text>
-							<health-component
-								:data="monster"
-								@save-health="saving"
-							/>
-						</v-card-text>
-					</v-card>
-				</v-expansion-panel-content>
-
-				<div
-					v-if="monster.current_health == 0"
-					class="dead-overlay"
-				>
-					<font-awesome-icon
-						icon="skull-crossbones"
-						class="fa-icon"
+				<v-card-text>
+					<health-component
+						:data="monster"
+						@save-health="saving"
 					/>
-
-					<v-btn
-						color="info"
-						@click="addHitPoints(monster, 1)"
-					>Ressurect?</v-btn>
-				</div>
-			</v-expansion-panel>
+				</v-card-text>
+			</v-card>
 		</transition>
 	</v-flex>
 </template>
@@ -154,35 +135,11 @@
 .edit-boss-monster-tracker {
 	position: relative;
 
-	.v-expansion-panel {
-		position: relative;
-	}
-
 	&.dead {
-		.v-expansion-panel .dead-overlay {
-			display: flex;
-			flex-direction: column;
-			position: absolute;
-			width: 100%;
-			height: 100%;
-			top: 0;
-			left: 0;
-			background-color: hsla(0, 0%, 0%, 0.5);
-
-			.fa-icon {
-				width: 75px;
-				height: 75px;
-				align-self: center;
-				margin-top: 25px;
-				path {
-					fill: #fff;
-				}
-			}
-
-			button.v-btn {
-				align-self: center;
-				max-width: 125px;
-				margin-top: 50px;
+		.v-card__title,
+		.v-card__text {
+			& *:not(button) {
+				text-decoration: line-through;
 			}
 		}
 	}
@@ -192,6 +149,5 @@
 	position: absolute;
 	right: 9px;
 	top: 3px;
-	z-index: 888;
 }
 </style>
