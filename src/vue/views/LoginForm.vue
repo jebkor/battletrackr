@@ -38,6 +38,8 @@
 							solo
 						/>
 
+						<v-checkbox label="Remember me" v-model="rememberMe"></v-checkbox>
+
 						<v-btn
 							color="primary"
 							@click="sendForm"
@@ -60,7 +62,8 @@
 		mixins: [userAuthMixin],
 		data: () => ({
 			email: null,
-			password: null
+			password: null,
+			rememberMe: false
 		}),
 		created() {
 			// this.redirectIfLoggedIn()
@@ -72,7 +75,8 @@
 
 				const userInfo = {
 					email: this.email,
-					password: this.password
+					password: this.password,
+					remember_me: this.rememberMe
 				}
 
 				this.setLoadingState(true)
@@ -84,6 +88,11 @@
 						_this.$router.push({ path: `/user/${result.data.id}/encounters` })
 					})
 				}, 2000) // simulate waiting for request
+			}
+		},
+		watch: {
+			rememberMe() {
+				console.log(this.rememberMe)
 			}
 		}
 	}
