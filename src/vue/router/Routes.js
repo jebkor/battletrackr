@@ -4,11 +4,12 @@ import NProgress from 'nprogress';
 
 
 // Import the .vue files, the router views.
-import Home from '../views/Home.vue'
 import Encounters from '../views/Encounters.vue'
 import Monsters from '../views/Monsters.vue'
 import LoginForm from '../views/LoginForm.vue'
 import SignupForm from '../views/SignupForm.vue'
+import ForgotPassword from '../views/ForgotPassword.vue'
+import ResetPassword from '../views/ResetPassword.vue'
 import User from '../views/User.vue'
 
 
@@ -27,6 +28,14 @@ const Routes = new Router({
 		path: '/signup',
 		name: 'signup',
 		component: SignupForm
+	}, {
+		path: '/forgot-password',
+		name: 'forgot-password',
+		component: ForgotPassword
+	}, {
+		path: '/reset-password/:resetToken',
+		name: 'reset-password',
+		component: ResetPassword
 	}, {
 		path: '/user/:id/encounters',
 		name: 'encounters',
