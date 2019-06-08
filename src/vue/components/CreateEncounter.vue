@@ -1,8 +1,12 @@
 <template>
 	<v-layout
-		row wrap
+		row
+		wrap
 	>
-		<v-flex xs12 lg3>
+		<v-flex
+			xs12
+			lg3
+		>
 			<v-card>
 				<v-card-text>
 					<v-form
@@ -14,7 +18,7 @@
 							label="Name"
 							solo
 							required
-						></v-text-field>
+						/>
 
 						<v-btn type="submit">Add encounter</v-btn>
 					</v-form>
@@ -25,7 +29,6 @@
 </template>
 
 <script>
-	import Axios from 'axios'
 	import { mapActions } from 'vuex'
 
 	export default {
@@ -42,10 +45,10 @@
 				console.log('user_id: ', user_id)
 
 				// setup encounter creation command
-				let command = {
+				const command = {
 					name: this.encounterName,
 					user_id,
-					created_at: new Date()
+					created_at: new Date(),
 				};
 
 
@@ -53,9 +56,9 @@
 					this.saveEncounter(command)
 					_this.encounterName = null;
 				} else {
-					console.log("All is not filled");
+					console.log('All is not filled');
 				}
-			}
-		}
+			},
+		},
 	}
 </script>

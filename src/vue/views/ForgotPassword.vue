@@ -13,13 +13,13 @@
 				<v-card-title>
 					<form @submit.prevent="sendForm">
 						<v-text-field
+							id="email"
 							v-model="email"
 							v-validate="'required|email'"
 							:error-messages="errors.collect('email')"
 							name="email"
 							type="email"
 							label="E-mail"
-							id="email"
 							data-vv-name="email"
 							required
 							solo
@@ -27,8 +27,8 @@
 
 						<v-btn
 							color="primary"
-							@click="sendForm"
 							block
+							@click="sendForm"
 						>Reset password</v-btn>
 
 						<div class="signup__link text-xs-center">
@@ -46,7 +46,7 @@
 
 <script>
 	import Axios from 'axios'
-	import { userAuthMixin } from '../mixins/userAuthMixin'
+	import userAuthMixin from '../mixins/userAuthMixin'
 
 	export default {
 		name: 'forgot-password',
@@ -54,22 +54,19 @@
 		mixins: [userAuthMixin],
 
 		data: () => ({
-			email: null
+			email: null,
 		}),
 
 		methods: {
 			sendForm() {
 				const command = {
-					email: this.email
+					email: this.email,
 				}
 
-				Axios.post(``, command, {
-					withCredentials: true
-				})
-			}
-		}
+				// Axios.post(``, command, {
+				// 	withCredentials: true,
+				// })
+			},
+		},
 	}
 </script>
-
-<style lang="scss" scoped>
-</style>

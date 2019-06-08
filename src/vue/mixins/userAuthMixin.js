@@ -1,8 +1,9 @@
 import Axios from 'axios'
 import { mapGetters, mapActions } from 'vuex'
+
 const apiEndpoint = process.env.API_ENDPOINT
 
-export const userAuthMixin = {
+const userAuthMixin = {
 	computed: {
 		...mapGetters(['LOGIN_STATE']),
 	},
@@ -17,12 +18,12 @@ export const userAuthMixin = {
 			let _this = this
 
 			return Axios.post(`${apiEndpoint}/auth/login`, user, {
-				withCredentials: true
-			}).then(result => {
+				withCredentials: true,
+			}).then((result) => {
 				_this.saveLoginState(true) // save the state
 				_this.setLoadingState(false)
 				return result
-			}).catch(error => {
+			}).catch((error) => {
 				_this.setLoadingState(false)
 				return error.response
 			})
@@ -30,12 +31,8 @@ export const userAuthMixin = {
 
 		signup(user) {
 			Axios.post(`${apiEndpoint}/auth/signup`, user, {
-				withCredentials: true
-			}).then(result => {
-				return result.data
-			}).catch(error => {
-				return error
-			})
+				withCredentials: true,
+			}).then(result => result.data).catch(error => error)
 		},
 
 		redirectIfLoggedIn() {
@@ -50,11 +47,14 @@ export const userAuthMixin = {
 
 			localStorage.removeItem('user_id')
 			return Axios.get(`${apiEndpoint}/auth/logout`, {
-				withCredentials: true
-			}).then(result => {
-				_this.$router.push({ path: '/'}) // redirect to frontpage
+				withCredentials: true,
+			}).then(() => {
+				_this.$router.push({ path: '/' }) // redirect to frontpage
 				_this.saveLoginState(false)
 			})
 		}
 	}
 }
+
+
+export default userAuthMixin

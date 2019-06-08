@@ -16,7 +16,7 @@
 						label="Name"
 						solo
 						required
-					></v-text-field>
+					/>
 
 					<v-text-field
 						v-model="maxHealth"
@@ -24,12 +24,12 @@
 						type="number"
 						solo
 						required
-					></v-text-field>
+					/>
 
 					<v-checkbox
-						:label="'Boss monster?'"
 						v-model="isBoss"
-					></v-checkbox>
+						:label="'Boss monster?'"
+					/>
 
 					<v-btn type="submit">Add monster</v-btn>
 				</v-form>
@@ -43,7 +43,7 @@
 	import { mapActions } from 'vuex'
 
 	export default {
-		name: "create-monster-tracker",
+		name: 'create-monster-tracker',
 		data() {
 			return {
 				valid: null,
@@ -62,13 +62,13 @@
 				const encounter_id = localStorage.getItem('encounter_id') ? localStorage.getItem('encounter_id') : this.$route.params.encounterId
 
 				// setup monster creation command
-				let command = {
+				const command = {
 					name: this.name,
 					is_boss: this.isBoss,
 					max_health: this.maxHealth,
 					current_health: this.maxHealth,
 					encounter_id,
-					user_id
+					user_id,
 				};
 
 				// Execute command

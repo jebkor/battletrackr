@@ -1,70 +1,69 @@
 <template>
-	<v-layout
-		row
-		wrap
-		align-center
-		justify-center
-	>
-		<v-flex
-			xs12
-			lg4
-		>
-			<v-card>
-				<v-card-title>
-					<div v-if="confirmed">
-						<h1>Your email has been confirmed!</h1>
-	
-						<p>You are now eligable to login to BattleTrackr.io. Click the button to go to the login page. We hope you will enjoy your stay.</p>
-	
-						<div style="width: 100%; margin-bottom: 30px;">
-							<v-btn
-								color="primary"
-								:to="'/login'"
-							>Login</v-btn>
-						</div>
-	
-						<div style="width: 100%;">
-							<p>
-								<b>- The BattleTrackr.io team</b>
-							</p>
-						</div>
-					</div>
+  <v-layout
+    row
+    wrap
+    align-center
+    justify-center
+  >
+    <v-flex
+      xs12
+      lg4
+    >
+      <v-card>
+        <v-card-title>
+          <div v-if="confirmed">
+            <h1>Your email has been confirmed!</h1>
 
-					<div v-else>
-						<h1>Confirming your e-mail, please wait</h1>
-					</div>
-				</v-card-title>
-			</v-card>
-		</v-flex>
-	</v-layout>
+            <p>You are now eligable to login to BattleTrackr.io. Click the button to go to the login page. We hope you will enjoy your stay.</p>
+
+            <div style="width: 100%; margin-bottom: 30px;">
+              <v-btn
+                color="primary"
+                :to="'/login'"
+              >
+                Login
+              </v-btn>
+            </div>
+
+            <div style="width: 100%;">
+              <p>
+                <b>- The BattleTrackr.io team</b>
+              </p>
+            </div>
+          </div>
+
+          <div v-else>
+            <h1>Confirming your e-mail, please wait</h1>
+          </div>
+        </v-card-title>
+      </v-card>
+    </v-flex>
+  </v-layout>
 </template>
 
 <script>
-	import Axios from 'axios'
+  import Axios from 'axios'
 
-	export default {
-		name: 'confirm-email',
+  export default {
+    name: 'confirm-email',
 
-		data: () => ({
-			confirmed: false
-		}),
+    data: () => ({
+      confirmed: false,
+    }),
 
-		created() {
-			let _this = this
-			let url = this.$route.params.confirmToken
+    created () {
+      const _this = this
+      const url = this.$route.params.confirmToken
 
 
-			// TODO: Handle production, staging and dev environment
-			Axios.post(`http://localhost:3000/confirmation/${url}`, {
-				withCredentials: true
-			}).then(result => {
-				_this.confirmed = true
-			}).catch(err => {
-				console.log(`There was an error confirming your account`)
-			})
-		}
-	}
+      // TODO: Handle production, staging and dev environment
+      Axios.post(`http://localhost:3000/confirmation/${url}`, {
+        withCredentials: true,
+      }).then(() => {
+        _this.confirmed = true
+      }).catch(() => {
+        console.log(`There was an error confirming your account`)
+      })
+    },
+  }
 </script>
-
-<style lang="scss" scoped>
-</style>

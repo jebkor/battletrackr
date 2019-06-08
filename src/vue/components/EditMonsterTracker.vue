@@ -6,10 +6,10 @@
 		:class="{ 'dead': monster.current_health == 0 }"
 	>
 		<transition
+			key="1"
 			name="fade-in-right"
 			mode="out-in"
 			appear
-			key="1"
 		>
 			<v-card>
 				<v-card-title primary-title>
@@ -17,14 +17,14 @@
 						<h3 class="headline">
 							{{ monster.name }}
 							<font-awesome-icon
+								v-if="monster.is_boss"
 								icon="skull"
 								class="fa-icon"
-								v-if="monster.is_boss"
 							/>
 						</h3>
 						<span
 							class="grey--text"
-						>HP: {{ monster.current_health}} | {{ monster.max_health }} - {{ percentageHealth(monster) }}</span>
+						>HP: {{ monster.current_health }} | {{ monster.max_health }} - {{ percentageHealth(monster) }}</span>
 					</div>
 
 					<span
@@ -51,17 +51,17 @@
 
 <script>
 	import Axios from 'axios'
-	import { mapGetters, mapActions } from 'vuex'
+	import { mapActions } from 'vuex'
 	import HealthComponent from './HealthComponent'
 
 	export default {
-		name: "edit-boss-monster-tracker",
-
-		props: ['monster'],
+		name: 'edit-boss-monster-tracker',
 
 		components: {
-			HealthComponent
+			HealthComponent,
 		},
+
+		props: ['monster'],
 
 		methods: {
 			...mapActions(['getMonsters', 'deleteMonster']),
@@ -69,12 +69,12 @@
 			// add value to current HP pool
 			addHitPoints(monster, val) {
 				if (monster.current_health < monster.max_health) {
-					let max_health = parseInt(monster.max_health);
-					let hitpoints = parseInt(monster.current_health);
-					let result = hitpoints + val;
+					const max_health = parseInt(monster.max_health)
+					const hitpoints = parseInt(monster.current_health)
+					const result = hitpoints + val;
 
 					if (result > max_health) {
-						monster.current_health = max_health;
+						monster.current_health = max_health
 					} else {
 						monster.current_health = result;
 					}
@@ -119,16 +119,16 @@
 				// TODO: Handle production, staging and dev environment
 				Axios.put(`http://localhost:3000/monsters/${this.monster.id}`, {
 					id: this.monster.id,
-					current_health: this.monster.current_health
+					current_health: this.monster.current_health,
 				}, {
-						withCredentials: true
-					})
+					withCredentials: true,
+				})
 			},
 
 			deleteThis(monster) {
 				this.deleteMonster(monster)
-			}
-		}
+			},
+		},
 	}
 </script>
 

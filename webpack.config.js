@@ -19,7 +19,7 @@ module.exports = {
       loaders.FileLoader,
       loaders.CssLoader,
       loaders.JSLoader,
-      // loaders.TSLoader,
+      loaders.ESLintLoader,
       loaders.VueLoader
     ]
   },

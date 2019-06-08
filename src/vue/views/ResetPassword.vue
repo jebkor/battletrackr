@@ -14,6 +14,7 @@
 					<form @submit.prevent="sendForm">
 						<v-text-field
 							id="password"
+							ref="password"
 							v-model="password"
 							v-validate="'required'"
 							:error-messages="errors.collect('password')"
@@ -21,7 +22,6 @@
 							type="password"
 							data-vv-name="password"
 							placeholder="Enter password"
-							ref="password"
 							required
 							solo
 						/>
@@ -40,8 +40,8 @@
 
 						<v-btn
 							color="primary"
-							@click="sendForm"
 							block
+							@click="sendForm"
 						>Reset password</v-btn>
 
 						<div class="signup__link text-xs-center">
@@ -59,7 +59,7 @@
 
 <script>
 	import Axios from 'axios'
-	import { userAuthMixin } from '../mixins/userAuthMixin'
+	import userAuthMixin from '../mixins/userAuthMixin'
 
 	export default {
 		name: 'forgot-password',
@@ -69,7 +69,7 @@
 		data: () => ({
 			password: null,
 			verifyPassword: null,
-			isLegal: false
+			isLegal: false,
 		}),
 
 		methods: {
@@ -78,16 +78,16 @@
 
 				const command = {
 					password: this.password,
-					token: this.$route.params.resetToken
+					token: this.$route.params.resetToken,
 				}
 
 				// TODO: Handle production, staging and dev environment
-				Axios.post(`http://localhost:3000/forgot/reset`, command, {
-					withCredentials: true
-				}).then(result => {
+				Axios.post('http://localhost:3000/forgot/reset', command, {
+					withCredentials: true,
+				}).then(() => {
 					_this.$router.push({ path: '/login' })
 				})
-			}
-		}
+			},
+		},
 	}
 </script>

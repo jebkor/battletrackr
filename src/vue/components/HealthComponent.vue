@@ -12,8 +12,8 @@
 			<div class="input__wrapper">
 				<label for>Heal</label>
 				<input
-					type="text"
 					v-model="heal"
+					type="text"
 					class="input--heal"
 				>
 			</div>
@@ -28,8 +28,8 @@
 
 			<div class="input__wrapper mt-3">
 				<input
-					type="text"
 					v-model="damage"
+					type="text"
 					class="input--damage"
 				>
 				<label for>Damage</label>
@@ -47,10 +47,10 @@
 				<v-touch
 					ref="health_notch"
 					class="health_notch"
-					v-on:panup="healMonster"
-					v-on:pandown="damageMonster"
-					v-bind:style="{ backgroundPosition: 'center ' + counter + 'px' }"
-				></v-touch>
+					:style="{ backgroundPosition: 'center ' + counter + 'px' }"
+					@panup="healMonster"
+					@pandown="damageMonster"
+				/>
 			</div>
 		</v-flex>
 
@@ -71,9 +71,9 @@
 		</v-flex>
 
 		<v-flex
+			v-if="healthChange"
 			xs12
 			justify-self-center
-			v-if="healthChange"
 			class="health__component__save-buttons"
 		>
 			<v-btn
@@ -101,7 +101,7 @@
 			counter: 0,
 			heal: 0,
 			damage: 0,
-			healthChange: false
+			healthChange: false,
 		}),
 
 		computed: {
@@ -167,8 +167,8 @@
 				this.healthChange = false
 				this.heal = 0
 				this.damage = 0
-			}
-		}
+			},
+		},
 	}
 </script>
 

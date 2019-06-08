@@ -15,20 +15,20 @@
 
 					<form @submit.prevent>
 						<v-text-field
+							id="first_name"
 							v-model="firstName"
 							name="first_name"
 							type="text"
 							placeholder="Enter first name (optional)"
-							id="first_name"
 							solo
 						/>
 
 						<v-text-field
+							id="last_name"
 							v-model="lastName"
 							name="last_name"
 							type="text"
 							placeholder="Enter last name (optional)"
-							id="last_name"
 							solo
 						/>
 
@@ -47,6 +47,7 @@
 
 						<v-text-field
 							id="password"
+							ref="password"
 							v-model="password"
 							v-validate="'required'"
 							:error-messages="errors.collect('password')"
@@ -54,7 +55,6 @@
 							type="password"
 							data-vv-name="password"
 							placeholder="Enter password"
-							ref="password"
 							required
 							solo
 						/>
@@ -74,12 +74,16 @@
 						<v-btn
 							color="primary"
 							@click="preSignup"
-						>Signup</v-btn>
+						>
+							Signup
+						</v-btn>
 
 						<div class="login__link text-xs-center">
 							<p>
 								Already have an account?
-								<router-link :to="'/login'">Login here</router-link>
+								<router-link :to="'/login'">
+									Login here
+								</router-link>
 							</p>
 						</div>
 					</form>
@@ -90,30 +94,32 @@
 </template>
 
 <script>
-	import Axios from 'axios'
-	import { userAuthMixin } from '../mixins/userAuthMixin'
+	import userAuthMixin from '../mixins/userAuthMixin'
 
 	export default {
 		name: 'signup-form',
+
 		mixins: [userAuthMixin],
+
 		data: () => ({
 			firstName: '',
 			lastName: '',
 			email: '',
 			password: '',
-			verifyPassword: ''
+			verifyPassword: '',
 		}),
+
 		methods: {
 			preSignup() {
 				const user = {
 					first_name: this.firstName,
 					last_name: this.lastName,
 					email: this.email,
-					password: this.password
+					password: this.password,
 				}
 
 
-				this.$validator.validate().then(result => {
+				this.$validator.validate().then((result) => {
 					if (result) {
 						// Run the signup function if result is successful
 						this.signup(user)
@@ -121,8 +127,8 @@
 					}
 					alert('Correct the errors, please')
 				})
-			}
-		}
+			},
+		},
 	}
 </script>
 

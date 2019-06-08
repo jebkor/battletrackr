@@ -19,41 +19,46 @@
 				<v-card-title>
 					<form @submit.prevent>
 						<v-text-field
+							id="email"
 							v-model="email"
 							v-validate="'required|email'"
 							:error-messages="errors.collect('email')"
 							name="email"
 							type="email"
 							label="E-mail"
-							id="email"
 							data-vv-name="email"
 							required
 							solo
 						/>
 
 						<v-text-field
+							id="password"
 							v-model="password"
 							v-validate="'required'"
 							:error-messages="errors.collect('password')"
 							name="password"
 							label="Password"
-							id="password"
 							type="password"
 							data-vv-name="password"
 							required
 							solo
 						/>
-						<span v-if="error_message" style="float:right;"><router-link :to="'/'">Forgot password?</router-link></span>
+						<span
+							v-if="error_message"
+							style="float:right;"
+						>
+							<router-link :to="'/forgot-password'">Forgot password?</router-link>
+						</span>
 
 						<v-checkbox
-							label="Remember me"
 							v-model="rememberMe"
-						></v-checkbox>
+							label="Remember me"
+						/>
 
 						<v-btn
 							color="primary"
-							@click="sendForm"
 							block
+							@click="sendForm"
 						>Login</v-btn>
 
 						<div class="signup__link text-xs-center">
@@ -70,10 +75,8 @@
 </template>
 
 <script>
-	import Axios from 'axios'
-	import { mapGetters, mapActions } from 'vuex'
-	import { userAuthMixin } from '../mixins/userAuthMixin'
-	import { setTimeout } from 'timers';
+	import { mapActions } from 'vuex'
+	import userAuthMixin from '../mixins/userAuthMixin'
 
 	export default {
 		name: 'login-form',
@@ -84,29 +87,28 @@
 			email: null,
 			password: null,
 			rememberMe: false,
-			error_message: null
+			error_message: null,
 		}),
 
 		methods: {
 			...mapActions(['setLoadingState']),
 			sendForm() {
-				let _this = this
+				const _this = this
 
 				const userInfo = {
 					email: this.email,
 					password: this.password,
-					remember_me: this.rememberMe
+					remember_me: this.rememberMe,
 				}
 
 				this.setLoadingState(true)
 
 				setTimeout(() => {
-					_this.login(userInfo).then(result => {
+					_this.login(userInfo).then((result) => {
 						if (result.data.message != 'Invalid login') {
 							localStorage.user_id = result.data.id
 
 							_this.$router.push({ path: `/user/${result.data.id}/encounters` })
-
 						} else {
 							_this.error_message = result.data.message
 						}

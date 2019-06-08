@@ -6,7 +6,7 @@ const apiEndpoint = process.env.API_ENDPOINT
 export default {
 	// The state that contains the data
 	state: {
-		encounters: []
+		encounters: [],
 	},
 
 	// Mutations set/change the state, should ideally need actions to run
@@ -16,10 +16,10 @@ export default {
 		},
 
 		deleteEncounter(state, encounter) {
-			let encounters = state.encounters
+			const encounters = state.encounters
+			const index = encounters.indexOf(encounter)
 
-			const index = encounters.indexOf(encounter);
-			encounters.splice(index, 1);
+			encounters.splice(index, 1)
 		},
 	},
 
@@ -28,15 +28,15 @@ export default {
 	actions: {
 		// Get the current users' encounters
 		getEncounters({
-			commit
+			commit,
 		}, user_id) {
 			Axios.get(`${apiEndpoint}/user/${user_id}`, {
 					withCredentials: true
 				})
-				.then(response => {
+				.then((response) => {
 					console.log(response.data.encounters.rows)
-					commit('setEncounters', response.data.encounters.rows) //Saves the requested data to the store
-					commit('changeLoadingState', false) //Changes loading state
+					commit('setEncounters', response.data.encounters.rows) // Saves the requested data to the store
+					commit('changeLoadingState', false) // Changes loading state
 				})
 		},
 
@@ -44,19 +44,18 @@ export default {
 			Axios.post(`${apiEndpoint}/encounters`, {
 					name: payload.name,
 					user_id: payload.user_id,
-					created_at: payload.created_at
+					created_at: payload.created_at,
 				}, { withCredentials: true })
-				.then(response => {
+				.then(() => {
 					context.dispatch('getEncounters', payload.user_id) // Get the encounters anew to populate the available ones
 				})
 		},
 
 		deleteEncounter({
 			commit,
-			dispatch
 		}, encounter) {
 			Axios.delete(`${apiEndpoint}/encounters/${encounter.id}`)
-				.then(response => {
+				.then(() => {
 					commit('deleteEncounter', encounter)
 				})
 		},
@@ -65,8 +64,6 @@ export default {
 	// Used in the frontend to display the data
 	// Can use ...mapGetters([])
 	getters: {
-		ENCOUNTERS: state => {
-			return state.encounters
-		},
-	}
+		ENCOUNTERS: state => state.encounters,
+	},
 }
