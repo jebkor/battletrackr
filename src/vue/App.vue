@@ -4,26 +4,30 @@
 		id="inspire"
 	>
 		<v-navigation-drawer
-			:value="drawerState"
+			v-model="drawer"
 			fixed
-			app
 			clipped
+			app
 		>
 			<v-list dense>
-				<v-list-tile @click>
-					<v-list-tile-action>
-						<v-icon>home</v-icon>
-					</v-list-tile-action>
+				<v-list-tile v-if="!loggedIn" :to="'/'">
 					<v-list-tile-content>
-						<v-list-tile-title>Home</v-list-tile-title>
+						<v-list-tile-title>Login</v-list-tile-title>
 					</v-list-tile-content>
 				</v-list-tile>
-				<v-list-tile @click>
-					<v-list-tile-action>
-						<v-icon>contact_mail</v-icon>
-					</v-list-tile-action>
+
+				<v-list-tile v-if="!loggedIn" :to="'/signup'">
 					<v-list-tile-content>
-						<v-list-tile-title>Contact</v-list-tile-title>
+						<v-list-tile-title>Signup</v-list-tile-title>
+					</v-list-tile-content>
+				</v-list-tile>
+
+				<v-list-tile
+					v-if="loggedIn"
+					:to="'/user/1/encounters'"
+				>
+					<v-list-tile-content>
+						<v-list-tile-title>Encounters</v-list-tile-title>
 					</v-list-tile-content>
 				</v-list-tile>
 			</v-list>
@@ -36,8 +40,19 @@
 			clipped-left
 			app
 		>
-			<v-toolbar-side-icon @click.stop="handleDrawer()"></v-toolbar-side-icon>
+			<v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
 			<v-toolbar-title>BattleTrackr.io</v-toolbar-title>
+
+			<v-spacer></v-spacer>
+
+			<v-toolbar-items>
+				<v-btn
+					v-if="loggedIn"
+					color="white"
+					flat
+					@click="logout()"
+				>Logout</v-btn>
+			</v-toolbar-items>
 		</v-toolbar>
 
 		<v-content v-cloak>
@@ -52,13 +67,6 @@
 				>
 					<router-view></router-view>
 				</transition>
-
-				<!-- <v-btn @click="logout()">Logout</v-btn>
-				<v-switch
-					:label="'Dark theme'"
-					v-model="darkTheme"
-					@change="setDarkMode(darkTheme)"
-				></v-switch>-->
 			</v-container>
 		</v-content>
 
@@ -90,20 +98,24 @@
 			}
 		},
 
+		created() {
+			this.redirectIfLoggedIn()
+		},
+
 		mounted() {
 			// Set the dark theme on mount
 			this.darkTheme = this.loadDarkMode()
 		},
 
 		computed: {
-			...mapGetters(['LOADING', 'DRAWER_STATE']),
-			drawerState() {
-				return this.DRAWER_STATE
+			...mapGetters(['LOADING', 'LOGIN_STATE']),
+			loggedIn() {
+				return this.LOGIN_STATE
 			}
+
 		},
 
 		methods: {
-			...mapActions(['saveDrawerState']),
 			// Set the localStorage item
 			setDarkMode(input) {
 				window.localStorage.setItem('darkTheme', input)
@@ -119,8 +131,7 @@
 			},
 
 			handleDrawer() {
-				let input = !this.drawerState
-				this.saveDrawerState(input)
+				this.drawer = !this.drawer
 			}
 		},
 
