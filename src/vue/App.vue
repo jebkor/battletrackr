@@ -10,7 +10,7 @@
 			app
 		>
 			<v-list dense>
-				<v-list-tile v-if="!loggedIn" :to="'/'">
+				<v-list-tile v-if="!loggedIn" :to="'/login'">
 					<v-list-tile-content>
 						<v-list-tile-title>Login</v-list-tile-title>
 					</v-list-tile-content>

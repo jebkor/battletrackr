@@ -9,6 +9,12 @@
 			xs12
 			lg4
 		>
+			<v-alert
+				v-if="error_message"
+				:value="true"
+				type="error"
+				dismissible
+			>{{ error_message }}</v-alert>
 			<v-card>
 				<v-card-title>
 					<form @submit.prevent>
@@ -37,13 +43,25 @@
 							required
 							solo
 						/>
+						<span v-if="error_message" style="float:right;"><router-link :to="'/'">Forgot password?</router-link></span>
 
-						<v-checkbox label="Remember me" v-model="rememberMe"></v-checkbox>
+						<v-checkbox
+							label="Remember me"
+							v-model="rememberMe"
+						></v-checkbox>
 
 						<v-btn
 							color="primary"
 							@click="sendForm"
+							block
 						>Login</v-btn>
+
+						<div class="signup__link text-xs-center">
+							<p>
+								Don't have an account?
+								<router-link :to="'/signup'">Register here</router-link>
+							</p>
+						</div>
 					</form>
 				</v-card-title>
 			</v-card>
@@ -59,15 +77,16 @@
 
 	export default {
 		name: 'login-form',
+
 		mixins: [userAuthMixin],
+
 		data: () => ({
 			email: null,
 			password: null,
-			rememberMe: false
+			rememberMe: false,
+			error_message: null
 		}),
-		created() {
-			// this.redirectIfLoggedIn()
-		},
+
 		methods: {
 			...mapActions(['setLoadingState']),
 			sendForm() {
@@ -83,9 +102,14 @@
 
 				setTimeout(() => {
 					_this.login(userInfo).then(result => {
-						localStorage.user_id = result.data.id
+						if (result.data.message != 'Invalid login') {
+							localStorage.user_id = result.data.id
 
-						_this.$router.push({ path: `/user/${result.data.id}/encounters` })
+							_this.$router.push({ path: `/user/${result.data.id}/encounters` })
+
+						} else {
+							_this.error_message = result.data.message
+						}
 					})
 				}, 2000) // simulate waiting for request
 			}
@@ -100,5 +124,19 @@ form {
 
 .login__form .v-text-field--solo > .v-input__control > .v-input__slot {
 	background-color: hsl(0, 0%, 94%) !important;
+}
+
+.signup__link {
+	margin-top: 60px;
+	opacity: 0.6;
+
+	a {
+		text-decoration: none;
+		color: initial;
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
 }
 </style>

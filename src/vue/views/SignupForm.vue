@@ -75,6 +75,13 @@
 							color="primary"
 							@click="preSignup"
 						>Signup</v-btn>
+
+						<div class="login__link text-xs-center">
+							<p>
+								Already have an account?
+								<router-link :to="'/login'">Login here</router-link>
+							</p>
+						</div>
 					</form>
 				</v-card-title>
 			</v-card>
@@ -118,3 +125,20 @@
 		}
 	}
 </script>
+
+
+<style lang="scss" scoped>
+.login__link {
+	margin-top: 60px;
+	opacity: 0.6;
+
+	a {
+		text-decoration: none;
+		color: initial;
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+}
+</style>

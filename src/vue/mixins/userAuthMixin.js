@@ -8,7 +8,7 @@ export const userAuthMixin = {
 	},
 
 	methods: {
-		...mapActions(['saveLoginState']),
+		...mapActions(['saveLoginState', 'setLoadingState']),
 		getUserInfo(id) {
 			Axios.get(`${apiEndpoint}/auth/user/${id}`)
 		},
@@ -20,7 +20,11 @@ export const userAuthMixin = {
 				withCredentials: true
 			}).then(result => {
 				_this.saveLoginState(true) // save the state
+				_this.setLoadingState(false)
 				return result
+			}).catch(error => {
+				_this.setLoadingState(false)
+				return error.response
 			})
 		},
 

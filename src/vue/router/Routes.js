@@ -1,6 +1,8 @@
 import Router from 'vue-router';
 import NProgress from 'nprogress';
 
+
+
 // Import the .vue files, the router views.
 import Home from '../views/Home.vue'
 import Encounters from '../views/Encounters.vue'
@@ -9,49 +11,31 @@ import LoginForm from '../views/LoginForm.vue'
 import SignupForm from '../views/SignupForm.vue'
 import User from '../views/User.vue'
 
+
+
 // Initialize and setup the routes
 const Routes = new Router({
 	routes: [{
-			path: '/',
-			name: 'login',
-			component: LoginForm,
-		}, {
-			path: '/user/:id/encounters',
-			name: 'encounters',
-			component: Encounters
-		}, {
-			path: '/user/:id/encounters/:encounterId',
-			name: 'encounter',
-			component: Monsters
-		}, {
-			path: '/user/:id',
-			name: 'user',
-			component: User
-		},{
-			path: '/signup',
-			name: 'signup',
-			component: SignupForm
-		},
-		// {
-		//   path: '/',
-		//   redirect: '/login'
-		// }, {
-		//   path: '/login',
-		//   name: 'login',
-		//   component: Login
-		// }, {
-		//   path: '/sign-up',
-		//   name: 'signUp',
-		//   component: SignUp
-		// }, {
-		//   path: '/home',
-		//   name: 'home',
-		//   component: Home,
-		//   meta: {
-		//     requiresAuth: true
-		//   }
-		// }
-	]
+		path: '/',
+		name: 'home-login',
+		component: LoginForm,
+	}, {
+		path: '/login',
+		name: 'login',
+		component: LoginForm,
+	}, {
+		path: '/signup',
+		name: 'signup',
+		component: SignupForm
+	}, {
+		path: '/user/:id/encounters',
+		name: 'encounters',
+		component: Encounters
+	}, {
+		path: '/user/:id/encounters/:encounterId',
+		name: 'encounter',
+		component: Monsters
+	}]
 });
 
 
@@ -68,16 +52,5 @@ const Routes = new Router({
 // });
 
 
-// if firebase
-// Routes.beforeEach((to, from, next) => {
-// 	const currentUser = Firebase.auth().currentUser;
-// 	const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
-
-// 	if (requiresAuth && !currentUser) next('login');
-// 	else if (!requiresAuth && currentUser) next('home');
-// 	else next();
-// });
-
-
-// Export the router for consumption in index.ts file
+// Export the router
 export default Routes;
