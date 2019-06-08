@@ -116,6 +116,7 @@
 					}
 				}
 
+				// TODO: Handle production, staging and dev environment
 				Axios.put(`http://localhost:3000/monsters/${this.monster.id}`, {
 					id: this.monster.id,
 					current_health: this.monster.current_health

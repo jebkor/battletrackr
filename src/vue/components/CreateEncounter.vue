@@ -50,17 +50,8 @@
 
 
 				if (this.encounterName) {
-					// push monster to array
-					// this.$store.state.encounters.push(command);
-
 					this.saveEncounter(command)
 					_this.encounterName = null;
-
-					// Axios.post('http://localhost:3000/encounters', command).then(success => {
-
-					// }).catch(err => {
-					// 	console.error('An error occured: ', err)
-					// })
 				} else {
 					console.log("All is not filled");
 				}

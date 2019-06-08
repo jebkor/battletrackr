@@ -81,6 +81,7 @@
 					token: this.$route.params.resetToken
 				}
 
+				// TODO: Handle production, staging and dev environment
 				Axios.post(`http://localhost:3000/forgot/reset`, command, {
 					withCredentials: true
 				}).then(result => {
