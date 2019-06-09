@@ -83,7 +83,7 @@
   import userAuthMixin from '../mixins/userAuthMixin'
 
   export default {
-    name: 'login-form',
+    name: 'LoginForm',
 
     mixins: [userAuthMixin],
 
@@ -97,7 +97,7 @@
     methods: {
       ...mapActions(['setLoadingState']),
       sendForm () {
-        const _this = this
+        const that = this
 
         const userInfo = {
           email: this.email,
@@ -108,13 +108,13 @@
         this.setLoadingState(true)
 
         setTimeout(() => {
-          _this.login(userInfo).then((result) => {
-            if (result.data.message != 'Invalid login') {
+          that.login(userInfo).then((result) => {
+            if (result.data.message !== 'Invalid login') {
               localStorage.user_id = result.data.id
 
-              _this.$router.push({ path: `/user/${result.data.id}/encounters` })
+              that.$router.push({ path: `/user/${result.data.id}/encounters` })
             } else {
-              _this.error_message = result.data.message
+              that.error_message = result.data.message
             }
           })
         }, 2000) // simulate waiting for request
