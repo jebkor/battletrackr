@@ -44,7 +44,7 @@
   import { mapActions } from 'vuex'
 
   export default {
-    name: 'create-monster-tracker',
+    name: 'CreateMonsterTracker',
     data () {
       return {
         valid: null,
