@@ -56,11 +56,9 @@
     methods: {
       ...mapActions(['saveMonster']),
       addMonster () {
-        let _this = this
-
         // Get the user_id and encounter_id
-        const user_id = localStorage.getItem('user_id') ? localStorage.getItem('user_id') : this.$route.params.id
-        const encounter_id = localStorage.getItem('encounter_id') ? localStorage.getItem('encounter_id') : this.$route.params.encounterId
+        const userId = localStorage.getItem('user_id') ? localStorage.getItem('user_id') : this.$route.params.id
+        const encounterId = localStorage.getItem('encounter_id') ? localStorage.getItem('encounter_id') : this.$route.params.encounterId
 
         // setup monster creation command
         const command = {
@@ -68,8 +66,8 @@
           is_boss: this.isBoss,
           max_health: this.maxHealth,
           current_health: this.maxHealth,
-          encounter_id,
-          user_id,
+          encounter_id: encounterId,
+          user_id: userId,
         }
 
         // Execute command
