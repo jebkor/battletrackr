@@ -45,14 +45,14 @@
   import Axios from 'axios'
 
   export default {
-    name: 'confirm-email',
+    name: 'ConfirmEmail',
 
     data: () => ({
       confirmed: false,
     }),
 
     created () {
-      const _this = this
+      const that = this
       const url = this.$route.params.confirmToken
 
 
@@ -60,9 +60,9 @@
       Axios.post(`http://localhost:3000/confirmation/${url}`, {
         withCredentials: true,
       }).then(() => {
-        _this.confirmed = true
+        that.confirmed = true
       }).catch(() => {
-        console.log(`There was an error confirming your account`)
+        console.log('There was an error confirming your account')
       })
     },
   }
