@@ -101,9 +101,14 @@
 
 <script>
   export default {
-    name: 'health-component',
+    name: 'HealthComponent',
 
-    props: ['data'],
+    props: {
+      data: {
+        type: Object,
+        default: () => { },
+      },
+    },
 
     data: () => ({
       counter: 0,
@@ -119,7 +124,9 @@
             return this.data.max_health
           }
           return this.data.current_health + this.heal
-        } else if (this.damage > 0) {
+        }
+
+        if (this.damage > 0) {
           if ((this.data.current_health - this.damage < 0)) {
             return 0
           }
@@ -127,8 +134,7 @@
         }
 
         return this.data.current_health
-
-      }
+      },
     },
 
     methods: {
