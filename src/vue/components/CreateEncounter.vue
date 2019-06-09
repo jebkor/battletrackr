@@ -34,29 +34,27 @@
   import { mapActions } from 'vuex'
 
   export default {
-    name: 'create-encounter',
+    name: 'CreateEncounter',
     data: () => ({
       encounterName: '',
     }),
     methods: {
       ...mapActions(['saveEncounter']),
       addEncounter () {
-        let _this = this
-
-        const user_id = localStorage.getItem('user_id') ? localStorage.getItem('user_id') : this.$route.params.id
-        console.log('user_id: ', user_id)
+        const userId = localStorage.getItem('user_id') ? localStorage.getItem('user_id') : this.$route.params.id
+        console.log('user_id: ', userId)
 
         // setup encounter creation command
         const command = {
           name: this.encounterName,
-          user_id,
+          user_id: userId,
           created_at: new Date(),
-        };
+        }
 
 
         if (this.encounterName) {
           this.saveEncounter(command)
-          _this.encounterName = null
+          this.encounterName = null
         } else {
           console.log('All is not filled')
         }
