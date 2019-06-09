@@ -66,7 +66,7 @@
 
 
   export default {
-    name: 'encounters',
+    name: 'Encounters',
     components: {
       CreateEncounter,
     },
@@ -97,23 +97,22 @@
         this.$store.dispatch('deleteEncounter', input)
       },
 
-      setEncounter (encounter_id) {
+      setEncounter (encounterId) {
         this.setLoadingState(true)
 
-        localStorage.setItem('encounter_id', encounter_id);
+        localStorage.setItem('encounter_id', encounterId);
       },
 
       // The user won't see other peoples data, this is purely for URL aesthetic reasons
       correctUserRedirect () {
-        const id = this.$route.params.id
-        const user_id = localStorage.getItem('user_id')
+        const { id } = this.$route.params
+        const userId = localStorage.getItem('user_id')
 
         if (id === localStorage.getItem('user_id')) {
           console.log('what')
-          this.$store.dispatch('getEncounters', user_id)
-        }
-        else {
-          this.$router.push({ path: `/user/${user_id}/encounters` })
+          this.$store.dispatch('getEncounters', userId)
+        } else {
+          this.$router.push({ path: `/user/${userId}/encounters` })
         }
       },
     },
