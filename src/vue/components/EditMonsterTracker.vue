@@ -107,14 +107,16 @@
       },
 
       saving (value, type) {
-        if (type == 'damage') {
+        if (type === 'damage') {
           this.monster.current_health -= value
-          if (this.monster.current_health - value < 0) {
+          if (this.monster.current_health < 0) {
             this.monster.current_health = 0
           }
-        } else if (type == 'heal') {
+        }
+
+        if (type === 'heal') {
           this.monster.current_health += value
-          if (this.monster.current_health + value > this.monster.max_health) {
+          if (this.monster.current_health > this.monster.max_health) {
             this.monster.current_health = this.monster.max_health
           }
         }
@@ -124,8 +126,8 @@
           id: this.monster.id,
           current_health: this.monster.current_health,
         }, {
-          withCredentials: true,
-        })
+            withCredentials: true,
+          })
       },
 
       deleteThis (monster) {

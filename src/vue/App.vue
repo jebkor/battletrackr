@@ -100,7 +100,6 @@
       drawer: false,
       drawerMobile: false,
       message: 'stuff',
-      routes: this.$router.options.routes,
       darkTheme: false,
     }),
 
