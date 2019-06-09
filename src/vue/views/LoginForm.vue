@@ -1,142 +1,148 @@
 <template>
-	<v-layout
-		row
-		wrap
-		align-center
-		justify-center
-	>
-		<v-flex
-			xs12
-			lg4
-		>
-			<v-alert
-				v-if="error_message"
-				:value="true"
-				type="error"
-				dismissible
-			>{{ error_message }}</v-alert>
-			<v-card>
-				<v-card-title>
-					<form @submit.prevent>
-						<v-text-field
-							v-model="email"
-							v-validate="'required|email'"
-							:error-messages="errors.collect('email')"
-							name="email"
-							type="email"
-							label="E-mail"
-							id="email"
-							data-vv-name="email"
-							required
-							solo
-						/>
+  <v-layout
+    row
+    wrap
+    align-center
+    justify-center
+  >
+    <v-flex
+      xs12
+      lg4
+    >
+      <v-alert
+        v-if="error_message"
+        :value="true"
+        type="error"
+        dismissible
+      >{{ error_message }}</v-alert>
+      <v-card>
+        <v-card-title>
+          <form @submit.prevent>
+            <v-text-field
+              id="email"
+              v-model="email"
+              v-validate="'required|email'"
+              :error-messages="errors.collect('email')"
+              name="email"
+              type="email"
+              label="E-mail"
+              data-vv-name="email"
+              required
+              solo
+            />
 
-						<v-text-field
-							v-model="password"
-							v-validate="'required'"
-							:error-messages="errors.collect('password')"
-							name="password"
-							label="Password"
-							id="password"
-							type="password"
-							data-vv-name="password"
-							required
-							solo
-						/>
-						<span v-if="error_message" style="float:right;"><router-link :to="'/'">Forgot password?</router-link></span>
+            <v-text-field
+              id="password"
+              v-model="password"
+              v-validate="'required'"
+              :error-messages="errors.collect('password')"
+              name="password"
+              label="Password"
+              type="password"
+              data-vv-name="password"
+              required
+              solo
+            />
+            <span
+              v-if="error_message"
+              style="float:right;"
+            >
+              <router-link :to="'/forgot-password'">Forgot password?</router-link>
+            </span>
 
-						<v-checkbox
-							label="Remember me"
-							v-model="rememberMe"
-						></v-checkbox>
+            <v-checkbox
+              v-model="rememberMe"
+              label="Remember me"
+            />
 
-						<v-btn
-							color="primary"
-							@click="sendForm"
-							block
-						>Login</v-btn>
+            <v-btn
+              color="primary"
+              block
+              @click="sendForm"
+            >
+              Login
+            </v-btn>
 
-						<div class="signup__link text-xs-center">
-							<p>
-								Don't have an account?
-								<router-link :to="'/signup'">Register here</router-link>
-							</p>
-						</div>
-					</form>
-				</v-card-title>
-			</v-card>
-		</v-flex>
-	</v-layout>
+            <div class="signup__link text-xs-center">
+              <p>
+                Don't have an account?
+                <router-link :to="'/signup'">
+                  Register here
+                </router-link>
+              </p>
+            </div>
+          </form>
+        </v-card-title>
+      </v-card>
+    </v-flex>
+  </v-layout>
 </template>
 
 <script>
-	import Axios from 'axios'
-	import { mapGetters, mapActions } from 'vuex'
-	import { userAuthMixin } from '../mixins/userAuthMixin'
-	import { setTimeout } from 'timers';
+  import { mapActions } from 'vuex'
+  import userAuthMixin from '../mixins/userAuthMixin'
 
-	export default {
-		name: 'login-form',
+  export default {
+    name: 'login-form',
 
-		mixins: [userAuthMixin],
+    mixins: [userAuthMixin],
 
-		data: () => ({
-			email: null,
-			password: null,
-			rememberMe: false,
-			error_message: null
-		}),
+    data: () => ({
+      email: null,
+      password: null,
+      rememberMe: false,
+      error_message: null,
+    }),
 
-		methods: {
-			...mapActions(['setLoadingState']),
-			sendForm() {
-				let _this = this
+    methods: {
+      ...mapActions(['setLoadingState']),
+      sendForm () {
+        const _this = this
 
-				const userInfo = {
-					email: this.email,
-					password: this.password,
-					remember_me: this.rememberMe
-				}
+        const userInfo = {
+          email: this.email,
+          password: this.password,
+          remember_me: this.rememberMe,
+        }
 
-				this.setLoadingState(true)
+        this.setLoadingState(true)
 
-				setTimeout(() => {
-					_this.login(userInfo).then(result => {
-						if (result.data.message != 'Invalid login') {
-							localStorage.user_id = result.data.id
+        setTimeout(() => {
+          _this.login(userInfo).then((result) => {
+            if (result.data.message != 'Invalid login') {
+              localStorage.user_id = result.data.id
 
-							_this.$router.push({ path: `/user/${result.data.id}/encounters` })
-
-						} else {
-							_this.error_message = result.data.message
-						}
-					})
-				}, 2000) // simulate waiting for request
-			}
-		},
-	}
+              _this.$router.push({ path: `/user/${result.data.id}/encounters` })
+            } else {
+              _this.error_message = result.data.message
+            }
+          })
+        }, 2000) // simulate waiting for request
+      }
+    },
+  }
 </script>
 
 <style lang="scss">
 form {
-	width: 100%;
+  width: 100%;
 }
 
 .login__form .v-text-field--solo > .v-input__control > .v-input__slot {
-	background-color: hsl(0, 0%, 94%) !important;
+  background-color: hsl(0, 0%, 94%) !important;
 }
 
 .signup__link {
-	margin-top: 60px;
-	opacity: 0.6;
+  margin-top: 60px;
+  opacity: 0.6;
 
-	a {
-		text-decoration: none;
-		color: initial;
+  a {
+    text-decoration: none;
+    color: initial;
 
-		&:hover {
-			text-decoration: underline;
-		}
-	}
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
 </style>
