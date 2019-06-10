@@ -48,6 +48,30 @@
                         size="3x"
                       />
                     </router-link>
+
+                    <v-btn @click="dialog1 = true">Delete</v-btn>
+
+                    <Modal
+                      :dialog="dialog1"
+                      @on-agree="dialog2 = true"
+                      @on-decline="dialog1 = false"
+                      modal-title="Delete encounter?"
+                      modal-text="Are you sure you want to delete the encounter?"
+                      agree-button-text="Delete"
+                      agree-button-color="error"
+                      decline-button-text="Cancel"
+                    />
+
+                    <Modal
+                      :dialog="dialog2"
+                      @on-agree="dialog2 = false; dialog1 = false"
+                      @on-decline="dialog2 = false; dialog1 = false"
+                      modal-title="Are you REALLY sure?"
+                      modal-text="There is no going back!"
+                      agree-button-text="Delete"
+                      agree-button-color="error"
+                      decline-button-text="Cancel"
+                    />
                   </div>
                 </div>
               </v-card-title>
@@ -63,15 +87,19 @@
   import { mapActions } from 'vuex'
 
   import CreateEncounter from '../components/CreateEncounter.vue'
+  import Modal from '../components/molecules/Modal.vue'
 
 
   export default {
     name: 'Encounters',
     components: {
       CreateEncounter,
+      Modal
     },
 
     data: () => ({
+      dialog1: false,
+      dialog2: false
     }),
 
     computed: {
