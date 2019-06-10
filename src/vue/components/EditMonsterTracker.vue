@@ -53,13 +53,18 @@
   import HealthComponent from './HealthComponent'
 
   export default {
-    name: 'edit-boss-monster-tracker',
+    name: 'EditBossMonsterTracker',
 
     components: {
       HealthComponent,
     },
 
-    props: ['monster'],
+    props: {
+      monster: {
+        type: Object,
+        default: () => { }
+      },
+    },
 
     methods: {
       ...mapActions(['getMonsters', 'deleteMonster']),
@@ -67,12 +72,12 @@
       // add value to current HP pool
       addHitPoints (monster, val) {
         if (monster.current_health < monster.max_health) {
-          const max_health = parseInt(monster.max_health)
+          const maxHealth = parseInt(monster.max_health)
           const hitpoints = parseInt(monster.current_health)
           const result = hitpoints + val
 
-          if (result > max_health) {
-            monster.current_health = max_health
+          if (result > maxHealth) {
+            monster.current_health = maxHealth
           } else {
             monster.current_health = result
           }
@@ -94,22 +99,24 @@
       },
 
       percentageHealth (monster) {
-        let percentage = monster.current_health / monster.max_health
+        const percentage = monster.current_health / monster.max_health
 
-        let result = Math.floor(percentage * 100)
+        const result = Math.floor(percentage * 100)
 
-        return result + '%'
+        return `${result}%`
       },
 
-      saving (value, type, monster) {
-        if (type == 'damage') {
+      saving (value, type) {
+        if (type === 'damage') {
           this.monster.current_health -= value
-          if (this.monster.current_health - value < 0) {
+          if (this.monster.current_health < 0) {
             this.monster.current_health = 0
           }
-        } else if (type == 'heal') {
+        }
+
+        if (type === 'heal') {
           this.monster.current_health += value
-          if (this.monster.current_health + value > this.monster.max_health) {
+          if (this.monster.current_health > this.monster.max_health) {
             this.monster.current_health = this.monster.max_health
           }
         }

@@ -40,7 +40,7 @@
   import EditMonsterTracker from '../components/EditMonsterTracker.vue'
 
   export default {
-    name: 'monsters',
+    name: 'Monsters',
 
     components: {
       CreateMonsterTracker,
@@ -81,17 +81,15 @@
       ...mapActions(['setLoadingState']),
       ...mapActions('monsters', ['getMonsters']),
       correctUserRedirect () {
-        const params_id = this.$route.params.id
-        const storage_user_id = localStorage.getItem('user_id')
-        const encounter_id = localStorage.getItem('encounter_id')
+        const { id } = this.$route.params
+        const storageUserId = localStorage.getItem('user_id')
+        const encounterId = localStorage.getItem('encounter_id')
 
-        if (params_id == localStorage.getItem('user_id') &&
-          this.$route.params.encounterId === encounter_id) {
-          console.log('true')
+        if (id === localStorage.getItem('user_id')
+          && this.$route.params.encounterId === encounterId) {
           this.getMonsters()
-        }
-        else {
-          this.$router.push({ path: `/user/${storage_user_id}/encounters/${encounter_id}` })
+        } else {
+          this.$router.push({ path: `/user/${storageUserId}/encounters/${encounterId}` })
         }
       },
 
@@ -100,12 +98,11 @@
       },
 
       getMonsters () {
-        const user_id = this.$route.params.id
-        const encounter_id = this.$route.params.encounterId
+        const { id, encounterId } = this.$route.params
 
         const command = {
-          user_id,
-          encounter_id,
+          user_id: id,
+          encounter_id: encounterId,
         }
         this.$store.dispatch('getMonsters', command)
       },

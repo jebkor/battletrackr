@@ -97,7 +97,7 @@
   import userAuthMixin from '../mixins/userAuthMixin'
 
   export default {
-    name: 'signup-form',
+    name: 'SignupForm',
 
     mixins: [userAuthMixin],
 

@@ -52,7 +52,7 @@
   import userAuthMixin from '../mixins/userAuthMixin'
 
   export default {
-    name: 'forgot-password',
+    name: 'ForgotPassword',
 
     mixins: [userAuthMixin],
 

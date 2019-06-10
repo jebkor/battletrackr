@@ -66,7 +66,7 @@
   import userAuthMixin from '../mixins/userAuthMixin'
 
   export default {
-    name: 'forgot-password',
+    name: 'ForgotPassword',
 
     mixins: [userAuthMixin],
 
@@ -78,7 +78,7 @@
 
     methods: {
       sendForm () {
-        let _this = this
+        const that = this
 
         const command = {
           password: this.password,
@@ -89,7 +89,7 @@
         Axios.post('http://localhost:3000/forgot/reset', command, {
           withCredentials: true,
         }).then(() => {
-          _this.$router.push({ path: '/login' })
+          that.$router.push({ path: '/login' })
         })
       },
     },

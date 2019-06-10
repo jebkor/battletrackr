@@ -1,7 +1,7 @@
 <template>
   <v-app
-    :dark="darkTheme"
     id="inspire"
+    :dark="darkTheme"
   >
     <v-navigation-drawer
       v-model="drawer"
@@ -100,7 +100,6 @@
       drawer: false,
       drawerMobile: false,
       message: 'stuff',
-      routes: this.$router.options.routes,
       darkTheme: false,
     }),
 
@@ -138,8 +137,12 @@
         const darkMode = window.localStorage.getItem('darkTheme')
 
         // Convert the string value as a bool for use as a prop in the markup
-        if (darkMode == 'true') return true
-        else if (darkMode == 'false') return false
+        if (darkMode === 'true') return true
+
+        if (darkMode === 'false') return false
+
+        // Default return
+        return false
       },
 
       handleDrawer () {
