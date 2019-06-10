@@ -1,6 +1,6 @@
 {
-  "name": "dnd-dm-toolkit",
-  "version": "0.1.0",
+  "name": "battletrackr",
+  "version": "1.0.0-beta",
   "description": "",
   "main": "webpack.config.js",
   "browserslist": [
@@ -49,12 +49,6 @@
     "eslint-loader": "^2.1.2",
     "eslint-plugin-import": "^2.17.3",
     "eslint-plugin-vue": "^5.2.2",
-    "gulp-autoprefixer": "^6.0.0",
-    "gulp-concat": "^2.6.1",
-    "gulp-postcss": "^8.0.0",
-    "gulp-replace": "^1.0.0",
-    "gulp-sass": "^4.0.2",
-    "gulp-sourcemaps": "^2.6.4",
     "hard-source-webpack-plugin": "^0.12.0",
     "mini-css-extract-plugin": "^0.4.4",
     "node-sass": "^4.9.4",
