@@ -1,6 +1,6 @@
 ---
-name: bug report
-about: To allow for bug reports
+name: Bug report
+about: For when bugs need squashing
 title: "[BUG]"
 labels: ''
 assignees: ''
