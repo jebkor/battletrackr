@@ -10,6 +10,21 @@ BattleTrackr.io is an web application made for all Dungeon Masters, Game Masters
 
 <br/>
 
+## Gothcas
+A small list of known gotchas within the project
+
+### Font Awesome
+I am using FontAwesome Pro in this project, but because I don't want the API key to be publicly known, there should be no references in the project. This means that the NPM registry responsible for serving the package can't be reached if you clone the project, so you will have to install the free versions of the Font Awesome icons, and change the ones I use already.
+You can read more [here](https://fontawesome.com/how-to-use/on-the-web/setup/using-package-managers)
+
+### http-server
+To have the localhost server being able to run, you need to install the NPM module 'http-server'. To install, run:
+```bash
+npm install -g http-server
+```
+
+<br/>
+
 ## Contributing
 
 1. Fork it!
