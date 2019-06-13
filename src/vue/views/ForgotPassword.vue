@@ -49,6 +49,7 @@
 </template>
 
 <script>
+  import Axios from 'axios'
   import userAuthMixin from '../mixins/userAuthMixin'
 
   export default {
@@ -66,9 +67,13 @@
           email: this.email,
         }
 
-        // Axios.post(``, command, {
-        // 	withCredentials: true,
-        // })
+        Axios.post(`${process.env.API_ENDPOINT}/forgot`, command, {
+          withCredentials: true,
+        }).then(() => {
+          alert('Email sent')
+        }).catch((error) => {
+          console.log('An error occured: ', error)
+        })
       },
     },
   }

@@ -57,7 +57,7 @@
 
 
       // TODO: Handle production, staging and dev environment
-      Axios.post(`http://localhost:3000/confirmation/${url}`, {
+      Axios.post(`${process.env.API_ENDPOINT}/confirmation/${url}`, {
         withCredentials: true,
       }).then(() => {
         that.confirmed = true

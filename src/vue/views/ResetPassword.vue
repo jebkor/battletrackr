@@ -86,7 +86,7 @@
         }
 
         // TODO: Handle production, staging and dev environment
-        Axios.post('http://localhost:3000/forgot/reset', command, {
+        Axios.post(`${process.env.API_ENDPOINT}/forgot/reset`, command, {
           withCredentials: true,
         }).then(() => {
           that.$router.push({ path: '/login' })

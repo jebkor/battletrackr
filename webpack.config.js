@@ -4,7 +4,7 @@ const path = require('path');
 const loaders = require('./webpack/loaders'); // Seperate file with all of the loaders
 const plugins = require('./webpack/plugins'); // Seperate file with all of the plugins
 
-
+console.log('process.env.API_ENDPOINT: ', process.env.API_ENDPOINT)
 
 module.exports = {
   entry: {
@@ -19,8 +19,8 @@ module.exports = {
       loaders.FileLoader,
       loaders.CssLoader,
       loaders.JSLoader,
-      loaders.ESLintLoader,
-      loaders.VueLoader
+    //   loaders.ESLintLoader,
+      loaders.VueLoader,
     ]
   },
   resolve: {

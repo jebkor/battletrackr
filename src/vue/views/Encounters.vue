@@ -38,22 +38,30 @@
                   </router-link>
 
                   <div class="encounter__link">
-                    <router-link
-                      :to="`/user/${$route.params.id}/encounters/${encounter.id}`"
-                      @click.native="setEncounter(encounter.id)"
+                    <v-btn
+                      color="error"
+                      flat
+                      @click="openDeleteModal(encounter)"
                     >
-                      <font-awesome-icon
-                        :icon="['far', 'angle-right']"
-                        class="fa-icon"
-                        size="3x"
-                      />
-                    </router-link>
+                      Delete
+                    </v-btn>
                   </div>
                 </div>
               </v-card-title>
             </v-card>
           </transition>
         </v-flex>
+
+        <generic-modal
+          :stuff="dialog1"
+          modal-title="Do you want to delete the encounter?"
+          modal-text="There might still be monsters on the encounter. Both the monsters and the encounter will be deleted forever (which is a long time...)"
+          agree-button-text="Delete"
+          agree-button-color="error"
+          decline-button-text="Cancel"
+          @on-agree="deleteEncounter"
+          @on-decline="dialog1 = false;"
+        />
       </v-layout>
     </v-flex>
   </v-layout>
@@ -63,15 +71,19 @@
   import { mapActions } from 'vuex'
 
   import CreateEncounter from '../components/CreateEncounter.vue'
+  import GenericModal from '../components/molecules/Modal.vue'
 
 
   export default {
     name: 'Encounters',
     components: {
       CreateEncounter,
+      GenericModal,
     },
 
     data: () => ({
+      dialog1: false,
+      encounterToDelete: null,
     }),
 
     computed: {
@@ -93,8 +105,15 @@
 
     methods: {
       ...mapActions(['setLoadingState']),
-      deleteEncounter (input) {
-        this.$store.dispatch('deleteEncounter', input)
+      deleteEncounter () {
+        const command = {
+          userId: localStorage.getItem('user_id'),
+          encounter: this.encounterToDelete,
+        }
+
+        this.dialog1 = false
+
+        this.$store.dispatch('deleteEncounter', command)
       },
 
       setEncounter (encounterId) {
@@ -109,11 +128,15 @@
         const userId = localStorage.getItem('user_id')
 
         if (id === localStorage.getItem('user_id')) {
-          console.log('what')
           this.$store.dispatch('getEncounters', userId)
         } else {
           this.$router.push({ path: `/user/${userId}/encounters` })
         }
+      },
+
+      openDeleteModal (encounter) {
+        this.dialog1 = true
+        this.encounterToDelete = encounter
       },
     },
   }

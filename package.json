@@ -8,7 +8,8 @@
     "ie >= 9",
     "< 5%"
   ],
-  "apiEndpointDev": "http://localhost:3000",
+  "apiEndpointDev": "https://battletrackr-api-develop.herokuapp.com",
+  "apiEndpointStage": "https://battletrackr-api-staging.herokuapp.com",
   "apiEndpointProd": "https://battletrackr-api-production.herokuapp.com",
   "scripts": {
     "start": "npm-run-all -p -r webpack:dev server",
@@ -16,7 +17,8 @@
     "webpack:dev": "SET API_ENDPOINT=%npm_package_apiEndpointDev%&& webpack --config webpack.dev.config.js --progress --watch",
     "webpack:prod": "SET API_ENDPOINT=%npm_package_apiEndpointProd%&& webpack --config webpack.prod.config.js --progress --watch",
     "server": "http-server -p 4000",
-    "build": "SET API_ENDPOINT=%npm_package_apiEndpointProd%&& webpack --progress --config webpack.prod.config.js",
+    "build": "SET API_ENDPOINT=%npm_package_apiEndpointDev%&& webpack --progress --config webpack.prod.config.js",
+    "build:stage": "SET API_ENDPOINT=%npm_package_apiEndpointStage%&& webpack --progress --config webpack.prod.config.js",
     "patch": "npm version patch",
     "analyze": "webpack --progress --config webpack.test.config.js"
   },
@@ -71,7 +73,7 @@
     "webpack": "^4.29.3",
     "webpack-bundle-analyzer": "^3.0.3",
     "webpack-cli": "^3.2.3",
-    "webpack-dev-server": "^3.5.0",
+    "webpack-dev-server": "^3.7.1",
     "webpack-merge": "^4.2.1"
   },
   "dependencies": {
@@ -83,6 +85,7 @@
     "@fortawesome/pro-regular-svg-icons": "^5.8.2",
     "@fortawesome/pro-solid-svg-icons": "^5.8.2",
     "@fortawesome/vue-fontawesome": "^0.1.6",
+    "acorn": "^6.1.1",
     "axios": "^0.18.0",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",

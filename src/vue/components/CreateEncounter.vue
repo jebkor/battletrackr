@@ -20,7 +20,10 @@
               required
             />
 
-            <v-btn type="submit">
+            <v-btn
+              color="primary"
+              type="submit"
+            >
               Add encounter
             </v-btn>
           </v-form>

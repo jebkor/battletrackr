@@ -19,6 +19,7 @@ export default {
       const { encounters } = state
       const index = encounters.indexOf(encounter)
 
+      // Axios.post(`${apiEndpoint}/encounter/`)
       encounters.splice(index, 1)
     },
   },
@@ -30,18 +31,19 @@ export default {
     getEncounters ({
       commit,
     }, userId) {
-      Axios.get(`${apiEndpoint}/user/${userId}`, {
+      Axios.get(`${apiEndpoint}/user/${userId}/encounters`, {
         withCredentials: true,
       })
         .then((response) => {
-          console.log(response.data.encounters.rows)
           commit('setEncounters', response.data.encounters.rows) // Saves the requested data to the store
           commit('changeLoadingState', false) // Changes loading state
         })
     },
 
-    saveEncounter (context, payload) {
-      Axios.post(`${apiEndpoint}/encounters`, {
+    saveEncounter ({
+      dispatch,
+    }, payload) {
+      Axios.post(`${apiEndpoint}/user/${payload.user_id}/encounters`, {
         name: payload.name,
         user_id: payload.user_id,
         created_at: payload.created_at,
@@ -49,16 +51,18 @@ export default {
           withCredentials: true,
         })
         .then(() => {
-          context.dispatch('getEncounters', payload.user_id) // Get the encounters anew to populate the available ones
+          dispatch('getEncounters', payload.user_id) // Get the encounters anew to populate the available ones
         })
     },
 
     deleteEncounter ({
       commit,
-    }, encounter) {
-      Axios.delete(`${apiEndpoint}/encounters/${encounter.id}`)
+    }, command) {
+      Axios.delete(`${apiEndpoint}/user/${command.userId}/encounters/${command.encounter.id}`, {
+        withCredentials: true,
+      })
         .then(() => {
-          commit('deleteEncounter', encounter)
+          commit('deleteEncounter', command.encounter)
         })
     },
   },

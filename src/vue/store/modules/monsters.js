@@ -42,8 +42,10 @@ export default {
       }
     },
 
-    saveMonster (context, payload) {
-      Axios.post(`${apiEndpoint}/monsters/`, {
+    saveMonster ({
+      dispatch,
+    }, payload) {
+      Axios.post(`${apiEndpoint}/user/${payload.user_id}/encounters/${payload.encounter_id}`, {
         name: payload.name,
         is_boss: payload.is_boss,
         max_health: payload.max_health,
@@ -53,7 +55,7 @@ export default {
           withCredentials: true,
         })
         .then(() => {
-          context.dispatch('getMonsters', {
+          dispatch('getMonsters', {
             user_id: payload.user_id,
             encounter_id: payload.encounter_id,
           }) // Get the encounters anew to populate the available ones
@@ -63,7 +65,10 @@ export default {
     deleteMonster ({
       commit,
     }, monster) {
-      Axios.delete(`${apiEndpoint}/monsters/${monster.id}`, { withCredentials: true })
+      const userId = localStorage.getItem('user_id') || this.$route.params.userId
+      const encounterId = localStorage.getItem('encounter_id') || this.$route.params.encounterId
+
+      Axios.delete(`${apiEndpoint}/user/${userId}/encounters/${encounterId}/monsters/${monster.id}`, { withCredentials: true })
         .then(() => {
           commit('deleteMonster', monster)
         })

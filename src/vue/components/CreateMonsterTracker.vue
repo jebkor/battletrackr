@@ -31,7 +31,10 @@
             :label="'Boss monster?'"
           />
 
-          <v-btn type="submit">
+          <v-btn
+            color="primary"
+            type="submit"
+          >
             Add monster
           </v-btn>
         </v-form>
@@ -72,6 +75,11 @@
 
         // Execute command
         this.saveMonster(command)
+
+        // Reset the monster
+        this.name = null
+        this.maxHealth = null
+        this.isBoss = false
       },
     },
   }
