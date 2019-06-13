@@ -8,7 +8,12 @@
         :to="`/user/${$route.params.id}/encounters`"
         @click.native="backToEncounters()"
       >
-        Back to encounters
+        <v-btn
+          color="primary"
+          flat
+        >
+          Back to encounters
+        </v-btn>
       </router-link>
 
       <v-layout
@@ -31,6 +36,7 @@
         />
       </v-layout>
     </v-flex>
+
   </v-layout>
 </template>
 

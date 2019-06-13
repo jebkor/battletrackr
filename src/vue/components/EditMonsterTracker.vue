@@ -27,7 +27,7 @@
 
           <span
             class="delete-icon"
-            @click="deleteThis(monster)"
+            @click="dialog1 = true"
           >
             <font-awesome-icon
               icon="times"
@@ -44,6 +44,17 @@
         </v-card-text>
       </v-card>
     </transition>
+
+    <generic-modal
+      :stuff="dialog1"
+      :modal-title="`Do you want to delete ${monster.name}?`"
+      modal-text="The monsters will be deleted forever (which is a long time...)"
+      agree-button-text="Delete"
+      agree-button-color="error"
+      decline-button-text="Cancel"
+      @on-agree="deleteThis(monster)"
+      @on-decline="dialog1 = false;"
+    />
   </v-flex>
 </template>
 
@@ -51,12 +62,14 @@
   import Axios from 'axios'
   import { mapActions } from 'vuex'
   import HealthComponent from './HealthComponent'
+  import GenericModal from './molecules/Modal.vue'
 
   export default {
     name: 'EditBossMonsterTracker',
 
     components: {
       HealthComponent,
+      GenericModal,
     },
 
     props: {
@@ -65,6 +78,10 @@
         default: () => { }
       },
     },
+
+    data: () => ({
+      dialog1: false,
+    }),
 
     methods: {
       ...mapActions(['getMonsters', 'deleteMonster']),
@@ -121,9 +138,11 @@
           }
         }
 
+        const userId = localStorage.getItem('user_id') || this.$route.params.id
+        const encounterId = localStorage.getItem('encounter_id') || this.$route.params.encounterId
         // TODO: Handle production, staging and dev environment
-        Axios.put(`http://localhost:3000/monsters/${this.monster.id}`, {
-          id: this.monster.id,
+        Axios.put(`${process.env.API_ENDPOINT}/user/${userId}/encounters/${encounterId}/monsters/${this.monster.id}`, {
+          monsterId: this.monster.id,
           current_health: this.monster.current_health,
         }, {
             withCredentials: true,
@@ -132,6 +151,7 @@
 
       deleteThis (monster) {
         this.deleteMonster(monster)
+        this.dialog1 = false
       },
     },
   }

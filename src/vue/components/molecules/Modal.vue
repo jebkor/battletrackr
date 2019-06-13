@@ -42,14 +42,14 @@
 
 <script>
   export default {
-    name: "Modal",
+    name: 'GenericModal',
 
     data: () => ({
-      internalDialog: false
+      internalDialog: false,
     }),
 
     props: {
-      dialog: {
+      stuff: {
         type: Boolean,
         default: false
       },
@@ -90,8 +90,8 @@
     },
 
     watch: {
-      dialog () {
-        if (this.dialog == true) this.internalDialog = true
+      stuff () {
+        if (this.stuff == true) this.internalDialog = true
         else this.internalDialog = false
       }
     }

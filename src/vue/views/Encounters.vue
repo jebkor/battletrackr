@@ -38,46 +38,30 @@
                   </router-link>
 
                   <div class="encounter__link">
-                    <router-link
-                      :to="`/user/${$route.params.id}/encounters/${encounter.id}`"
-                      @click.native="setEncounter(encounter.id)"
+                    <v-btn
+                      color="error"
+                      flat
+                      @click="openDeleteModal(encounter)"
                     >
-                      <font-awesome-icon
-                        :icon="['far', 'angle-right']"
-                        class="fa-icon"
-                        size="3x"
-                      />
-                    </router-link>
-
-                    <v-btn @click="dialog1 = true">Delete</v-btn>
-
-                    <Modal
-                      :dialog="dialog1"
-                      @on-agree="dialog2 = true"
-                      @on-decline="dialog1 = false"
-                      modal-title="Delete encounter?"
-                      modal-text="Are you sure you want to delete the encounter?"
-                      agree-button-text="Delete"
-                      agree-button-color="error"
-                      decline-button-text="Cancel"
-                    />
-
-                    <Modal
-                      :dialog="dialog2"
-                      @on-agree="dialog2 = false; dialog1 = false"
-                      @on-decline="dialog2 = false; dialog1 = false"
-                      modal-title="Are you REALLY sure?"
-                      modal-text="There is no going back!"
-                      agree-button-text="Delete"
-                      agree-button-color="error"
-                      decline-button-text="Cancel"
-                    />
+                      Delete
+                    </v-btn>
                   </div>
                 </div>
               </v-card-title>
             </v-card>
           </transition>
         </v-flex>
+
+        <generic-modal
+          :stuff="dialog1"
+          modal-title="Do you want to delete the encounter?"
+          modal-text="There might still be monsters on the encounter. Both the monsters and the encounter will be deleted forever (which is a long time...)"
+          agree-button-text="Delete"
+          agree-button-color="error"
+          decline-button-text="Cancel"
+          @on-agree="deleteEncounter"
+          @on-decline="dialog1 = false;"
+        />
       </v-layout>
     </v-flex>
   </v-layout>
@@ -87,19 +71,19 @@
   import { mapActions } from 'vuex'
 
   import CreateEncounter from '../components/CreateEncounter.vue'
-  import Modal from '../components/molecules/Modal.vue'
+  import GenericModal from '../components/molecules/Modal.vue'
 
 
   export default {
     name: 'Encounters',
     components: {
       CreateEncounter,
-      Modal
+      GenericModal,
     },
 
     data: () => ({
       dialog1: false,
-      dialog2: false
+      encounterToDelete: null,
     }),
 
     computed: {
@@ -121,8 +105,15 @@
 
     methods: {
       ...mapActions(['setLoadingState']),
-      deleteEncounter (input) {
-        this.$store.dispatch('deleteEncounter', input)
+      deleteEncounter () {
+        const command = {
+          userId: localStorage.getItem('user_id'),
+          encounter: this.encounterToDelete,
+        }
+
+        this.dialog1 = false
+
+        this.$store.dispatch('deleteEncounter', command)
       },
 
       setEncounter (encounterId) {
@@ -137,11 +128,15 @@
         const userId = localStorage.getItem('user_id')
 
         if (id === localStorage.getItem('user_id')) {
-          console.log('what')
           this.$store.dispatch('getEncounters', userId)
         } else {
           this.$router.push({ path: `/user/${userId}/encounters` })
         }
+      },
+
+      openDeleteModal (encounter) {
+        this.dialog1 = true
+        this.encounterToDelete = encounter
       },
     },
   }
