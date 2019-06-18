@@ -9,6 +9,13 @@
       xs12
       lg4
     >
+      <v-alert
+        :type="formAlert.color"
+        :value="formAlert.enabled"
+      >
+        <p class="ma-0">{{ formAlert.message }}</p>
+      </v-alert>
+
       <v-card>
         <v-card-title>
           <h1>Sign up</h1>
@@ -94,6 +101,7 @@
 </template>
 
 <script>
+  import { mapGetters, mapActions } from 'vuex'
   import userAuthMixin from '../mixins/userAuthMixin'
 
   export default {
@@ -107,10 +115,19 @@
       email: '',
       password: '',
       verifyPassword: '',
+      formAlert: {
+        enabled: false,
+        color: '',
+        message: '',
+      },
     }),
 
     methods: {
+      ...mapActions(['setLoadingState']),
+
       preSignup () {
+        this.setLoadingState(true)
+
         const user = {
           first_name: this.firstName,
           last_name: this.lastName,
@@ -120,12 +137,31 @@
 
 
         this.$validator.validate().then((result) => {
+          console.log(result)
           if (result) {
             // Run the signup function if result is successful
-            this.signup(user)
-            return
+            this.signup(user).then((res) => {
+              // If the user is not in use...
+              this.setLoadingState(false)
+
+              this.formAlert.enabled = true
+              this.formAlert.message = res.data.message
+              this.formAlert.color = 'success'
+            }).catch((error) => {
+              // If there is an error...
+              this.setLoadingState(false)
+
+              this.formAlert.enabled = true
+              this.formAlert.message = error.response.data.message
+              this.formAlert.color = 'error'
+            })
+
+            this.firstName = null
+            this.lastName = null
+            this.email = null
+            this.password = null
+            this.verifyPassword = null
           }
-          alert('Correct the errors, please')
         })
       },
     },
