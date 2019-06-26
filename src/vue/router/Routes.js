@@ -12,7 +12,7 @@ import ResetPassword from '../pages/ResetPassword.vue'
 import ConfirmEmail from '../pages/ConfirmEmail.vue'
 
 // Support routes
-import Faq from '../pages/support/Faq.vue'
+import Help from '../pages/support/Help.vue'
 
 
 // Initialize and setup the routes
@@ -50,9 +50,9 @@ const Routes = new Router({
     name: 'encounter',
     component: Monsters,
   }, {
-    path: '/faq',
-    name: 'faq',
-    component: Faq,
+    path: '/help',
+    name: 'help',
+    component: Help,
   },
   ],
 })

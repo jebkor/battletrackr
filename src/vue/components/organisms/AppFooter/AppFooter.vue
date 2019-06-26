@@ -7,7 +7,7 @@
       >
         <v-flex
           xs12
-          lg3
+          sm3
         >
           <h2>Navigation</h2>
           <ul>
@@ -24,37 +24,64 @@
 
         <v-flex
           xs12
-          lg3
+          sm3
         >
           <h2>Support</h2>
           <ul>
-            <li><router-link title="Go to the FAQ" :to="'/faq'">FAQ</router-link></li>
-            <li><a href="#">Help</a></li>
+            <!-- <router-link><router-link title="Go to the FAQ" :to="'/faq'">FAQ</router-link></li> -->
+            <li>
+              <router-link :to="'/help'">Help</router-link>
+            </li>
           </ul>
         </v-flex>
 
         <v-flex
           xs12
-          lg3
+          sm3
         >
           <h2>App</h2>
           <ul>
             <li><a href="#">About</a></li>
-            <li><a href="https://github.com/jebkor/battletrackr/releases" target="_blank">Releases</a></li>
-            <li><a href="https://github.com/jebkor/battletrackr/projects" target="_blank">Roadmap</a></li>
-            <li><a href="https://github.com/jebkor/battletrackr/issues" target="_blank">Issues</a></li>
+            <li>
+              <a
+                href="https://github.com/jebkor/battletrackr/releases"
+                target="_blank"
+              >Releases</a>
+            </li>
+            <li>
+              <a
+                href="https://github.com/jebkor/battletrackr/projects"
+                target="_blank"
+              >Roadmap</a>
+            </li>
+            <li>
+              <a
+                href="https://github.com/jebkor/battletrackr/issues"
+                target="_blank"
+              >Issues</a>
+            </li>
           </ul>
         </v-flex>
 
         <v-flex
           xs12
-          lg3
+          sm3
         >
           <h2>Social</h2>
           <ul>
             <!-- <li><a href="#">Patreon</a></li> -->
-            <li><a href="https://twitter.com/jebkor_" target="_blank">Twitter</a></li>
-            <li><a href="https://github.com/jebkor" target="_blank">GitHub</a></li>
+            <li>
+              <a
+                href="https://twitter.com/jebkor_"
+                target="_blank"
+              >Twitter</a>
+            </li>
+            <li>
+              <a
+                href="https://github.com/jebkor"
+                target="_blank"
+              >GitHub</a>
+            </li>
           </ul>
         </v-flex>
       </v-layout>
@@ -64,7 +91,7 @@
         wrap
       >
         <v-spacer />
-        <div>jebkor &copy; {{ new Date().getFullYear() }}</div>
+        <div>v1.0.0-alpha | jebkor &copy; {{ new Date().getFullYear() }}</div>
       </v-layout>
     </v-container>
   </v-footer>
