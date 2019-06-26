@@ -40,9 +40,9 @@
           <h2>App</h2>
           <ul>
             <li><a href="#">About</a></li>
-            <li><a href="#">Releases</a></li>
-            <li><a href="#">Roadmap</a></li>
-            <li><a href="#">Issues</a></li>
+            <li><a href="https://github.com/jebkor/battletrackr/releases" target="_blank">Releases</a></li>
+            <li><a href="https://github.com/jebkor/battletrackr/projects" target="_blank">Roadmap</a></li>
+            <li><a href="https://github.com/jebkor/battletrackr/issues" target="_blank">Issues</a></li>
           </ul>
         </v-flex>
 
