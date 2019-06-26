@@ -52,9 +52,9 @@
         >
           <h2>Social</h2>
           <ul>
-            <li><a href="#">Patreon</a></li>
-            <li><a href="#">Twitter</a></li>
-            <li><a href="#">GitHub</a></li>
+            <!-- <li><a href="#">Patreon</a></li> -->
+            <li><a href="https://twitter.com/jebkor_" target="_blank">Twitter</a></li>
+            <li><a href="https://github.com/jebkor" target="_blank">GitHub</a></li>
           </ul>
         </v-flex>
       </v-layout>
