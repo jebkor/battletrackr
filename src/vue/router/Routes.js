@@ -13,6 +13,7 @@ import ConfirmEmail from '../pages/ConfirmEmail.vue'
 
 // Support routes
 import Help from '../pages/support/Help.vue'
+import About from '../pages/app/About.vue'
 
 
 // Initialize and setup the routes
@@ -53,6 +54,10 @@ const Routes = new Router({
     path: '/help',
     name: 'help',
     component: Help,
+  }, {
+    path: '/about',
+    name: 'about',
+    component: About,
   },
   ],
 })
