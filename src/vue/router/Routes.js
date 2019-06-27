@@ -20,10 +20,6 @@ import About from '../pages/app/About.vue'
 const Routes = new Router({
   routes: [{
     path: '/',
-    name: 'home-login',
-    component: LoginForm,
-  }, {
-    path: '/login',
     name: 'login',
     component: LoginForm,
   }, {
@@ -58,8 +54,7 @@ const Routes = new Router({
     path: '/about',
     name: 'about',
     component: About,
-  },
-  ],
+  }],
 })
 
 
