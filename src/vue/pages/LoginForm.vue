@@ -79,7 +79,7 @@
 </template>
 
 <script>
-  import { mapGetters, mapActions } from 'vuex'
+  import { mapActions } from 'vuex'
   import userAuthMixin from '../mixins/userAuthMixin'
 
   export default {

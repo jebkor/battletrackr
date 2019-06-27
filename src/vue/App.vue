@@ -79,7 +79,10 @@
     computed: {
       ...mapGetters(['LOADING', 'LOGIN_STATE', 'FOOTER_STATE']),
       loggedIn () {
-        return this.LOGIN_STATE
+        let localStorageLogin = localStorage.getItem('loggedIn') == 1
+        let storeLoginState = this.LOGIN_STATE ? this.LOGIN_STATE : localStorageLogin
+
+        return storeLoginState
       },
 
       footerState () {
@@ -93,10 +96,6 @@
         this.darkTheme = this.loadDarkMode()
       },
     },
-
-    // created () {
-    //   this.redirectIfLoggedIn()
-    // },
 
     mounted () {
       // Set the dark theme on mount

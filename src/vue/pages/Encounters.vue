@@ -73,13 +73,18 @@
   import CreateEncounter from '../components/CreateEncounter.vue'
   import GenericModal from '../components/molecules/Modal.vue'
 
+  import userAuthMixin from '../mixins/userAuthMixin'
+
 
   export default {
     name: 'Encounters',
+
     components: {
       CreateEncounter,
       GenericModal,
     },
+
+    mixins: [userAuthMixin],
 
     data: () => ({
       dialog1: false,
@@ -101,6 +106,7 @@
 
     created () {
       this.correctUserRedirect()
+      this.redirectIfNotLoggedIn()
     },
 
     methods: {
