@@ -79,7 +79,7 @@
 </template>
 
 <script>
-  import { mapActions } from 'vuex'
+  import { mapGetters, mapActions } from 'vuex'
   import userAuthMixin from '../mixins/userAuthMixin'
 
   export default {
@@ -94,8 +94,12 @@
       error_message: null,
     }),
 
+    created () {
+      this.saveFooterState(false)
+    },
+
     methods: {
-      ...mapActions(['setLoadingState']),
+      ...mapActions(['setLoadingState', 'setFooterState', 'saveFooterState']),
       sendForm () {
         const that = this
 
@@ -112,13 +116,14 @@
             if (result.data.message !== 'Invalid login') {
               localStorage.user_id = result.data.id
 
+              that.saveFooterState(true)
               that.$router.push({ path: `/user/${result.data.id}/encounters` })
             } else {
               that.error_message = result.data.message
             }
           })
         }, 2000) // simulate waiting for request
-      }
+      },
     },
   }
 </script>
