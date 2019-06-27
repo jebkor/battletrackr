@@ -82,7 +82,6 @@
         let localStorageLogin = localStorage.getItem('loggedIn') == 1
         let storeLoginState = this.LOGIN_STATE ? this.LOGIN_STATE : localStorageLogin
 
-        console.log(storeLoginState)
         return storeLoginState
       },
 
