@@ -41,7 +41,7 @@
         >
           <h2>App</h2>
           <ul>
-            <li><a href="#">About</a></li>
+            <li><router-link :to="'/about'">About</router-link></li>
             <li>
               <a
                 href="https://github.com/jebkor/battletrackr/releases"
@@ -89,9 +89,11 @@
       <v-layout
         row
         wrap
+        class="mt-5"
       >
+        <div>v1.0.0-alpha</div>
         <v-spacer />
-        <div>v1.0.0-alpha | jebkor &copy; {{ new Date().getFullYear() }}</div>
+        <div>jebkor &copy; {{ new Date().getFullYear() }}</div>
       </v-layout>
     </v-container>
   </v-footer>
