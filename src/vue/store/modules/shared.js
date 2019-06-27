@@ -3,6 +3,7 @@ export default {
   state: {
     drawer: true,
     loggedIn: false,
+    footerState: true,
   },
 
   // Mutations set/change the state, should ideally need actions to run
@@ -13,6 +14,10 @@ export default {
 
     setLoginState (state, loginState) {
       state.loggedIn = loginState
+    },
+
+    setFooterState (state, visibility) {
+      state.footerState = visibility
     },
   },
 
@@ -35,6 +40,12 @@ export default {
 
       commit('setLoginState', loginState)
     },
+
+    saveFooterState ({
+      commit,
+    }, visibility) {
+      commit('setFooterState', visibility)
+    },
   },
 
   // Used in the frontend to display the data
@@ -43,5 +54,7 @@ export default {
     DRAWER_STATE: state => state.drawer,
 
     LOGIN_STATE: state => state.loggedIn,
+
+    FOOTER_STATE: state => state.footerState,
   },
 }
