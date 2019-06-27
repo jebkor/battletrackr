@@ -3,41 +3,7 @@
     id="inspire"
     :dark="darkTheme"
   >
-    <v-navigation-drawer
-      v-model="drawer"
-      fixed
-      clipped
-      app
-    >
-      <v-list dense>
-        <v-list-tile
-          v-if="!loggedIn"
-          :to="'/login'"
-        >
-          <v-list-tile-content>
-            <v-list-tile-title>Login</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-
-        <v-list-tile
-          v-if="!loggedIn"
-          :to="'/signup'"
-        >
-          <v-list-tile-content>
-            <v-list-tile-title>Signup</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-
-        <v-list-tile
-          v-if="loggedIn"
-          :to="'/user/1/encounters'"
-        >
-          <v-list-tile-content>
-            <v-list-tile-title>Encounters</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-      </v-list>
-    </v-navigation-drawer>
+    <app-navigation-drawer :drawer="drawer" :logged-in="loggedIn" />
 
     <v-toolbar
       color="red"
@@ -87,14 +53,21 @@
         class="fa-icon rotating"
       />
     </div>
+    <app-footer v-if="footerState" />
   </v-app>
 </template>
 
 <script>
   import { mapGetters } from 'vuex'
   import userAuthMixin from './mixins/userAuthMixin'
+  import AppFooter from './components/organisms/AppFooter/AppFooter.vue'
+  import AppNavigationDrawer from './components/organisms/AppNavigationDrawer/AppNavigationDrawer.vue'
 
   export default {
+    components: {
+      AppFooter,
+      AppNavigationDrawer,
+    },
     mixins: [userAuthMixin],
     data: () => ({
       drawer: false,
@@ -104,9 +77,13 @@
     }),
 
     computed: {
-      ...mapGetters(['LOADING', 'LOGIN_STATE']),
+      ...mapGetters(['LOADING', 'LOGIN_STATE', 'FOOTER_STATE']),
       loggedIn () {
         return this.LOGIN_STATE
+      },
+
+      footerState () {
+        return this.FOOTER_STATE
       },
     },
 
@@ -117,9 +94,9 @@
       },
     },
 
-    created () {
-      this.redirectIfLoggedIn();
-    },
+    // created () {
+    //   this.redirectIfLoggedIn()
+    // },
 
     mounted () {
       // Set the dark theme on mount
