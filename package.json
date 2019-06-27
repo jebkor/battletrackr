@@ -19,6 +19,7 @@
     "server": "http-server -p 4000",
     "build": "SET API_ENDPOINT=%npm_package_apiEndpointDev%&& webpack --progress --config webpack.prod.config.js",
     "build:stage": "SET API_ENDPOINT=%npm_package_apiEndpointStage%&& webpack --progress --config webpack.prod.config.js",
+    "build:prod": "SET API_ENDPOINT=%npm_package_apiEndpointProd%&& webpack --progress --config webpack.prod.config.js",
     "patch": "npm version patch",
     "analyze": "webpack --progress --config webpack.test.config.js"
   },

@@ -9,7 +9,7 @@ const userAuthMixin = {
   },
 
   methods: {
-    ...mapActions(['saveLoginState', 'setLoadingState', 'setFooterState']),
+    ...mapActions(['saveLoginState', 'setLoadingState']),
     getUserInfo (id) {
       Axios.get(`${apiEndpoint}/auth/user/${id}`)
     },
@@ -30,9 +30,9 @@ const userAuthMixin = {
     },
 
     signup (user) {
-      Axios.post(`${apiEndpoint}/auth/signup`, user, {
+      return Axios.post(`${apiEndpoint}/auth/signup`, user, {
         withCredentials: true,
-      }).then(result => result.data).catch(error => error)
+      })
     },
 
     redirectIfLoggedIn () {
@@ -49,7 +49,6 @@ const userAuthMixin = {
       return Axios.get(`${apiEndpoint}/auth/logout`, {
         withCredentials: true,
       }).then(() => {
-        _this.setFooterState(false)
         _this.$router.push({ path: '/' }) // redirect to frontpage
         _this.saveLoginState(false)
       })
