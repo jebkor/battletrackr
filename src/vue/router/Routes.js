@@ -1,4 +1,6 @@
-import Router from 'vue-router';
+import Vue from 'vue'
+import Router from 'vue-router'
+import VueGtm from 'vue-gtm'
 // import NProgress from 'nprogress';
 
 
@@ -57,6 +59,14 @@ const Routes = new Router({
   }],
 })
 
+Vue.use(VueGtm, {
+  id: 'GTM-M9L3QZL',
+  enabled: true,
+  debug: false,
+  vueRouter: Routes,
+  ignoredViews: [],
+})
+
 
 // Add the nprogress loader to route change
 // Routes.beforeResolve((to, from, next) => {
@@ -66,9 +76,6 @@ const Routes = new Router({
 // 	next();
 // });
 
-// Routes.afterEach((to, from) => {
-// 	NProgress.done();
-// });
 
 
 // Export the router
