@@ -25,6 +25,11 @@ npm install -g http-server
 
 <br/>
 
+# Development
+
+## Issues
+All improvement, feature or bug must be related to a ticket on github. Each commit must contain on the first row the name and ticket id of the issue related to the change.
+
 ## Contributing
 
 1. Fork it!
@@ -34,6 +39,10 @@ npm install -g http-server
 5. Submit a pull request :D
 
 <br/>
+
+## Production
+Once a feature is ready and tested, the admin will merge it into the master branch. There is no auto-deploy to the servers.
+
 
 ## Author
 

@@ -32,6 +32,9 @@ npm start # starts up a file-watch and a local server
 
 <br>
 
+## Issues
+All improvement, feature or bug must be related to a ticket on github. Each commit must contain on the first row the name and ticket id of the issue related to the change.
+
 
 ## Pull Requests
 
