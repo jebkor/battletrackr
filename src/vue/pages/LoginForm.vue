@@ -57,6 +57,7 @@
 
             <v-btn
               color="primary"
+              type="submit"
               block
               @click="sendForm"
             >

@@ -19,7 +19,7 @@
             <div style="width: 100%; margin-bottom: 30px;">
               <v-btn
                 color="primary"
-                :to="'/login'"
+                :to="'/'"
               >
                 Login
               </v-btn>
