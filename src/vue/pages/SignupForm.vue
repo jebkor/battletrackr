@@ -118,7 +118,7 @@
       verifyPassword: '',
       formAlert: {
         enabled: false,
-        color: '',
+        color: 'info',
         message: '',
       },
     }),
@@ -138,7 +138,6 @@
 
 
         this.$validator.validate().then((result) => {
-          console.log(result)
           if (result) {
             // Run the signup function if result is successful
             this.signup(user).then((res) => {
