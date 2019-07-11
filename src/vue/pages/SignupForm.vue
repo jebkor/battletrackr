@@ -88,7 +88,7 @@
             <div class="login__link text-xs-center">
               <p>
                 Already have an account?
-                <router-link :to="'/login'">
+                <router-link :to="'/'">
                   Login here
                 </router-link>
               </p>
