@@ -80,6 +80,7 @@
 
             <v-btn
               color="primary"
+              type="submit"
               @click="preSignup"
             >
               Signup
