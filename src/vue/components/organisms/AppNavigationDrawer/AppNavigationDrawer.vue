@@ -8,7 +8,7 @@
     <v-list dense>
       <v-list-tile
         v-if="!loggedIn"
-        :to="'/login'"
+        :to="'/'"
       >
         <v-list-tile-content>
           <v-list-tile-title>Login</v-list-tile-title>
