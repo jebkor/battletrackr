@@ -17,9 +17,9 @@
     "webpack:dev": "SET API_ENDPOINT=%npm_package_apiEndpointDev%&& webpack --config webpack.dev.config.js --progress --watch",
     "webpack:prod": "SET API_ENDPOINT=%npm_package_apiEndpointProd%&& webpack --config webpack.prod.config.js --progress --watch",
     "server": "http-server -p 4000",
-    "build": "SET API_ENDPOINT=%npm_package_apiEndpointDev%&& webpack --progress --config webpack.prod.config.js",
-    "build:stage": "SET API_ENDPOINT=%npm_package_apiEndpointStage%&& webpack --progress --config webpack.prod.config.js",
-    "build:prod": "SET API_ENDPOINT=%npm_package_apiEndpointProd%&& webpack --progress --config webpack.prod.config.js",
+    "build": "rimraf dist && SET API_ENDPOINT=%npm_package_apiEndpointDev%&& webpack --progress --config webpack.prod.config.js",
+    "build:stage": "rimraf dist && SET API_ENDPOINT=%npm_package_apiEndpointStage%&& webpack --progress --config webpack.prod.config.js",
+    "build:prod": "rimraf dist && SET API_ENDPOINT=%npm_package_apiEndpointProd%&& webpack --progress --config webpack.prod.config.js",
     "patch": "npm version patch",
     "analyze": "webpack --progress --config webpack.test.config.js"
   },
