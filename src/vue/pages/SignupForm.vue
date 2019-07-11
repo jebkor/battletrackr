@@ -80,6 +80,7 @@
 
             <v-btn
               color="primary"
+              type="submit"
               @click="preSignup"
             >
               Signup
@@ -88,7 +89,7 @@
             <div class="login__link text-xs-center">
               <p>
                 Already have an account?
-                <router-link :to="'/login'">
+                <router-link :to="'/'">
                   Login here
                 </router-link>
               </p>
@@ -117,7 +118,7 @@
       verifyPassword: '',
       formAlert: {
         enabled: false,
-        color: '',
+        color: 'info',
         message: '',
       },
     }),
@@ -137,7 +138,6 @@
 
 
         this.$validator.validate().then((result) => {
-          console.log(result)
           if (result) {
             // Run the signup function if result is successful
             this.signup(user).then((res) => {
