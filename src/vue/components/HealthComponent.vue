@@ -48,8 +48,8 @@
           ref="health_notch"
           class="health_notch"
           :style="{ backgroundPosition: 'center ' + counter + 'px' }"
-          @panup="healMonster"
-          @pandown="damageMonster"
+          @panup="healMonster(false)"
+          @pandown="damageMonster(false)"
         />
       </div>
     </v-flex>
@@ -62,13 +62,13 @@
     >
       <v-btn
         color="primary"
-        @click="healMonster"
+        @click="healMonster(true)"
       >
         +
       </v-btn>
       <v-btn
         color="primary"
-        @click="damageMonster"
+        @click="damageMonster(true)"
       >
         -
       </v-btn>
@@ -114,6 +114,8 @@
       counter: 0,
       heal: 0,
       damage: 0,
+      tempDamage: 0,
+      tempHeal: 0,
       healthChange: false,
     }),
 
@@ -123,37 +125,66 @@
           if ((this.data.current_health + this.heal > this.data.max_health)) {
             return this.data.max_health
           }
-          return this.data.current_health + this.heal
+          return Math.floor(this.data.current_health + this.heal)
         }
 
         if (this.damage > 0) {
           if ((this.data.current_health - this.damage < 0)) {
             return 0
           }
-          return this.data.current_health - this.damage
+          return Math.floor(this.data.current_health - this.damage)
         }
 
-        return this.data.current_health
+        return Math.floor(this.data.current_health)
       },
     },
 
     methods: {
-      healMonster () {
+      healMonster (buttonClick) {
+        const healthIncrement = 0.5
         this.healthChange = true
+
         if (this.damage > 0) {
-          this.damage--
+          if (buttonClick) {
+            this.tempDamage--
+            this.damage = Math.floor(this.tempDamage)
+          } else {
+            this.tempDamage -= healthIncrement
+            this.damage = Math.floor(this.tempDamage)
+          }
         } else {
-          this.heal++
+          if (buttonClick) {
+            this.tempHeal++
+            this.heal = Math.floor(this.tempHeal)
+          } else {
+            this.tempHeal += healthIncrement
+            this.heal = Math.floor(this.tempHeal)
+          }
         }
         this.counter--
       },
 
-      damageMonster () {
+      damageMonster (buttonClick) {
+        const healthIncrement = 0.5
         this.healthChange = true
+
         if (this.heal > 0) {
-          this.heal--
+          if (buttonClick) {
+            this.tempHeal--
+            this.heal = Math.floor(this.tempHeal)
+          } else {
+            this.tempHeal -= healthIncrement
+            this.heal = Math.floor(this.tempHeal)
+            
+          }
         } else {
-          this.damage++
+          if (buttonClick) {
+            this.tempDamage++
+            this.damage = Math.floor(this.tempDamage)
+          } else {
+            this.tempDamage += healthIncrement
+            this.damage = Math.floor(this.tempDamage)
+          }
         }
         this.counter++
       },
