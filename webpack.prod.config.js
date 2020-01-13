@@ -23,7 +23,9 @@ module.exports = merge(baseConfig, {
       new TerserPlugin({
         terserOptions: {
           ecma: 6,
-          compress: true,
+          compress: {
+            drop_console: false
+          },
           output: {
             comments: false,
             beautify: false

@@ -12,7 +12,6 @@ export default {
   // Mutations set/change the state, should ideally need actions to run
   mutations: {
     setMonsters (state, monsters) {
-      console.log('monsters: ', monsters)
       state.monsters = monsters
     },
 
@@ -36,7 +35,7 @@ export default {
           withCredentials: true,
         })
           .then((response) => {
-            commit('setMonsters', response.data.monsters.rows)
+            commit('setMonsters', response.data.encounters.monsters)
             commit('changeLoadingState', false)
           })
       }
@@ -68,7 +67,7 @@ export default {
       const userId = localStorage.getItem('user_id') || this.$route.params.userId
       const encounterId = localStorage.getItem('encounter_id') || this.$route.params.encounterId
 
-      Axios.delete(`${apiEndpoint}/user/${userId}/encounters/${encounterId}/monsters/${monster.id}`, { withCredentials: true })
+      Axios.delete(`${apiEndpoint}/user/${userId}/encounters/${encounterId}/monsters/${monster._id}`, { withCredentials: true })
         .then(() => {
           commit('deleteMonster', monster)
         })
