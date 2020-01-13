@@ -35,7 +35,7 @@ export default {
         withCredentials: true,
       })
         .then((response) => {
-          commit('setEncounters', response.data.encounters.rows) // Saves the requested data to the store
+          commit('setEncounters', response.data.encounters) // Saves the requested data to the store
           commit('changeLoadingState', false) // Changes loading state
         })
     },
@@ -58,7 +58,7 @@ export default {
     deleteEncounter ({
       commit,
     }, command) {
-      Axios.delete(`${apiEndpoint}/user/${command.userId}/encounters/${command.encounter.id}`, {
+      Axios.delete(`${apiEndpoint}/user/${command.userId}/encounters/${command.encounter._id}`, {
         withCredentials: true,
       })
         .then(() => {

@@ -30,9 +30,9 @@
               <v-card-title primary-title>
                 <div>
                   <router-link
-                    :to="`/user/${$route.params.id}/encounters/${encounter.id}`"
+                    :to="`/user/${$route.params.id}/encounters/${encounter._id}`"
                     class="encounter__name_link"
-                    @click.native="setEncounter(encounter.id)"
+                    @click.native="setEncounter(encounter._id)"
                   >
                     <h3 class="headline mb-0">{{ encounter.name }}</h3>
                   </router-link>

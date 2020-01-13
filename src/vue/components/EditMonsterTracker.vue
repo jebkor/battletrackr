@@ -141,8 +141,8 @@
         const userId = localStorage.getItem('user_id') || this.$route.params.id
         const encounterId = localStorage.getItem('encounter_id') || this.$route.params.encounterId
         // TODO: Handle production, staging and dev environment
-        Axios.put(`${process.env.API_ENDPOINT}/user/${userId}/encounters/${encounterId}/monsters/${this.monster.id}`, {
-          monsterId: this.monster.id,
+        Axios.put(`${process.env.API_ENDPOINT}/user/${userId}/encounters/${encounterId}/monsters/${this.monster._id}`, {
+          monsterId: this.monster._id,
           current_health: this.monster.current_health,
         }, {
             withCredentials: true,
