@@ -8,7 +8,7 @@
     "ie >= 9",
     "< 5%"
   ],
-  "apiEndpointDev": "https://battletrackr-api-develop.herokuapp.com",
+  "apiEndpointDev": "http://localhost:3000",
   "apiEndpointStage": "https://battletrackr-api-staging.herokuapp.com",
   "apiEndpointProd": "https://battletrackr-api-production.herokuapp.com",
   "scripts": {

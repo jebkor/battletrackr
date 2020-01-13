@@ -184,6 +184,7 @@
           } else {
             this.tempDamage += healthIncrement
             this.damage = Math.floor(this.tempDamage)
+            console.log('yes')
           }
         }
         this.counter++
@@ -211,7 +212,9 @@
       cancelHealthChange () {
         this.healthChange = false
         this.heal = 0
+        this.tempHeal = 0
         this.damage = 0
+        this.tempDamage = 0
       },
     },
   }
