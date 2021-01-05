@@ -87,7 +87,7 @@
     "@fortawesome/pro-solid-svg-icons": "^5.8.2",
     "@fortawesome/vue-fontawesome": "^0.1.6",
     "acorn": "^6.1.1",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "eslint-plugin-es-beautifier": "^1.0.1",
